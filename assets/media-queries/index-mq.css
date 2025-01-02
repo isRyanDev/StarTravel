@@ -1,0 +1,518 @@
+/* ----------------------------------------- */
+/* ------- LIGHT THEME MEDIA QUERIES ------- */
+/* ----------------------------------------- */
+
+@media screen and (min-width: 636px){
+    header {
+        font-family: 'Poppins', sans-serif;
+        top: 0;
+        display: flex;  
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1500;
+    }
+
+    .header-options{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .7s;
+    }
+
+    .header-button-options{
+        color: white;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        flex-grow: 1;
+        transition: all .7s;
+    }
+    .header-button-options button{
+        width: 5rem;
+        font-size: .8rem;
+    }
+
+    .main-title{
+        font-family: 'Volkhov', sans-serif;
+        font-weight: bold;
+        font-size: 3rem;
+        color: #181E4B;
+        transition: all .7s;
+    }
+
+    .main-texts{
+        width: 30rem;
+    }
+
+    .main-subtitle{
+        display: flex;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        font-size: 1.2rem;
+        transition: all .7s;
+    }
+
+    .main-button-description{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .services{
+        height: 100vh;
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    .services-cards-list{
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .services-title{
+        font-size: 3rem;
+    }
+
+    .footer-content{
+        display: flex;
+        flex-direction: row;
+        gap: 6rem;
+    }
+
+    .footer-texts-content{
+        display: flex;
+        flex-direction: column;
+        gap: .8rem;
+    }
+
+    .footer-subtitle{
+        font-family: 'Poppins', sans-serif;
+        height: 5rem;
+        font-size: .8rem;
+        font-weight: bold;
+        color: #181e4b;
+        transition: all .7s;
+    }
+
+    .footer-list{
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
+    }
+
+    .footer-links-ref{
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        height: 5rem;
+    }
+
+    .footer-list-company, .footer-list-contacts{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+}
+
+@media screen and (min-width: 1366px){
+    .services{
+        height: 100vh;
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    .services-title{
+        font-size: 4rem;
+    }
+
+    .services-cards-list{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .top-destinations{
+        height: 100vh;
+        gap: 0rem;
+        margin-bottom: 0;
+    }
+
+    .destinations-title{
+        font-size: 4rem;
+    }
+
+    .destinations-cards-list{
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 5rem;
+    }
+}
+
+@media screen and (min-width: 1640px){
+    .intro{
+        height: 100vh;
+    }
+
+    header {
+        font-family: 'Poppins', sans-serif;
+        top: 0;
+        width: 75vw;
+        display: flex;  
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 2rem 0rem 2rem 0rem;
+        align-items: center;
+        z-index: 1500;
+    }
+
+    .header-options{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .7s;
+    }
+
+    .header-button-options{
+        color: white;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        flex-grow: 1;
+        transition: all .7s;
+    }
+
+    .header-button-options button{
+        width: 7rem;
+        font-size: 1.2rem;
+    }
+
+    .services-ui-background{
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .services-ui-background img{
+        width: 58rem;
+    }
+
+    .main-subtitle{
+        display: flex;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        font-size: 1.2rem;
+        transition: all .7s;
+    }
+
+    .traveler-icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    .main-texts{
+        display: flex;
+        flex-direction: column;
+        width: 40rem;
+        gap: 1rem;
+    }
+
+    .main-title{
+        font-family: 'Volkhov', sans-serif;
+        line-height: 5.5rem;
+        font-weight: bold;
+        font-size: 5rem;
+        color: #181E4B;
+        transition: all .7s;
+    }
+
+    .main-button-description{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .services-background-element{
+        display: flex;
+        position: absolute;
+        right: 8rem;
+        top: 70rem;
+    }
+
+    .services{
+        height: 100vh;
+        gap: 0;
+        margin-bottom: 0;
+    }
+    
+    .services-card{
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        width: 16.5rem;
+        height: 20rem;
+        border-radius: 2.25rem;
+        background-color: white;
+        transition: all .7s ease-in-out;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .services-cards-list{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 5rem;
+    }
+
+    .services-title{
+        font-size: 4rem;
+    }
+
+    .services-ui-element{
+        display: flex;
+        position: absolute;
+        left: 34rem;
+        top: 107rem;
+        transition: all .7s ease-in-out;
+    }
+
+    .services-background-element img{
+        width: 10rem;
+    }
+    .services-ui-element img{
+        width: 6.2rem;
+    }    
+
+    .top-destinations{
+        height: 100vh;
+        gap: 0rem;
+        margin-bottom: 0;
+    }
+
+    .destinations-cards-list{
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 5rem;
+    }
+
+    .destinations-title{
+        font-size: 4rem;
+    }
+
+    .destinations-ui-element{
+        display: flex;
+        position: absolute;
+        left: 90rem;
+        top: 150rem;
+        transition: all .7s ease-in-out;
+    }
+
+    #destinations-ui-img{
+        display: flex;
+        width: 8rem;
+        transition: all .7s ease-in-out;
+    }
+
+    .subscribe{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .subscribe-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40rem;
+        gap: 6rem;
+    }
+
+    .subscribe-background{
+        display: flex;
+        position: absolute;
+        width: 72rem;
+    }
+
+    .subscribe-ui-element{
+        display: flex;
+        position: absolute;
+        width: 10rem;
+        right: 14rem;
+        top: 211rem;
+    }
+
+    .subscribe-title{
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        max-width: 100rem;
+        font-weight: bold;
+        color: #181E4B;
+        text-align: center;
+        transition: all .7s;
+        z-index: 1500;
+    }
+
+    .subscribe-form{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        z-index: 1000;
+    }
+
+    .subscribe-form button{
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        width: 11.25rem;
+        height: 4rem;
+        border: none;
+        background-color: rgb(58,83,254);
+        color: white;
+        border-radius: .5rem;
+        transition: all .7s;
+    }
+
+    .subscribe-email-input{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 4rem;
+        background-color: white;
+        padding: 0 1.2rem 0 1.2rem;
+        border-radius: .5rem;
+        gap: .8rem;
+    }
+    
+    .subscribe-email-input input{
+        border: none;
+        background-color: transparent;
+        width: 26rem;
+        color: #39425D;
+    }
+
+    .footer-content{
+        display: flex;
+        flex-direction: row;
+        gap: 6rem;
+    }
+
+    .footer-texts-content{
+        display: flex;
+        flex-direction: column;
+        gap: .8rem;
+    }
+
+    .footer-subtitle{
+        font-family: 'Poppins', sans-serif;
+        height: 5rem;
+        font-size: .8rem;
+        font-weight: bold;
+        color: #181e4b;
+        transition: all .7s;
+    }
+
+    .footer-list{
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
+    }
+
+    .footer-links-ref{
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        height: 5rem;
+    }
+
+    .footer-list-company, .footer-list-contacts{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+}
+
+/* ----------------------------------------- */
+/* ------- DARK THEME MEDIA QUERIES ------- */
+/* ----------------------------------------- */
+
+@media screen and (min-width: 636px){
+
+}
+
+@media screen and (min-width: 1320px){
+    
+}
+
+@media screen and (min-width: 1640px){
+    .header-options-dark{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .7s;
+    }
+
+    .header-button-options-dark{
+        color: white;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        flex-grow: 1;
+        transition: all .7s;
+    }
+
+    .main-subtitle-dark{
+        display: flex;
+        font-family: 'Poppins', sans-serif;
+        color: rgb(143, 158, 255);
+        font-size: 1.2rem;
+        transition: all .7s;
+    }
+
+    .main-title-dark{
+        font-family: 'Volkhov', sans-serif;
+        line-height: 5.5rem;
+        font-weight: bold;
+        font-size: 5rem;
+        color: white;
+        transition: all .7s;
+    }
+
+    .services-title-dark{
+        font-size: 4rem;
+    }
+
+    .destinations-title-dark{
+        font-size: 4rem;
+    }
+
+    .subscribe-title-dark{
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        max-width: 100rem;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        transition: all .7s;
+        z-index: 1500;
+    }
+}
