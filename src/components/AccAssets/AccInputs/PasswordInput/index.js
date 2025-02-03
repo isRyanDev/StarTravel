@@ -89,7 +89,7 @@ const ShowPasswordContainer = styled.label`
 function InputPass({setPassword, placeholder}) {
     const [showPass, setShowPass] = useState(false);
 
-    const togglePassword = (e) => {
+    const togglePassword = () => {
         setShowPass(!showPass);
     };
 

@@ -7,6 +7,8 @@ import Destinations from './pages/Destinations/index';
 import Services from './pages/Services/index';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard/index';
+import Register from './pages/Register';
+import NotFound from './pages/NotFound/index';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -66,6 +68,8 @@ root.render(
         <Route path="/services" element={<Services/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/register*" element={<Register/>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

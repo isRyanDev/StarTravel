@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import { userUUID, resetPassword } from "../../../services/login-service";
-import APIResponse from "../../../components/ApiResponse/apiResponse";
-import InputPass from "../InputPassword/inputPass";
+import { userUUID, resetPassword } from "../../../../services/login-service";
+import APIResponse from "../../../../components/ApiResponse/index.js";
+import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
+import EmailInput from "../../../../components/AccAssets/AccInputs/EmailInput/index.js";
+import Button from "../../../../components/AccAssets/AccInputs/Button/index.js";
 
 const ForgotPasswordContainer = styled.div`
     display: flex;
@@ -72,28 +74,6 @@ const LoginSubtitle = styled.p`
     letter-spacing: -0.064px;
 `
 
-const Input = styled.input`
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: .5rem;
-    border: 1px solid #D8D8D8;
-    color: var(--login-text-color);
-    font-family: "Nunito Sans";
-    font-size: 1.125rem;
-    padding: 1rem;
-    background: #F1F4F9;
-
-    &:focus-visible{
-        outline: none;
-    }
-
-    &::placeholder{
-        color: #A6A6A6;
-        font-family: "Nunito Sans";
-        font-size: 1.125rem;
-    }
-`
-
 const ForgotButtons = styled.div`
     display: flex;
     flex-direction: column;
@@ -139,25 +119,6 @@ const ResetButtonContainer = styled.div`
     justify-content: center;
     width: 100%;
     gap: 1rem;
-`
-
-const ResetButton = styled.button`
-    width: 82%;
-    height: 3.5rem;
-    border-radius: 0.5rem;
-    opacity: 0.8;
-    border: none;
-    background: var(--background);
-    color: var(--secondary-color);
-    font-family: "Nunito Sans";
-    font-size: 1.25rem;
-    font-weight: 700;
-    transition: all .7s;
-    cursor: pointer;
-
-    &:hover{
-        opacity: 1;
-    }
 `
 
 const SendPasswordContainer = styled.div`
@@ -288,20 +249,17 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                                 <InputLabel>
                                     <p>Email address:</p>
                                 </InputLabel>
-                                <Input 
-                                    type="email" 
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+
+                                <EmailInput type="email" value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
+
                             </InputContent>
                         </InputContainer>
 
                         <ForgotButtons>
                             <>
                                 <ResetButtonContainer>
-                                    <ResetButton type="submit">Continue</ResetButton>
-                                    <ResetButton type="button" onClick={slide}>Back to Login</ResetButton>
+                                    <Button type={"submit"} content={"Continue"}/>
+                                    <Button type={"button"} content={"Back to Login"} action={slide}/>
                                 </ResetButtonContainer>
                             </>
 
@@ -343,8 +301,8 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <ForgotButtons>
                             <>
                                 <ResetButtonContainer>
-                                    <ResetButton type="submit">Reset Password</ResetButton>
-                                    <ResetButton type="button" onClick={reactiveSlide}>Back to email address</ResetButton>
+                                    <Button type={"submit"} content={"Reset Password"}/>
+                                    <Button type={"button"} content={"Back to email address"} action={reactiveSlide}/>
                                 </ResetButtonContainer>
                             </>
 

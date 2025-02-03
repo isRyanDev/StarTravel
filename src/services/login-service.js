@@ -13,6 +13,15 @@ async function userLogin(credentials) {
     }
 }
 
+async function userRegister(credentials) {
+    try {
+        const response = await loginAPI.post("/register", credentials);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function userUUID(email) {
     try {
         const response = await loginAPI.post("/uuid", email);
@@ -31,4 +40,4 @@ async function resetPassword(uuid, newpassword) {
     }
 }
 
-export { userLogin, userUUID, resetPassword };
+export { userLogin, userUUID, resetPassword, userRegister };
