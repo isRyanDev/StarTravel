@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
-import Img404 from "../../../assets/images/error.png";
+import notFoundImg from "../../../assets/images/notFound.png";
 
 const NotFoundContainer = styled.div`
     display: flex;
@@ -28,12 +28,13 @@ const NotFoundText = styled.h3`
     font-size: 2rem;
     font-weight: 700;
 `
+
 function NotFoundContent() {
     const navigate = useNavigate();
 
     return (
         <NotFoundContainer>
-            <img src={Img404} alt="404" />
+            <img src={notFoundImg} alt="404" />
 
             <NotFoundInfo>
                 <NotFoundText>Looks like you’ve got lost….</NotFoundText>
