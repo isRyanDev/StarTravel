@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    baseURL: "https://api.ryandev.com.br:8080/accounts/user",
+    baseURL: "https://api.ryandev.com.br/accounts/user",
 });
 
 async function userLogin(credentials) {
