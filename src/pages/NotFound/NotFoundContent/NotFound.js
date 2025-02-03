@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
-import Img404 from "../../../assets/images/404.png";
+import Img404 from "../../../assets/images/error.png";
 
 const NotFoundContainer = styled.div`
     display: flex;
