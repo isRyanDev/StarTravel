@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../../services/login-service";
 import styled from "styled-components";
 import ForgotPassword from "./ForgotPassword/index.js";
 import APIResponse from "../../../components/ApiResponse/index.js";
-import loginValidation from "../../../utils/loginValidation";
 import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import EmailInput from "../../../components/AccAssets/AccInputs/EmailInput/index.js";
 import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
@@ -212,12 +211,6 @@ function LoginContent() {
     const loginContentRef = useRef(null);
     const loginFormRef = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.title = "JStar Travel | Login";
-
-        loginValidation();
-      }, []);
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);

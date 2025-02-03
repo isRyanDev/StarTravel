@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { userRegister } from "../../../services/login-service";
@@ -130,10 +130,6 @@ function RegisterContent() {
     const [apiResponseColor, setApiResponseColor] = useState("");
     const registerContentRef = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.title = "JStar Travel | Login";
-      }, []);
 
     const handleForm = async (e) => {
         e.preventDefault();
