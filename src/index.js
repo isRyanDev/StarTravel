@@ -68,8 +68,8 @@ root.render(
         <Route path="/services" element={<Services/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/register*" element={<Register/>} />
-        <Route path="*" element={<NotFound/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

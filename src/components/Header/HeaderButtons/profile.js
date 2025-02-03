@@ -2,22 +2,32 @@ import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 15rem;
+`
+
 const LinkStyled = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10rem;
+    width: 50%;
     text-decoration: none;
 `;
 
-const LoginButton = styled.div`
+const HeaderButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     background-color: transparent;
+    padding: 0 1rem;
+    width: 100%;
     height: 2.8rem;
-    padding: 0 1.5rem;
     border: 1px solid #212832;
     font-family: "Nunito Sans";
     font-size: 1.1rem;
@@ -173,11 +183,18 @@ function Profile({color}) {
                     </ModalContainer>
                 </ProfileContainer>
             ) : (
-                <LinkStyled to="/login">
-                    <LoginButton>
-                        Login
-                    </LoginButton>
-                </LinkStyled>
+                <ButtonContainer>
+                    <LinkStyled to="/login">
+                        <HeaderButton>
+                            Login
+                        </HeaderButton>
+                    </LinkStyled>
+                    <LinkStyled to="/register">
+                        <HeaderButton>
+                            Register
+                        </HeaderButton>
+                    </LinkStyled>
+                </ButtonContainer>
             )}
         </>
     );

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import CardCustom from "../../assets/Images/icons/card-icon-custom.png";
-import CardMic from "../../assets/Images/icons/card-icon-mic.png";
-import CardPlane from "../../assets/Images/icons/card-icon-plane.png";
-import CardWeather from "../../assets/Images/icons/card-icon-weather.png";
-import CustomCursor from "../../assets/Images/custom-cursor.png";
+import CardCustom from "../../assets/icons/card-icon-custom.png";
+import CardMic from "../../assets/icons/card-icon-mic.png";
+import CardPlane from "../../assets/icons/card-icon-plane.png";
+import CardWeather from "../../assets/icons/card-icon-weather.png";
+import CustomCursor from "../../assets/custom-cursor.png";
 
 const ServicesContainer = styled.section`
     display: flex;

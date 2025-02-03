@@ -161,14 +161,14 @@ function RegisterContent() {
 
                 setApiResponseColor("#6579FC");
 
-                setApiResponse(response.sucess);
+                setApiResponse("Successfully! You will be redirected in 5 seconds.");
 
                 localStorage.setItem("token", response.token);
                 localStorage.setItem("username", credentials.username);
 
                 setTimeout(() => {
                     navigate("/");
-                }, 1000);
+                }, 5000);
             } else {
                 setApiResponseColor("red");
 

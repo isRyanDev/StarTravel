@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
-import BackgroundImg from "../../assets/Images/subscribe-background.png"
+import BackgroundImg from "../../assets/subscribe-background.png"
 import EmailIcon from "../../assets/Images/icons/subscribe-email-element.png"
 
 const SubscribeContainer = styled.section`

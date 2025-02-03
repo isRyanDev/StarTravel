@@ -1,10 +1,10 @@
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
-import EuropeImg from "../../assets/Images/europe-card.png";
-import RomeImg from "../../assets/Images/rome-card.png";
-import LondonImg from "../../assets/Images/london-card.png";
-import CustomCursor from "../../assets/Images/custom-cursor.png"
-import Arrow from "../../assets/Images/destinations-arrow.png";
+import EuropeImg from "../../assets/europe-card.png";
+import RomeImg from "../../assets/rome-card.png";
+import LondonImg from "../../assets/london-card.png";
+import CustomCursor from "../../assets/custom-cursor.png"
+import Arrow from "../../assets/destinations-arrow.png";
 
 const DestinationsContainer = styled.section`
     display: flex;

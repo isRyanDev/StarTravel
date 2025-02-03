@@ -1,7 +1,7 @@
 import { ReactComponent as ArrowImg } from "../../assets/Svg-Icons/Arrow.svg"
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
-import TravelerImg from "../../assets/Images/traveler-icon.png"
+import TravelerImg from "../../assets/traveler-icon.png"
 
 const AboutContainer = styled.section`
     display: flex;  
