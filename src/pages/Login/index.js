@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogin } from "../services/login-service";
+import { userLogin } from "../../services/login-service";
 import styled from "styled-components";
-import Background from "../components/LoginBackground/background";
-import ForgotPassword from "../components/ForgotPassword/forgotPass";
-import APIResponse from "../components/ApiResponse/apiResponse";
-import loginValidation from "../utils/loginValidation";
-import InputPass from "../components/InputPassword/inputPass";
+import Background from "./LoginBackground/background";
+import ForgotPassword from "./ForgotPassword/forgotPass";
+import APIResponse from "../../components/ApiResponse/apiResponse";
+import loginValidation from "../../utils/loginValidation";
+import InputPass from "./InputPassword/inputPass";
 
 const LoginContainer = styled.div`
     display: flex;

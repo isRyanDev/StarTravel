@@ -1,9 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import { userUUID, resetPassword } from "../../services/login-service";
-import APIResponse from "../ApiResponse/apiResponse";
+import { userUUID, resetPassword } from "../../../services/login-service";
+import APIResponse from "../../../components/ApiResponse/apiResponse";
 import InputPass from "../InputPassword/inputPass";
-import { useNavigate } from "react-router-dom";
 
 const ForgotPasswordContainer = styled.div`
     display: flex;
@@ -190,7 +189,6 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
     const sendPassRef = useRef(null);
     const emailFormRef = useRef(null);
     const passwordFormRef = useRef(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const sendEmail = sendEmailRef.current;

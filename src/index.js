@@ -2,12 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from './pages/Home';
-import Destinations from './pages/Destinations';
-import Services from './pages/Services';
+import Home from './pages/Home/index';
+import Destinations from './pages/Destinations/index';
+import Services from './pages/Services/index';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import reportWebVitals from './reportWebVitals';
+import Dashboard from './pages/Dashboard/index';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -71,8 +70,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import Header from "../components/Header/header";
-import Footer from "../components/Footer/footer";
-import SectionDestinations from "../components/Sections/destinations";
-import loginValidation from "../utils/loginValidation";
+import Header from "../../components/Header/header";
+import Footer from "../../components/Footer/footer";
+import SectionDestinations from "../../utils/Sections/destinations";
+import loginValidation from "../../utils/loginValidation";
 
 const AboutContainer = styled.div`
   display: flex;

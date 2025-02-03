@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import Header from "../components/Header/header";
-import SectionServices from "../components/Sections/services";
-import Footer from "../components/Footer/footer";
+import Header from "../../components/Header/header";
+import SectionServices from "../../utils/Sections/services";
+import Footer from "../../components/Footer/footer";
 
 const ServicesContainer = styled.div`
   display: flex;
