@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import FacebookImg from "../../assets/icons/facebook-icon.png";
-import InstagramImg from "../../assets/icons/instagram-icon.png";
-import TwitterImg from "../../assets/icons/twitter-icon.png";
-import PlayImg from "../../assets/icons/play-store-icon.png";
-import AppStoreImg from "../../assets/icons/apple-store-icon.png";
+import FacebookImg from "../../assets/Icons/facebook-icon.png";
+import InstagramImg from "../../assets/Icons/instagram-icon.png";
+import TwitterImg from "../../assets/Icons/twitter-icon.png";
+import PlayImg from "../../assets/Icons/play-store-icon.png";
+import AppStoreImg from "../../assets/Icons/apple-store-icon.png";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`

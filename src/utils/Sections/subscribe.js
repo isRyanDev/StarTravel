@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
 import BackgroundImg from "../../assets/subscribe-background.png"
-import EmailIcon from "../../assets/icons/subscribe-email-element.png"
+import EmailIcon from "../../assets/Icons/subscribe-email-element.png"
 
 const SubscribeContainer = styled.section`
     display: flex;

@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import CardCustom from "../../assets/icons/card-icon-custom.png";
-import CardMic from "../../assets/icons/card-icon-mic.png";
-import CardPlane from "../../assets/icons/card-icon-plane.png";
-import CardWeather from "../../assets/icons/card-icon-weather.png";
+import CardCustom from "../../assets/Icons/card-icon-custom.png";
+import CardMic from "../../assets/Icons/card-icon-mic.png";
+import CardPlane from "../../assets/Icons/card-icon-plane.png";
+import CardWeather from "../../assets/Icons/card-icon-weather.png";
 import CustomCursor from "../../assets/custom-cursor.png";
 
 const ServicesContainer = styled.section`
