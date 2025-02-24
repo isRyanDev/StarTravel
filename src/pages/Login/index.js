@@ -5,7 +5,7 @@ import LoginContent from "./LoginContent/login";
 
 function Login() {
     useEffect(() => {
-        document.title = "JStar Travel | Login";
+        document.title = "Star Travel | Login";
 
         loginValidation();
       }, []);

@@ -19,7 +19,7 @@ const HomeContainer = styled.div`
 
 function Home() {
   useEffect(() => {
-    document.title = "JStar Travel | Home";
+    document.title = "Star Travel | Home";
 
     loginValidation();
   }, []);

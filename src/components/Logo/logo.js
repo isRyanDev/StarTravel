@@ -28,7 +28,7 @@ const LogoButton = styled.button`
     transition: all .7s;    
 
     &:hover .hover-text{
-        width: 8.5rem;
+        width: 7.2rem;
         filter: drop-shadow(0 0 23px var(--secondary-color));
         transition: all .7s;
     }
@@ -53,8 +53,8 @@ function Logo() {
             <LogoContainer>
                 <LinkStyled to="/">
                     <LogoButton data-text="Awesome">
-                        <span>&nbsp;JStar&nbsp;</span>
-                        <HoverText className="hover-text" aria-hidden="true">&nbsp;JStar&nbsp;</HoverText>
+                        <span>&nbsp;Star&nbsp;</span>
+                        <HoverText className="hover-text" aria-hidden="true">&nbsp;Star&nbsp;</HoverText>
                     </LogoButton>
                 </LinkStyled>
             </LogoContainer>

@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
     --tertiary-color: rgb(41, 70, 255);
     --decore-color: rgb(255,241,218);
     --login-text-color: rgb(32,34,36);
+    --dashboard-secondary-color: rgb(72, 128, 255);
+    --dashboard-border-color: rgb(213,213,213);
   }
 
   * {

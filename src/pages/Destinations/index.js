@@ -15,7 +15,7 @@ const AboutContainer = styled.div`
 
 function Destinations() {
   useEffect(() => {
-    document.title = "JStar Travel | Destinations";
+    document.title = "Star Travel | Destinations";
 
     loginValidation();
   }, []);

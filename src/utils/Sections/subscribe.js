@@ -165,7 +165,7 @@ function SectionSubscribe() {
                 <SubscribeBackground src={BackgroundImg} alt="subscribe-background"/>
                 <div>
                     <SubscribeTitle>
-                        Subscribe to get information, latest news and other<br/>interesting offers about JStar
+                        Subscribe to get information, latest news and other<br/>interesting offers about StarTravel
                     </SubscribeTitle>
                 </div>
         

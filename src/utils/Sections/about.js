@@ -1,4 +1,4 @@
-import { ReactComponent as ArrowImg } from "../../assets/Svg-Icons/Arrow.svg"
+import { ReactComponent as ArrowImg } from "../../assets/Svg-Icons/ArrowTopRight.svg"
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
 import TravelerImg from "../../assets/traveler-icon.png"
@@ -187,7 +187,7 @@ function SectionAbout() {
                             Travel, enjoy<br/> and live a new<br/> and full life.
                         </AboutTitle>
                         <AboutDescription>
-                            At JStar Travel, we turn your travel dreams into reality. We offer personalized packages to amazing destinations, with the care and attention you deserve. Traveling with JStar makes every moment unforgettable!
+                            At Star Travel, we turn your travel dreams into reality. We offer personalized packages to amazing destinations, with the care and attention you deserve. Traveling with Star makes every moment unforgettable!
                         </AboutDescription>
                     </AboutTexts>
 

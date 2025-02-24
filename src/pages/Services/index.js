@@ -14,7 +14,7 @@ const ServicesContainer = styled.div`
 
 function Services() {
   useEffect(() => {
-    document.title = "JStar Travel | Services";    
+    document.title = "Star Travel | Services";    
   }, []);
 
   return (

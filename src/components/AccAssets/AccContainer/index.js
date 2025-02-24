@@ -46,7 +46,7 @@ function Accounts({content, height}) {
     const AccRef = useRef(null);
 
     useEffect(() => {
-        document.title = "JStar Travel | Login";
+        document.title = "Star Travel | Login";
 
         loginValidation();
       }, []);

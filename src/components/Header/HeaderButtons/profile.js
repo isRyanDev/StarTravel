@@ -9,7 +9,7 @@ const ButtonContainer = styled.div`
     align-items: center;
     gap: 1rem;
     width: 15rem;
-`
+`;
 
 const LinkStyled = styled(Link)`
     display: flex;
@@ -33,9 +33,9 @@ const HeaderButton = styled.div`
     font-size: 1.1rem;
     color: var(--primary-color);
     font-weight: bold;
-    transition: all .7s;
+    transition: all 0.7s;
 
-    &:hover{
+    &:hover {
         background-color: var(--primary-color);
         color: var(--secondary-color);
     }
@@ -47,100 +47,114 @@ const ProfileContainer = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 15rem;
-`;
-
-const ProfileContent = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
-    width: 100%;
 `;
 
 const ProfileButton = styled.button`
-    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    border-radius: 0.5rem;
     border: none;
     background-color: transparent;
     cursor: pointer;
 
-    & svg{
-        height: 3.5rem;
-        fill: var(--primary-color);
-        transition: all .5s;
-
-        &:hover{
-            fill: ${(props) => props.color || "var(--secondary-color)"};
-        }
+    svg {
+        transition: all 0.3s ease-in-out;
+        transform: ${(props) => (props.isModalActive ? "rotate(180deg)" : "rotate(0deg)")};
     }
 `;
 
-const ProfileText = styled.p`
+const ProfileImg = styled.img`
+    width: 3rem;
+`;
+
+const UserProfile = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+`;
+
+const Username = styled.p`
     font-family: "Nunito Sans";
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: var(--primary-color);
     font-weight: bold;
-    transition: all .7s;
+    transition: all 0.7s;
+`;
+
+const UserRole = styled.p`
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    color: var(--dashboard-text-color);
+    font-weight: 600;
+    transition: all 0.7s;
 `;
 
 const ModalContainer = styled.div`
-    display: flex;
+    display: ${(props) => (props.modalIsVisible ? "flex" : "none")};
     position: absolute;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: .7rem;
-    padding: .5rem;
+    border-radius: 0.7rem;
     max-height: 50vh;
-    gap: .5rem;
-    width: 70%;
-    top: 3.8rem;
+    gap: 0.5rem;
+    width: 100%;
+    top: 3.5rem;
     background-color: var(--secondary-color);
-    transition: all .7s;
-    opacity: 0;
-    transform: scale(0);
-
-    &.active{
-        opacity: 1;
-        transform: scale(1);
-    }
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.7s;
+    padding: ${(props) => (props.isModalActive ? ".5rem" : "0")};
+    z-index: ${(props) => (props.isModalActive ? "1" : "-1")};
+    opacity: ${(props) => (props.isModalActive ? "1" : "0")};
+    transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
 `;
 
 const ModalButton = styled.button`
     font-family: "Nunito Sans";
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    font-weight: bold;
+    font-size: 1rem;
+    color: rgba(100, 100, 100, 1);
     width: 100%;
     background-color: transparent;
     border: none;
-    padding: .5rem;
-    border-radius: .5rem;
-    cursor: pointer;
-    transition: all .7s;
+    transition: all 0.1s ease-in-out;
 
-    &:hover{
-        background-color: var(--primary-color);
-        color: var(--secondary-color);
+    &:hover {
+        cursor: pointer;
+        font-weight: bold;
+        color: black;
     }
 `;
 
-function Profile({color}) {
+function Profile() {
     const [username, setUsername] = useState(localStorage.getItem("username"));
     const [isModalActive, setIsModalActive] = useState(false);
+    const [modalIsVisible, setModalIsVisible] = useState(false);
     const navigate = useNavigate();
     const modalRef = useRef(null);
     const profileButtonRef = useRef(null);
 
     const profileToggle = () => {
-        setIsModalActive(prevState => !prevState);
-    }
+        if (!isModalActive) {
+            setModalIsVisible(true);
+            setTimeout(() => setIsModalActive(true), 10);
+        } else {
+            setIsModalActive(false);
+            setTimeout(() => setModalIsVisible(false), 500);
+        }
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target) && !profileButtonRef.current.contains(event.target)) {
-                setIsModalActive(false); 
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target) &&
+                !profileButtonRef.current.contains(event.target)
+            ) {
+                setIsModalActive(false);
+                setTimeout(() => setModalIsVisible(false), 500);
             }
         };
 
@@ -156,43 +170,42 @@ function Profile({color}) {
         localStorage.removeItem("isLogged");
         localStorage.removeItem("token");
         setUsername(null);
-
         navigate("/login");
-    }
+    };
+
+    const profile = localStorage.getItem("profile") || "default";
+    const profilePath = `/profile/${profile}.png`;
 
     return (
         <>
             {username ? (
                 <ProfileContainer>
-                    <ProfileContent>
-                        <ProfileText>Hello, {username}</ProfileText>
-                        <ProfileButton onClick={profileToggle} color={color} ref={profileButtonRef}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path d="M256 73.825a182.175 182.175 0 1 0 182.18 182.18A182.177 182.177 0 0 0 256 73.825zm0 71.833a55.05 55.05 0 1 1-55.054 55.046A55.046 55.046 0 0 1 256 145.658zm.52 208.723h-80.852c0-54.255 29.522-73.573 48.885-90.906a65.68 65.68 0 0 0 62.885 0c19.363 17.333 48.885 36.651 48.885 90.906z" data-name="Profile"/>
-                            </svg>
-                        </ProfileButton>
-                    </ProfileContent>
+                    <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>
+                        <ProfileImg src={profilePath} alt="profile" />
 
-                    <ModalContainer ref={modalRef} className={isModalActive ? "active" : ""}>
-                        <ModalButton onClick={() => navigate("/dashboard")}>
-                            Dashboard
-                        </ModalButton>
-                        <ModalButton onClick={userLogout}>
-                            Logout
-                        </ModalButton>
+                        <UserProfile>
+                            <Username>{username}</Username>
+                            <UserRole>Admin</UserRole>
+                        </UserProfile>
+
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 19.1C15.0258 19.1 19.1 15.0258 19.1 10C19.1 4.97421 15.0258 0.9 10 0.9C4.97421 0.9 0.9 4.97421 0.9 10C0.9 15.0258 4.97421 19.1 10 19.1Z" stroke="#5C5C5C" strokeWidth="0.2"/>
+                            <path d="M10 10.7929L7.73162 8.14645C7.56425 7.95118 7.29289 7.95118 7.12553 8.14645C6.95816 8.34171 6.95816 8.65829 7.12553 8.85355L9.69695 11.8536C9.86432 12.0488 10.1357 12.0488 10.303 11.8536L12.8745 8.85355C13.0418 8.65829 13.0418 8.34171 12.8745 8.14645Z" fill="#565656"/>
+                        </svg>
+                    </ProfileButton>
+
+                    <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
+                        <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton>
+                        <ModalButton onClick={userLogout}>Logout</ModalButton>
                     </ModalContainer>
                 </ProfileContainer>
             ) : (
                 <ButtonContainer>
                     <LinkStyled to="/login">
-                        <HeaderButton>
-                            Login
-                        </HeaderButton>
+                        <HeaderButton>Login</HeaderButton>
                     </LinkStyled>
                     <LinkStyled to="/register">
-                        <HeaderButton>
-                            Register
-                        </HeaderButton>
+                        <HeaderButton>Register</HeaderButton>
                     </LinkStyled>
                 </ButtonContainer>
             )}

@@ -5,7 +5,7 @@ import loginValidation from "../../utils/loginValidation";
 
 function Register(){
     useEffect(() => {
-        document.title = "JStar Travel | Register";
+        document.title = "Star Travel | Register";
 
         loginValidation();
     }, []);

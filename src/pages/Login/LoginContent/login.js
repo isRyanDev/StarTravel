@@ -131,7 +131,7 @@ const CheckboxContainer = styled.div`
         fill: none;
         stroke: #fff;
         stroke-miterlimit: 10;
-        stroke-width: 2px;
+        strokeWidth: 2px;
         stroke-dashoffset: 100;
         stroke-dasharray: 100;
         transition: ease all 0.6s;
@@ -141,9 +141,9 @@ const CheckboxContainer = styled.div`
     & .check {
         fill: none;
         stroke: #fff;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 2px;
+        strokeLinecap: round;
+        strokeLinejoin: round;
+        strokeWidth: 2px;
         stroke-dashoffset: 22;
         stroke-dasharray: 22;
         transition: ease all 0.6s;
@@ -263,6 +263,7 @@ function LoginContent() {
                     setApiResponse(response.sucess);
                     localStorage.setItem("token", response.token);
                     localStorage.setItem("username", credentials.username);
+                    localStorage.setItem("profile", "default");
                     setTimeout(() => {
                         navigate("/");
                     }, 1000);

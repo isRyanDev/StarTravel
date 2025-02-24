@@ -174,7 +174,7 @@ function Footer(){
             <FooterContent>
                 <FooterTexts>   
                         <FooterTitle>
-                            JStar.
+                            Star Travel.
                         </FooterTitle>
                         <FooterSubtitle>
                             Book your trip in minute, get full<br/>Control for much longer.
@@ -193,7 +193,7 @@ function Footer(){
                                     <LinkStyled to="/careers">
                                         Careers
                                     </LinkStyled>
-                                    <LinkStyled to="mailto:suporte@jstar.com" target="blank">
+                                    <LinkStyled to="mailto:suporte@star.com" target="blank">
                                         Help/FAQ
                                     </LinkStyled>
                                 </FooterLinks>
@@ -204,7 +204,7 @@ function Footer(){
                                     Contacts
                                 </FooterListTitle>
                                 <FooterLinks>
-                                        <LinkStyled to="mailto:suporte@jstar.com" target="blank">
+                                        <LinkStyled to="mailto:suporte@star.com" target="blank">
                                             Email
                                         </LinkStyled>
                                         <LinkStyled to="whatsapp://send?phone=+55(00)00000-0000" target="blank">
@@ -243,7 +243,7 @@ function Footer(){
                             </SocialList>
                 </FooterListContainer>
             </FooterContent>
-            <FooterCopyright>All rights reserved@jstar.com</FooterCopyright>
+            <FooterCopyright>All rights reserved@star.com</FooterCopyright>
         </FooterContainer>
     )
 }
