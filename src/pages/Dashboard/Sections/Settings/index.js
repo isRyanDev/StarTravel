@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { postProfile } from "../../../../services/userAccount";
 import styled from "styled-components";
 
 const SettingsContainer = styled.div`
@@ -22,7 +22,7 @@ const SettingsContent = styled.div`
     padding: 1rem;
     background-color: var(--secondary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`
+`;
 
 const ProfileOptions = styled.div`
     display: flex;
@@ -34,7 +34,7 @@ const ProfileImg = styled.img`
     width: 5rem;
     transition: all 0.3s ease-in-out;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
         transform: scale(1.1);
     }
@@ -42,29 +42,44 @@ const ProfileImg = styled.img`
 
 const profileImages = ["men1", "men2", "men3", "woman1", "woman2", "woman3"];
 
-function SettingsSections(){
-    const navigate = useNavigate();
+function SettingsSections() {
 
-    const changeProfileImage = (image) => {
-        localStorage.setItem("profile", image);
-        navigate("/dashboard", {Settings: true});
-    }
+    const changeProfileImage = async (image) => {
+        const userId = localStorage.getItem("userId");
 
-    return(
+        if (!userId) {
+            console.error("Usuário não autenticado.");
+            return;
+        }
+
+        try {
+            await postProfile(userId, { profile: image });
+            window.location.reload();
+        } catch (error) {
+            console.error("Erro ao atualizar o perfil:", error);
+        }
+    };
+
+    return (
         <SettingsContainer>
             <Title>General Settings</Title>
 
             <SettingsContent>
-                Choose your profile icon
+                <p>Choose your profile icon</p>
 
                 <ProfileOptions>
-                    {profileImages.map((image, index) => ( 
-                        <ProfileImg onClick={() => changeProfileImage(image)} key={index} src={`/profile/${image}.png`} alt="profile" />
+                    {profileImages.map((image) => (
+                        <ProfileImg 
+                            key={image} 
+                            src={`/profile/${image}.png`} 
+                            alt={`Profile ${image}`} 
+                            onClick={() => changeProfileImage(image)}
+                        />
                     ))}
                 </ProfileOptions>
             </SettingsContent>
         </SettingsContainer>
-    )
+    );
 }
 
-export default SettingsSections
+export default SettingsSections;

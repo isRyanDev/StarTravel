@@ -1,12 +1,11 @@
 import styled from "styled-components";
-
 import SideBarList from "./List";
 
 const SideBarContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: ${({ isActive }) => (isActive ? "20rem" : "0rem")};
-    transform: ${({ isActive }) => (isActive ? "translateX(0)" : "translateX(-20rem)")};
+    width: ${(props) => (props.isActive ? "20rem" : "0rem")};
+    transform: ${(props) => (props.isActive ? "translateX(0)" : "translateX(-20rem)")};
     transition: all 0.3s ease-in-out;
     background-color: rgba(255, 255, 255, 1);
 `;
@@ -67,13 +66,20 @@ const SideBarSettingsList = [
     },
 ]
 
-function SideBar({isActive, selectedSection, setSelectedSection}) {
+function SideBar({isActive, selectedSection, setSelectedSection, setConfirmation, setConfirmationText}){
 
     const handleSelect = (name) => {
+        if(name === "Logout"){
+            setConfirmation(true);
+            setConfirmationText("Are you sure you want to logout?");
+            return;
+        }
+
         setSelectedSection(name);
+        localStorage.setItem("currentSection", name);
     };
 
-    return(            
+    return(
         <SideBarContainer isActive={isActive} aria-hidden={!isActive}>
             <SideBarIcon>
                 <p style={{ color: "rgb(72, 128, 255)"}}>Star</p><p>Travel</p>

@@ -5,6 +5,7 @@ import NotFoundContent from "./NotFoundContent/NotFound.js"
 function NotFound() {
     useEffect(() => {
         document.title = "404 Not Found";
+        localStorage.removeItem("currentSection");
       }, []);
 
     return (

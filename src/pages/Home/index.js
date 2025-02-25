@@ -20,6 +20,7 @@ const HomeContainer = styled.div`
 function Home() {
   useEffect(() => {
     document.title = "Star Travel | Home";
+    localStorage.removeItem("currentSection");
 
     loginValidation();
   }, []);

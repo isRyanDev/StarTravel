@@ -30,12 +30,12 @@ const Subtitle = styled.div`
 `
 
 const Divider = styled.div`
-    display: ${(props) => props.dividerVisible ? "block" : "none"};
+    display: ${(props) => (props.dividerVisible ? "block" : "none")};
     width: 100%;
     height: 1px;
     margin: .5rem 0;
     background-color: rgba(224, 224, 224, 1);
-    opacity: ${({dividerVisible}) => dividerVisible ? "1" : "0"};
+    opacity: ${(props) => (props.dividerVisible ? "1" : "0")};
 `;
 
 const SideBarItem = styled.div`

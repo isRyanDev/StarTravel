@@ -14,7 +14,8 @@ const ServicesContainer = styled.div`
 
 function Services() {
   useEffect(() => {
-    document.title = "Star Travel | Services";    
+    document.title = "Star Travel | Services";   
+    localStorage.removeItem("currentSection"); 
   }, []);
 
   return (

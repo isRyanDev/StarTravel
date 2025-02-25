@@ -6,6 +6,7 @@ import LoginContent from "./LoginContent/login";
 function Login() {
     useEffect(() => {
         document.title = "Star Travel | Login";
+        localStorage.removeItem("currentSection");
 
         loginValidation();
       }, []);

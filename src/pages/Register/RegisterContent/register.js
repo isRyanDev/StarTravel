@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { userRegister } from "../../../services/login-service";
+import { userRegister } from "../../../services/userAccount";
 import styled from "styled-components";
 import APIResponse from "../../../components/ApiResponse";
 import Button from "../../../components/AccAssets/AccInputs/Button";

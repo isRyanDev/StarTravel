@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import { userUUID, resetPassword } from "../../../../services/login-service";
+import { userUUID, resetPassword } from "../../../../services/userAccount";
 import APIResponse from "../../../../components/ApiResponse/index.js";
 import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import EmailInput from "../../../../components/AccAssets/AccInputs/EmailInput/index.js";

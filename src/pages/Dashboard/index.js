@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
@@ -13,6 +13,8 @@ import ToDoBody from "./Sections/To-do";
 import ContactBody from "./Sections/Contact";
 import InvoiceBody from "./Sections/Invoice";
 import SettingsBody from "./Sections/Settings";
+import ConfirmModal from "../../utils/ConfirmModal";
+import userLogout from "../../utils/logout";
 
 const DashboardContainer = styled.div`
     display: flex;
@@ -29,17 +31,35 @@ const DashboardContent = styled.div`
 `
 
 function Dashboard() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const settingsEnabled = location.state?.Settings;
+    const [selectedSection, setSelectedSection] = useState("");
     const [activeSideBar, setActiveSideBar] = useState(true);
-    const [selectedSection, setSelectedSection] = useState(settingsEnabled ? "Settings" : "Dashboard");
+    const [confirmationIsOpen, setConfirmationIsOpen] = useState(false);
+    const [confirmationText, setConfirmationText] = useState("");
+    const [confirm, setConfirm] = useState(false);
+    const navigate = useNavigate();
     const username = localStorage.getItem("username");
     const logged = localStorage.getItem("isLogged");
- 
+
     useEffect(() => {
         document.title = "Star Travel | Dashboard";
-    });
+    }, []);
+
+    useEffect(() => {
+        if(confirm){
+            userLogout();
+            setConfirm(false);
+        }
+    }, [setConfirm, confirm]);
+
+    useEffect(() => {
+        const currentSection = localStorage.getItem("currentSection");
+    
+        if (currentSection) {
+            setSelectedSection(currentSection);
+        } else {
+            setSelectedSection("Dashboard");
+        }
+    }, []);
 
     useEffect(() => {
         if (!logged && !username) {
@@ -66,7 +86,9 @@ function Dashboard() {
     return (
         <DashboardContainer>
 
-            <SideBar selectedSection={selectedSection} setSelectedSection={setSelectedSection} isActive={activeSideBar}/>
+            <ConfirmModal text={confirmationText} isOpen={confirmationIsOpen} setIsOpen={setConfirmationIsOpen} setConfirm={setConfirm}/>
+
+            <SideBar setConfirmationText={setConfirmationText} setConfirmation={setConfirmationIsOpen} selectedSection={selectedSection} setSelectedSection={setSelectedSection} isActive={activeSideBar}/>
 
             <DashboardContent>
                 <TopBar setSideBar={setActiveSideBar}/>

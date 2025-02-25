@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogin } from "../../../services/login-service";
+import { userLogin } from "../../../services/userAccount";
 import styled from "styled-components";
 import ForgotPassword from "./ForgotPassword/index.js";
 import APIResponse from "../../../components/ApiResponse/index.js";
@@ -263,7 +263,7 @@ function LoginContent() {
                     setApiResponse(response.sucess);
                     localStorage.setItem("token", response.token);
                     localStorage.setItem("username", credentials.username);
-                    localStorage.setItem("profile", "default");
+                    localStorage.setItem("userId", response.id);
                     setTimeout(() => {
                         navigate("/");
                     }, 1000);

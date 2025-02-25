@@ -136,7 +136,7 @@ function ChangeLanguage() {
             <LanguagesList ref={modalRef} isModalActive={isModalActive}>
                 {languages.map((lang, index) => {
                     return(
-                        <LanguagesItem>
+                        <LanguagesItem key={index}>
                             <p key={index} onClick={handleLanguage(lang.id)}>{lang.name}</p>
                         </LanguagesItem>
                     )

@@ -6,6 +6,7 @@ import loginValidation from "../../utils/loginValidation";
 function Register(){
     useEffect(() => {
         document.title = "Star Travel | Register";
+        localStorage.removeItem("currentSection");
 
         loginValidation();
     }, []);

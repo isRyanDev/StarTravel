@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    baseURL: "https://jstar.api.ryandev.com.br/accounts/user",
+    baseURL: "http://localhost:8080/accounts/user",
 });
 
 async function userLogin(credentials) {
@@ -40,4 +40,31 @@ async function resetPassword(uuid, newpassword) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister };
+async function getRole(id) {
+    try {
+        const response = await loginAPI.get(`role/${id}`);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function getProfile(id) {
+    try {
+        const response = await loginAPI.get(`profile/${id}`);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function postProfile(id, newProfile) {
+    try {
+        const response = await loginAPI.post(`profile/${id}`, newProfile);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+export { userLogin, userUUID, resetPassword, userRegister, getRole, getProfile, postProfile };

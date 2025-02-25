@@ -16,6 +16,7 @@ const AboutContainer = styled.div`
 function Destinations() {
   useEffect(() => {
     document.title = "Star Travel | Destinations";
+    localStorage.removeItem("currentSection");
 
     loginValidation();
   }, []);

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getRole, getProfile } from "../../../services/userAccount";
+import userLogout from "../../../utils/logout";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -59,12 +61,12 @@ const ProfileButton = styled.button`
     border: none;
     background-color: transparent;
     cursor: pointer;
-
-    svg {
-        transition: all 0.3s ease-in-out;
-        transform: ${(props) => (props.isModalActive ? "rotate(180deg)" : "rotate(0deg)")};
-    }
 `;
+
+const ArrowSVG = styled.svg`
+    transition: all 0.3s ease-in-out;
+    transform: ${(props) => (props.isModalActive ? "rotate(180deg)" : "rotate(0deg)")};
+`
 
 const ProfileImg = styled.img`
     width: 3rem;
@@ -128,23 +130,15 @@ const ModalButton = styled.button`
     }
 `;
 
-function Profile() {
-    const [username, setUsername] = useState(localStorage.getItem("username"));
+const Profile = () => {
+    const username = localStorage.getItem("username");
+    const [role, setRole] = useState("");
+    const [userProfileImg, setUserProfileImg] = useState("");
     const [isModalActive, setIsModalActive] = useState(false);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const navigate = useNavigate();
     const modalRef = useRef(null);
     const profileButtonRef = useRef(null);
-
-    const profileToggle = () => {
-        if (!isModalActive) {
-            setModalIsVisible(true);
-            setTimeout(() => setIsModalActive(true), 10);
-        } else {
-            setIsModalActive(false);
-            setTimeout(() => setModalIsVisible(false), 500);
-        }
-    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -165,33 +159,54 @@ function Profile() {
         };
     }, []);
 
-    const userLogout = () => {
-        localStorage.removeItem("username");
-        localStorage.removeItem("isLogged");
-        localStorage.removeItem("token");
-        setUsername(null);
-        navigate("/login");
-    };
+    useEffect(() => {
+        const fetchUserInfos = async () => {
+            try {
+                const userId = localStorage.getItem("userId");
+                if (userId) {
+                    const userRole = await getRole(userId);
+                    const userProfile = await getProfile(userId);
+                    setRole(userRole.role);
+                    setUserProfileImg(userProfile.profile);
+                }
+            } catch (error) {
+                setRole("Client"); 
+                setUserProfileImg("default");
+            }
+        };
 
-    const profile = localStorage.getItem("profile") || "default";
-    const profilePath = `/profile/${profile}.png`;
+        fetchUserInfos();
+    }, []);
+
+    const profileToggle = () => {
+        if (!isModalActive) {
+            setModalIsVisible(true);
+            setTimeout(() => setIsModalActive(true), 10);
+        } else {
+            setIsModalActive(false);
+            setTimeout(() => {
+                if (!isModalActive) setModalIsVisible(false); 
+            }, 500);
+        }
+    };    
+
+    const profilePath = `/profile/${userProfileImg}.png`;
 
     return (
         <>
             {username ? (
                 <ProfileContainer>
                     <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>
-                        <ProfileImg src={profilePath} alt="profile" />
-
+                        <ProfileImg src={profilePath} alt="" />
                         <UserProfile>
                             <Username>{username}</Username>
-                            <UserRole>Admin</UserRole>
+                            <UserRole>{role || "Loading..."}</UserRole>
                         </UserProfile>
 
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ArrowSVG isModalActive={isModalActive} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 19.1C15.0258 19.1 19.1 15.0258 19.1 10C19.1 4.97421 15.0258 0.9 10 0.9C4.97421 0.9 0.9 4.97421 0.9 10C0.9 15.0258 4.97421 19.1 10 19.1Z" stroke="#5C5C5C" strokeWidth="0.2"/>
                             <path d="M10 10.7929L7.73162 8.14645C7.56425 7.95118 7.29289 7.95118 7.12553 8.14645C6.95816 8.34171 6.95816 8.65829 7.12553 8.85355L9.69695 11.8536C9.86432 12.0488 10.1357 12.0488 10.303 11.8536L12.8745 8.85355C13.0418 8.65829 13.0418 8.34171 12.8745 8.14645Z" fill="#565656"/>
-                        </svg>
+                        </ArrowSVG>
                     </ProfileButton>
 
                     <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
@@ -211,6 +226,6 @@ function Profile() {
             )}
         </>
     );
-}
+};
 
 export default Profile;
