@@ -161,7 +161,7 @@ function RegisterContent() {
 
                 localStorage.setItem("token", response.token);
                 localStorage.setItem("username", credentials.username);
-                localStorage.setItem("userId", response.id);
+                localStorage.setItem("userId", response.userId);
 
                 setTimeout(() => {
                     navigate("/");
