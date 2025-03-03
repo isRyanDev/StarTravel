@@ -55,6 +55,9 @@ const SideBarPagesList = [
     {
         name: "Invoice",
     },
+    {
+        name: "Team",
+    }
 ]
 
 const SideBarSettingsList = [

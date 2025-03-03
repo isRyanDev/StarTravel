@@ -1,5 +1,7 @@
 import { postProfile } from "../../../../services/userAccount";
+import { useState } from "react";
 import styled from "styled-components";
+import SmallLoad from "../../../../components/SmallLoad";
 
 const SettingsContainer = styled.div`
     display: flex;
@@ -43,6 +45,7 @@ const ProfileImg = styled.img`
 const profileImages = ["men1", "men2", "men3", "woman1", "woman2", "woman3"];
 
 function SettingsSections() {
+    const [loading, setLoading] = useState(false);
 
     const changeProfileImage = async (image) => {
         const userId = localStorage.getItem("userId");
@@ -52,11 +55,15 @@ function SettingsSections() {
             return;
         }
 
+        setLoading(true); // Ativa o estado de carregamento
+
         try {
             await postProfile(userId, { profile: image });
             window.location.reload();
         } catch (error) {
             console.error("Erro ao atualizar o perfil:", error);
+        } finally {
+            setLoading(false); // Desativa o estado de carregamento, independente do sucesso ou erro
         }
     };
 
@@ -68,14 +75,18 @@ function SettingsSections() {
                 <p>Choose your profile icon</p>
 
                 <ProfileOptions>
-                    {profileImages.map((image) => (
-                        <ProfileImg 
-                            key={image} 
-                            src={`/profile/${image}.png`} 
-                            alt={`Profile ${image}`} 
-                            onClick={() => changeProfileImage(image)}
-                        />
-                    ))}
+                    {loading ? (
+                        <SmallLoad />
+                    ) : (
+                        profileImages.map((image) => (
+                            <ProfileImg 
+                                key={image} 
+                                src={`/profile/${image}.png`} 
+                                alt={`Profile ${image}`} 
+                                onClick={() => changeProfileImage(image)}
+                            />
+                        ))
+                    )}
                 </ProfileOptions>
             </SettingsContent>
         </SettingsContainer>

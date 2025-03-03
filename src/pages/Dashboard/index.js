@@ -12,6 +12,7 @@ import PrincingBody from "./Sections/Pricing";
 import ToDoBody from "./Sections/To-do";
 import ContactBody from "./Sections/Contact";
 import InvoiceBody from "./Sections/Invoice";
+import TeamBody from "./Sections/Team";
 import SettingsBody from "./Sections/Settings";
 import ConfirmModal from "../../utils/ConfirmModal";
 import userLogout from "../../utils/logout";
@@ -27,6 +28,7 @@ const DashboardContainer = styled.div`
 const DashboardContent = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100vh;
     width: 100%;
 `
 
@@ -80,6 +82,7 @@ function Dashboard() {
         "To-do": <ToDoBody/>,
         "Contact": <ContactBody/>,
         "Invoice": <InvoiceBody/>,
+        "Team": <TeamBody/>,
         "Settings": <SettingsBody/>,
     }
 
@@ -94,7 +97,6 @@ function Dashboard() {
                 <TopBar setSideBar={setActiveSideBar}/>
 
                 {sections[selectedSection]}
-                
             </DashboardContent>
         </DashboardContainer>
     );

@@ -11,6 +11,7 @@ import { ReactComponent as ContactSVG } from "../../../../assets/Svg-Icons/Conta
 import { ReactComponent as InvoiceSVG } from "../../../../assets/Svg-Icons/Invoice.svg";
 import { ReactComponent as SettingsSVG } from "../../../../assets/Svg-Icons/Settings.svg";
 import { ReactComponent as LogoutSVG } from "../../../../assets/Svg-Icons/Logout.svg";
+import { ReactComponent as TeamSVG } from "../../../../assets/Svg-Icons/Team.svg";
 
 
 const SideBarItemsContainer = styled.div`
@@ -89,6 +90,7 @@ const sideBarIcons = {
     Invoice: InvoiceSVG,
     Settings: SettingsSVG,
     Logout: LogoutSVG,
+    Team: TeamSVG
 };
 
 function SideBarList({list, selectedSection, handleSelect, dividerVisible, subtitle}){

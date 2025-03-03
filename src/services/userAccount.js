@@ -58,6 +58,15 @@ async function getProfile(id) {
     }
 }
 
+async function getUsers() {
+    try {
+        const response = await loginAPI.get("/get");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function postProfile(id, newProfile) {
     try {
         const response = await loginAPI.post(`profile/${id}`, newProfile);
@@ -67,4 +76,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers };

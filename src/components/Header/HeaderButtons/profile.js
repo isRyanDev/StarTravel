@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getGroup, getProfile } from "../../../services/userAccount";
 import userLogout from "../../../utils/logout";
+import SmallLoad from "../../SmallLoad";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -136,6 +137,7 @@ const Profile = () => {
     const [userProfileImg, setUserProfileImg] = useState("");
     const [isModalActive, setIsModalActive] = useState(false);
     const [modalIsVisible, setModalIsVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const modalRef = useRef(null);
     const profileButtonRef = useRef(null);
@@ -164,10 +166,12 @@ const Profile = () => {
             try {
                 const userId = localStorage.getItem("userId");
                 if (userId) {
+                    setLoading(true);
                     const userRole = await getGroup(userId);
                     const userProfile = await getProfile(userId);
                     setRole(userRole.group);
                     setUserProfileImg(userProfile.profile);
+                    setLoading(false);
                 }
             } catch (error) {
                 setRole("Client"); 
@@ -197,7 +201,10 @@ const Profile = () => {
             {username ? (
                 <ProfileContainer>
                     <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>
-                        <ProfileImg src={profilePath} alt="" />
+                        {loading ? <SmallLoad/> : 
+                            <ProfileImg src={profilePath} alt="" />
+                        }
+                        
                         <UserProfile>
                             <Username>{username}</Username>
                             <UserRole>{role || "Loading..."}</UserRole>
