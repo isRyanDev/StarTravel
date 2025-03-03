@@ -40,9 +40,9 @@ async function resetPassword(uuid, newpassword) {
     }
 }
 
-async function getRole(id) {
+async function getGroup(id) {
     try {
-        const response = await loginAPI.get(`role/${id}`);
+        const response = await loginAPI.get(`group/${id}`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -67,4 +67,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getRole, getProfile, postProfile };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile };

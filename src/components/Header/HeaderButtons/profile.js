@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getRole, getProfile } from "../../../services/userAccount";
+import { getGroup, getProfile } from "../../../services/userAccount";
 import userLogout from "../../../utils/logout";
 
 const ButtonContainer = styled.div`
@@ -164,9 +164,9 @@ const Profile = () => {
             try {
                 const userId = localStorage.getItem("userId");
                 if (userId) {
-                    const userRole = await getRole(userId);
+                    const userRole = await getGroup(userId);
                     const userProfile = await getProfile(userId);
-                    setRole(userRole.role);
+                    setRole(userRole.group);
                     setUserProfileImg(userProfile.profile);
                 }
             } catch (error) {
