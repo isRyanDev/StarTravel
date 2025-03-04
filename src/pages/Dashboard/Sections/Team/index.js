@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
 import { ReactComponent as Card } from "./card.svg";
+import FormModal from "../../../../utils/FormModal";
 const { getUsers } = require("../../../../services/userAccount");
 
 const Container = styled.div`
@@ -41,6 +42,10 @@ const AddButton = styled.div`
     padding: 1rem;
     border-radius: 0.5rem;
     background-color: var(--dashboard-secondary-color);
+
+    &:hover{
+        cursor: pointer;
+    }
 `
 
 const UsersContainer = styled.div`
@@ -85,6 +90,7 @@ const ProfileImg = styled.img`
 
 function TeamSection() {
     const [loading, setLoading] = useState(false);
+    const [formIsOpen, setFormIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
@@ -102,14 +108,18 @@ function TeamSection() {
         fetchUsers();
     }, []);
 
+    const handleAddUser = () => {
+        setFormIsOpen(true);
+    };
+
     return (
         <Container>
             {loading ? <Loading /> : 
                 <TeamContainer>
                     <TeamTopBar>
                         <Title>Team</Title>
-                        <AddButton>Add New Member</AddButton>
-                    </TeamTopBar>         
+                        <AddButton onClick={handleAddUser}>Add New Member</AddButton>
+                    </TeamTopBar>      
 
                     <UsersContainer>
                         {users.filter((user) => user.user_group !== "Client").map((user) => (
@@ -128,6 +138,8 @@ function TeamSection() {
                             </UserCardContainer>
                         ))}
                     </UsersContainer>
+
+                    <FormModal setIsOpen={setFormIsOpen} isOpen={formIsOpen}/>
                 </TeamContainer>
             }
         </Container>   

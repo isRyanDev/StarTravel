@@ -19,10 +19,10 @@ const AccButton = styled.button`
     }
 `
 
-function Button({type, content, action}){
+function FormButton({type, content, action}){
     return(
         <AccButton type={type} onClick={action}>{content}</AccButton>
     )
 }
 
-export default Button
+export default FormButton

@@ -42,16 +42,16 @@ async function resetPassword(uuid, newpassword) {
 
 async function getGroup(id) {
     try {
-        const response = await loginAPI.get(`group/${id}`);
+        const response = await loginAPI.get(`/group/${id}`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
     }
 }
 
-async function getProfile(id) {
+async function updateGroup(newGroup) {
     try {
-        const response = await loginAPI.get(`profile/${id}`);
+        const response = await loginAPI.post(`/update-group`, newGroup);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -67,13 +67,22 @@ async function getUsers() {
     }
 }
 
-async function postProfile(id, newProfile) {
+async function getProfile(id) {
     try {
-        const response = await loginAPI.post(`profile/${id}`, newProfile);
+        const response = await loginAPI.get(`/profile/${id}`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers };
+async function postProfile(id, newProfile) {
+    try {
+        const response = await loginAPI.post(`/profile/${id}`, newProfile);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup };

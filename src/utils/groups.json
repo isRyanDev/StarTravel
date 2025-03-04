@@ -1,0 +1,18 @@
+[
+    {
+        "group": "Client",
+        "permissions": ""
+    },
+    {
+        "group": "Admin",
+        "permissions": ""
+    },
+    {
+        "group": "Customers",
+        "permissions": ""
+    },
+    {
+        "group": "Manager",
+        "permissions": ""
+    }
+]
