@@ -49,7 +49,10 @@ const AddButton = styled.div`
 `
 
 const UsersContainer = styled.div`
-    display: flex;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1rem;
     width: 100%;
 `;
@@ -66,9 +69,7 @@ const UserCardContainer = styled.div`
     align-items: center;
     border-radius: 1rem;
     overflow: hidden;
-    padding: 1rem;
-    width: 18rem;
-    height: 18rem;
+    padding: 1.5rem;
     background-color: var(--secondary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;

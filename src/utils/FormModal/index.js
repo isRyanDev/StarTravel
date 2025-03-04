@@ -139,7 +139,7 @@ const Button = styled.div`
 
 function FormModal({isOpen, setIsOpen}){
     const [username, setUsername] = useState("");
-    const [selectedGroup, setSelectedGroup] = useState("");
+    const [selectedGroup, setSelectedGroup] = useState("Client");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -190,7 +190,11 @@ function FormModal({isOpen, setIsOpen}){
                         </InputLabel>
 
                         <SelectInput value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-                            {groups.filter((roles) => roles.group !== "Client").map((roles) => (
+                            {/* {groups.filter((roles) => roles.group !== "Client").map((roles) => (
+                                <option key={roles.group} value={roles.group}>{roles.group}</option>
+                            ))} */}
+
+                            {groups.map((roles) => (
                                 <option key={roles.group} value={roles.group}>{roles.group}</option>
                             ))}
                         </SelectInput>
