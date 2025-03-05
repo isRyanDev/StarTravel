@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { userUUID, resetPassword } from "../../../../services/userAccount";
 import APIResponse from "../../../../components/ApiResponse/index.js";
 import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
-import EmailInput from "../../../../components/AccAssets/AccInputs/EmailInput/index.js";
+import TextInput from "../../../../components/AccAssets/AccInputs/TextInput/index.js";
 import Button from "../../../../components/AccAssets/AccInputs/Button/index.js";
 
 const ForgotPasswordContainer = styled.div`
@@ -250,7 +250,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                                     <p>Email address:</p>
                                 </InputLabel>
 
-                                <EmailInput type="email" value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
+                                <TextInput type="email" value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
 
                             </InputContent>
                         </InputContainer>

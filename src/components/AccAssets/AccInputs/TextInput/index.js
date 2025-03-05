@@ -22,7 +22,8 @@ const Input = styled.input`
     }
 `
 
-function EmailInput({setUsername, placeholder, type, value}){
+function TextInput({setUsername, placeholder, type, value}){
+
     return(
         <Input 
             type={type} 
@@ -33,4 +34,4 @@ function EmailInput({setUsername, placeholder, type, value}){
     );
 }
 
-export default EmailInput;
+export default TextInput;

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import APIResponse from "../../../components/ApiResponse";
 import Button from "../../../components/AccAssets/AccInputs/Button";
 import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput";
-import EmailInput from "../../../components/AccAssets/AccInputs/EmailInput";
+import TextInput from "../../../components/AccAssets/AccInputs/TextInput";
 
 const RegisterContainer = styled.div`
     display: flex;
@@ -199,7 +199,7 @@ function RegisterContent() {
                                     <p>Email address</p>
                                 </InputLabel>
 
-                                <EmailInput type={"email"} value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
+                                <TextInput type={"email"} value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
 
                             </InputContent>
                         </InputContainer>
@@ -210,7 +210,7 @@ function RegisterContent() {
                                     <p>Username</p>
                                 </InputLabel>
 
-                                <EmailInput type={"text"} value={username} setUsername={setUsername} placeholder={"Create a username"}/>
+                                <TextInput type={"text"} value={username} setUsername={setUsername} placeholder={"Create a username"}/>
 
                             </InputContent>
                         </InputContainer>

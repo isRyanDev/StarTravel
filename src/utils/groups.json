@@ -1,11 +1,7 @@
 [
     {
-        "group": "Client",
-        "permissions": ""
-    },
-    {
         "group": "Admin",
-        "permissions": ""
+        "permissions": ["update-group"]
     },
     {
         "group": "Customers",
@@ -13,6 +9,6 @@
     },
     {
         "group": "Manager",
-        "permissions": ""
+        "permissions": ["update-group", "add-member", "edit-member"]
     }
 ]

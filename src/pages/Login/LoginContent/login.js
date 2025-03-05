@@ -5,7 +5,7 @@ import styled from "styled-components";
 import ForgotPassword from "./ForgotPassword/index.js";
 import APIResponse from "../../../components/ApiResponse/index.js";
 import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput/index.js";
-import EmailInput from "../../../components/AccAssets/AccInputs/EmailInput/index.js";
+import TextInput from "../../../components/AccAssets/AccInputs/TextInput/index.js";
 import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
 
 const LoginContainer = styled.div`
@@ -312,7 +312,7 @@ function LoginContent() {
                                     <p>Username</p>
                                 </InputLabel>
 
-                                <EmailInput type={"text"} value={username} setUsername={setUsername} placeholder={"Enter your username"}/>
+                                <TextInput type={"text"} value={username} setUsername={setUsername} placeholder={"Enter your username"}/>
 
                             </InputContent>
                         </InputContainer>

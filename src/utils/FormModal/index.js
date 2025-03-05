@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react"
 import groups from "../groups.json"
-import EmailInput from "../../components/AccAssets/AccInputs/EmailInput";
+import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
 import { updateGroup } from "../../services/userAccount";
 
@@ -104,6 +104,7 @@ const SelectInput = styled.select`
     font-size: 1.125rem;
     padding: 1rem;
     background: #F1F4F9;
+    appearance: none;
     cursor: pointer;
 
     &:focus-visible{
@@ -137,9 +138,9 @@ const Button = styled.div`
 `;
 
 
-function FormModal({isOpen, setIsOpen}){
+function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
     const [username, setUsername] = useState("");
-    const [selectedGroup, setSelectedGroup] = useState("Client");
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -149,7 +150,7 @@ function FormModal({isOpen, setIsOpen}){
             "group": selectedGroup
         }
 
-        if (!username || !selectedGroup) {
+        if (!username || !selectedGroup || selectedGroup === "Select") {
             alert("Please fill in all fields.");
             return;
         }
@@ -166,22 +167,37 @@ function FormModal({isOpen, setIsOpen}){
         }
     }
 
+    const handleCancel = () => {
+        setUsername("");
+        setSelectedGroup("");
+        setIsOpen(false);
+    }
+
     return(
         <Container isOpen={isOpen}>
             <ModalContainer isOpen={isOpen}>
 
                 <Texts>
-                    <Title>New member</Title>
-                    <Subtitle>Please enter the new member's username and group to continue</Subtitle>
+                    <Title>{title}</Title>
+                    <Subtitle>{subtitle}</Subtitle>
                 </Texts>
 
                 <FormContainer onSubmit={handleSubmit}>
                     <InputContent>
                         <InputLabel>
-                            <p>Username</p>
+                            {isEdit ? (
+                                <p><strong>{member}</strong></p>
+                            ) : (
+                                <p>Username</p>
+                            )}
+                            
                         </InputLabel>
                         
-                        <EmailInput value={username} setUsername={setUsername} type={"text"} placeholder={"New member's username"}/>
+                        {reqUsername ? (
+                            <TextInput value={username} setUsername={setUsername} type={"text"} placeholder={"New member's username"}/>
+                        ) : (
+                            <></>
+                        )}
                     </InputContent>
 
                     <InputContent>
@@ -194,15 +210,19 @@ function FormModal({isOpen, setIsOpen}){
                                 <option key={roles.group} value={roles.group}>{roles.group}</option>
                             ))} */}
 
+                            <option selected>Select</option>
+
                             {groups.map((roles) => (
+                                
                                 <option key={roles.group} value={roles.group}>{roles.group}</option>
                             ))}
+
                         </SelectInput>
                     </InputContent>
 
                     <ButtonsContainer>
                         <FormButton type={"submit"} content={"Continue"}/>
-                        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+                        <Button onClick={handleCancel}>Cancel</Button>
                     </ButtonsContainer>
                 </FormContainer>
             </ModalContainer>
