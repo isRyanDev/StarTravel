@@ -193,7 +193,7 @@ function TeamSection() {
                         isOpen={addMemberOpen}
                         title="New member"
                         subtitle="Please enter the new member's username and group to continue"
-                        selectedGroup={""}
+                        selectedGroup={selectedGroup}
                         setSelectedGroup={setSelectedGroup}
                         reqUsername={true}
                     />

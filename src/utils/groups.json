@@ -1,7 +1,7 @@
 [
     {
         "group": "Admin",
-        "permissions": ["update-group"]
+        "permissions": ["add-member"]
     },
     {
         "group": "Customers",

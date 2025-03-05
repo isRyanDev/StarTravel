@@ -141,7 +141,6 @@ const Button = styled.div`
 function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
     const [username, setUsername] = useState("");
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -171,7 +170,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
         setUsername("");
         setSelectedGroup("");
         setIsOpen(false);
-    }
+    };    
 
     return(
         <Container isOpen={isOpen}>
@@ -205,7 +204,9 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                             <p>Group</p>
                         </InputLabel>
 
-                        <SelectInput value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+                        <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value);
+                        }}>
+
                             {/* {groups.filter((roles) => roles.group !== "Client").map((roles) => (
                                 <option key={roles.group} value={roles.group}>{roles.group}</option>
                             ))} */}
