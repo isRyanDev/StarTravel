@@ -8,6 +8,10 @@
         "permissions": ""
     },
     {
+        "group": "Moderator",
+        "permissions": [""]
+    },
+    {
         "group": "Manager",
         "permissions": ["update-group", "add-member", "edit-member"]
     }

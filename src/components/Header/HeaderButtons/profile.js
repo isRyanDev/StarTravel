@@ -27,20 +27,20 @@ const HeaderButton = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    background-color: transparent;
+    background-color: var(--background);
     padding: 0 1rem;
     width: 100%;
     height: 2.8rem;
-    border: 1px solid #212832;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-family: "Nunito Sans";
     font-size: 1.1rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: bold;
     transition: all 0.7s;
 
     &:hover {
-        background-color: var(--primary-color);
-        color: var(--secondary-color);
+        background-color: var(--secondary-color);
+        color: var(--background);
     }
 `;
 

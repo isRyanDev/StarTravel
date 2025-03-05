@@ -143,6 +143,7 @@ function TeamSection() {
     const handleEditMember = (member, group) => {
         setSelectedGroup(group);
         setSelectedMember(member);
+        
         setEditMemberOpen(true);
     }
 

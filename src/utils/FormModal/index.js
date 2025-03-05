@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import groups from "../groups.json"
 import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
@@ -94,6 +94,25 @@ const InputLabel = styled.label`
     font-size: 1.125rem;
 `
 
+const EditUsername = styled.div`
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    flex-direction: column;
+`
+
+const Username = styled.div`
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: .5rem;
+    border: 1px solid #D8D8D8;
+    color: var(--login-text-color);
+    font-family: "Nunito Sans";
+    font-size: 1.125rem;
+    padding: 1rem;
+    background: #F1F4F9;
+`
+
 const SelectInput = styled.select`
     width: 100%;
     box-sizing: border-box;
@@ -141,6 +160,12 @@ const Button = styled.div`
 function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
     const [username, setUsername] = useState("");
 
+    useEffect(() => {
+        if (isEdit) {
+            setUsername(member);
+        }
+    }, [isEdit, member]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -156,7 +181,6 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
 
         try {
             const response = await updateGroup(body);
-
             alert(response.message);
             setUsername("");
             setSelectedGroup("");
@@ -185,7 +209,13 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                     <InputContent>
                         <InputLabel>
                             {isEdit ? (
-                                <p><strong>{member}</strong></p>
+                                <EditUsername>
+                                    <p>Username</p>
+
+                                    <Username>
+                                        <p>{member}</p>
+                                    </Username>
+                                </EditUsername>
                             ) : (
                                 <p>Username</p>
                             )}
@@ -204,20 +234,19 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                             <p>Group</p>
                         </InputLabel>
 
-                        <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value);
-                        }}>
-
-                            {/* {groups.filter((roles) => roles.group !== "Client").map((roles) => (
-                                <option key={roles.group} value={roles.group}>{roles.group}</option>
-                            ))} */}
-
+                        <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value)}}>
                             <option selected>Select</option>
 
-                            {groups.map((roles) => (
-                                
-                                <option key={roles.group} value={roles.group}>{roles.group}</option>
-                            ))}
-
+                            {reqUsername ? (
+                                groups.filter((roles) => roles.group !== "Customers").map((roles) => (
+                                    <option key={roles.group} value={roles.group}>{roles.group}</option>
+                                ))
+                            ) : (
+                                groups.map((roles) => (
+                                    
+                                    <option key={roles.group} value={roles.group}>{roles.group}</option>
+                                ))
+                            )}
                         </SelectInput>
                     </InputContent>
 
