@@ -56,7 +56,7 @@ const Dot = styled.div`
 
 function Loading() {
     return (
-        <DotsContainer class="dots-container">
+        <DotsContainer className="dots-container">
           <Dot></Dot>
           <Dot></Dot>
           <Dot></Dot>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import groups from "../groups.json"
 import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
-import { updateGroup } from "../../services/userAccount";
+import { getUsers, updateGroup } from "../../services/userAccount";
 
 const Container = styled.div`
   position: fixed;
@@ -164,6 +164,8 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
         if (isEdit) {
             setUsername(member);
         }
+
+        console.log(isEdit)
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
@@ -172,6 +174,29 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
         const body = {
             "username": username,
             "group": selectedGroup
+        }
+
+        if (isEdit) {
+            const loggedUser = localStorage.getItem("username");
+        
+            if (username.toUpperCase() === loggedUser.toUpperCase()) {
+                alert("You can't edit your group");
+                return;
+            }
+        }        
+
+        if(!isEdit){
+            try {
+                const response = await getUsers();
+                const existingUsernames = response.filter(user => user.user_group !== "Customers").map(user => user.username);
+
+                if (existingUsernames.includes(username)) {
+                    alert("User already included in the team");
+                    return;
+                }
+            } catch (error) {
+                throw error;
+            }
         }
 
         if (!username || !selectedGroup || selectedGroup === "Select") {
@@ -185,6 +210,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
             setUsername("");
             setSelectedGroup("");
             setIsOpen(false);
+            window.location.reload();
         } catch (error) {
             throw error;
         }
@@ -194,6 +220,11 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
         setUsername("");
         setSelectedGroup("");
         setIsOpen(false);
+
+        if (isEdit) {
+            setUsername(member);
+            setSelectedGroup("Select");
+        }
     };    
 
     return(
@@ -243,7 +274,6 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                                 ))
                             ) : (
                                 groups.map((roles) => (
-                                    
                                     <option key={roles.group} value={roles.group}>{roles.group}</option>
                                 ))
                             )}
