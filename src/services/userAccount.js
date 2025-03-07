@@ -58,6 +58,15 @@ async function updateGroup(newGroup) {
     }
 }
 
+async function setGroup(group) {
+    try {
+        const response = await loginAPI.post(`/set-group`, group);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function getUsers() {
     try {
         const response = await loginAPI.get("/get");
@@ -85,4 +94,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup };

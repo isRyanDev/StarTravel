@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import groups from "../groups.json"
 import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
-import { getUsers, updateGroup } from "../../services/userAccount";
+import { setGroup, updateGroup } from "../../services/userAccount";
 
 const Container = styled.div`
   position: fixed;
@@ -169,6 +169,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
+        const loggedUser = localStorage.getItem("username");
         e.preventDefault();
 
         const body = {
@@ -176,44 +177,51 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
             "group": selectedGroup
         }
 
-        if (isEdit) {
-            const loggedUser = localStorage.getItem("username");
+        if (!username || !selectedGroup || selectedGroup === "Select") {
+            alert("Please fill in all fields.");
+            return;
+        }
         
-            if (username.toUpperCase() === loggedUser.toUpperCase()) {
-                alert("You can't edit your group");
-                return;
-            }
-        }        
+        if (username.toUpperCase() === loggedUser.toUpperCase()) {
+            alert("You can't manage your group");
+            return;
+        }
 
-        if(!isEdit){
+        if(isEdit){
             try {
-                const response = await getUsers();
-                const existingUsernames = response.filter(user => user.user_group !== "Customers").map(user => user.username);
+                const response = await updateGroup(body);
 
-                if (existingUsernames.includes(username)) {
-                    alert("User already included in the team");
+                if(response.error){
+                    alert(response.error);
                     return;
+                }
+                else{
+                    alert(response.message);
+                }
+            } catch (error) {
+                throw error;
+            }
+        }
+        else{
+            try {
+                const response = await setGroup(body);
+                
+                if(response.error){
+                    alert(response.error);
+                    return;
+                }
+                else{
+                    alert(response.message);
                 }
             } catch (error) {
                 throw error;
             }
         }
 
-        if (!username || !selectedGroup || selectedGroup === "Select") {
-            alert("Please fill in all fields.");
-            return;
-        }
-
-        try {
-            const response = await updateGroup(body);
-            alert(response.message);
-            setUsername("");
-            setSelectedGroup("");
-            setIsOpen(false);
-            window.location.reload();
-        } catch (error) {
-            throw error;
-        }
+        setUsername("");
+        setSelectedGroup("");
+        setIsOpen(false);
+        window.location.reload();
     }
 
     const handleCancel = () => {
@@ -266,7 +274,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                         </InputLabel>
 
                         <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value)}}>
-                            <option selected>Select</option>
+                            <option value={""}>Select</option>
 
                             {reqUsername ? (
                                 groups.filter((roles) => roles.group !== "Customers").map((roles) => (
