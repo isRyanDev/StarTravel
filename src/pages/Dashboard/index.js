@@ -16,6 +16,7 @@ import TeamBody from "./Sections/Team";
 import SettingsBody from "./Sections/Settings";
 import ConfirmModal from "../../utils/ConfirmModal";
 import userLogout from "../../utils/logout";
+import Notify from "../../components/Notify";
 
 const DashboardContainer = styled.div`
     display: flex;
@@ -84,10 +85,12 @@ function Dashboard() {
         "Invoice": <InvoiceBody/>,
         "Team": <TeamBody/>,
         "Settings": <SettingsBody/>,
-    }
+    }   
 
     return (
         <DashboardContainer>
+
+            <Notify/>
 
             <ConfirmModal text={confirmationText} isOpen={confirmationIsOpen} setIsOpen={setConfirmationIsOpen} setConfirm={setConfirm}/>
 

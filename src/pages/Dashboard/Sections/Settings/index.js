@@ -51,19 +51,18 @@ function SettingsSections() {
         const userId = localStorage.getItem("userId");
 
         if (!userId) {
-            console.error("Usuário não autenticado.");
             return;
         }
 
-        setLoading(true); // Ativa o estado de carregamento
+        setLoading(true);
 
         try {
             await postProfile(userId, { profile: image });
             window.location.reload();
         } catch (error) {
-            console.error("Erro ao atualizar o perfil:", error);
+            console.log("Error changing profile image:");
         } finally {
-            setLoading(false); // Desativa o estado de carregamento, independente do sucesso ou erro
+            setLoading(false);
         }
     };
 

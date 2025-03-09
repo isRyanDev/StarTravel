@@ -13,7 +13,7 @@ const Dot = styled.div`
     margin-right: 10px;
     border-radius: 10px;
     background-color: #b3d4fc;
-    animation: pulse 1.5s infinite ease-in-out;
+    animation: pulseDotLoad 1.5s infinite ease-in-out;
 
     &:last-child {
         margin-right: 0;
@@ -31,7 +31,7 @@ const Dot = styled.div`
         animation-delay: 0.1s;
     }
 
-    @keyframes pulse {
+    @keyframes pulseDotLoad {
         0% {
             transform: scale(0.8);
             background-color: #b3d4fc;

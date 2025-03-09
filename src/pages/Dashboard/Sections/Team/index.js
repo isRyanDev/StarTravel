@@ -107,7 +107,7 @@ const ProfileImg = styled.img`
     transition: all 0.3s ease-in-out;
 `;
 
-function TeamSection() {
+function TeamSection({ setNotifyContent, setNotifyOpen }) {
     const [loading, setLoading] = useState(false);
     const [userPermissions, setUserPermissions] = useState([]);
     const [addMemberOpen, setAddMemberOpen] = useState(false);
@@ -132,7 +132,7 @@ function TeamSection() {
 
             setLoading(false);
         } catch (error) {
-            console.error("Error fetching users:", error);
+            console.log("Error fetching users:");
         }
     };
 
@@ -143,7 +143,6 @@ function TeamSection() {
     const handleEditMember = (member, group) => {
         setSelectedGroup(group);
         setSelectedMember(member);
-        
         setEditMemberOpen(true);
     }
 

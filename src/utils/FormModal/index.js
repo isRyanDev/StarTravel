@@ -1,9 +1,10 @@
 import styled from "styled-components"
+import { setGroup, updateGroup } from "../../services/userAccount";
 import { useEffect, useState } from "react"
 import groups from "../groups.json"
 import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
-import { setGroup, updateGroup } from "../../services/userAccount";
+import APIResponse from "../../components/ApiResponse";
 
 const Container = styled.div`
   position: fixed;
@@ -149,23 +150,20 @@ const Button = styled.div`
     border-radius: .5rem;
     color: black;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
-
-    &:hover{
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
 `;
 
 
 function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
     const [username, setUsername] = useState("");
+    const [apiResponse, setApiResponse] = useState("");
+    const [apiResponseColor, setApiResponseColor] = useState("");
 
     useEffect(() => {
         if (isEdit) {
             setUsername(member);
         }
-
-        console.log(isEdit)
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
@@ -178,12 +176,14 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
         }
 
         if (!username || !selectedGroup || selectedGroup === "Select") {
-            alert("Please fill in all fields.");
+            setApiResponseColor("red");
+            setApiResponse("Please fill in all fields.");
             return;
         }
         
         if (username.toUpperCase() === loggedUser.toUpperCase()) {
-            alert("You can't manage your group");
+            setApiResponseColor("red");
+            setApiResponse("You can't manage your group");
             return;
         }
 
@@ -192,11 +192,12 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                 const response = await updateGroup(body);
 
                 if(response.error){
-                    alert(response.error);
+                    setApiResponseColor("red");
+                    setApiResponse(response.error);
                     return;
                 }
                 else{
-                    alert(response.message);
+                    localStorage.setItem("notifyMessage", response.message);
                 }
             } catch (error) {
                 throw error;
@@ -207,11 +208,12 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                 const response = await setGroup(body);
                 
                 if(response.error){
-                    alert(response.error);
+                    setApiResponseColor("red");
+                    setApiResponse(response.error);
                     return;
                 }
                 else{
-                    alert(response.message);
+                    localStorage.setItem("notifyMessage", response.message);
                 }
             } catch (error) {
                 throw error;
@@ -227,6 +229,8 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
     const handleCancel = () => {
         setUsername("");
         setSelectedGroup("");
+        setApiResponseColor("");
+        setApiResponse("");
         setIsOpen(false);
 
         if (isEdit) {
@@ -237,6 +241,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
 
     return(
         <Container isOpen={isOpen}>
+
             <ModalContainer isOpen={isOpen}>
 
                 <Texts>
@@ -292,6 +297,8 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                         <FormButton type={"submit"} content={"Continue"}/>
                         <Button onClick={handleCancel}>Cancel</Button>
                     </ButtonsContainer>
+
+                    <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
                 </FormContainer>
             </ModalContainer>
         </Container>

@@ -21,12 +21,13 @@ const ApiResContainer = styled.div`
 const ApiRes = styled.p`
     font-family: "Nunito Sans";
     font-size: 1rem;
+    background: none;
     font-weight: 500;
-    color: ${(props) => props.color};
+    color: ${(props) => props.color || "black"};
     transition: all .7s;
-    animation: pulse 1.5s infinite;
+    animation: pulseApiResponse 1.5s infinite; 
 
-    @keyframes pulse {
+    @keyframes pulseApiResponse {
         0% {
             transform: scale(1);
         }
