@@ -14,7 +14,7 @@ import ContactBody from "./Sections/Contact";
 import InvoiceBody from "./Sections/Invoice";
 import TeamBody from "./Sections/Team";
 import SettingsBody from "./Sections/Settings";
-import ConfirmModal from "../../utils/ConfirmModal";
+import ConfirmModal from "../../components/ConfirmModal";
 import userLogout from "../../utils/logout";
 import Notify from "../../components/Notify";
 
