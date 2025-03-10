@@ -250,7 +250,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                                     <p>Email address:</p>
                                 </InputLabel>
 
-                                <TextInput type="email" value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
+                                <TextInput type="email" value={email} setText={setEmail} placeholder={"Enter your email"}/>
 
                             </InputContent>
                         </InputContainer>

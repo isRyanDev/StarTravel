@@ -312,7 +312,7 @@ function LoginContent() {
                                     <p>Username</p>
                                 </InputLabel>
 
-                                <TextInput type={"text"} value={username} setUsername={setUsername} placeholder={"Enter your username"}/>
+                                <TextInput type={"text"} value={username} setText={setUsername} placeholder={"Enter your username"}/>
 
                             </InputContent>
                         </InputContainer>

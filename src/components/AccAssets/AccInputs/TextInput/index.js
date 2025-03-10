@@ -22,14 +22,14 @@ const Input = styled.input`
     }
 `
 
-function TextInput({setUsername, placeholder, type, value}){
+function TextInput({setText, placeholder, type, value}){
 
     return(
         <Input 
             type={type} 
             value={value || ""}
             placeholder={placeholder}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
         />
     );
 }

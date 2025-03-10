@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import { setGroup, updateGroup } from "../../services/userAccount";
 import { useEffect, useState } from "react"
-import groups from "../groups.json"
-import TextInput from "../../components/AccAssets/AccInputs/TextInput";
-import FormButton from "../../components/AccAssets/AccInputs/Button";
-import APIResponse from "../../components/ApiResponse";
+import groups from "../../utils/groups.json"
+import TextInput from "../AccAssets/AccInputs/TextInput";
+import FormButton from "../AccAssets/AccInputs/Button";
+import APIResponse from "../ApiResponse";
 
 const Container = styled.div`
   position: fixed;
@@ -155,7 +155,7 @@ const Button = styled.div`
 `;
 
 
-function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
+function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
     const [username, setUsername] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
@@ -267,7 +267,7 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
                         </InputLabel>
                         
                         {reqUsername ? (
-                            <TextInput value={username} setUsername={setUsername} type={"text"} placeholder={"New member's username"}/>
+                            <TextInput value={username} setText={setUsername} type={"text"} placeholder={"New member's username"}/>
                         ) : (
                             <></>
                         )}
@@ -305,4 +305,4 @@ function FormModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, sel
     )
 }
 
-export default FormModal
+export default GroupModal

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ReactComponent as Card } from "./card.svg";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
-import FormModal from "../../../../utils/FormModal";
+import FormModal from "../../../../components/GroupModal";
 import groups from "../../../../utils/groups.json";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
 const { getUsers, getGroup } = require("../../../../services/userAccount");
@@ -107,7 +107,7 @@ const ProfileImg = styled.img`
     transition: all 0.3s ease-in-out;
 `;
 
-function TeamSection({ setNotifyContent, setNotifyOpen }) {
+function TeamSection() {
     const [loading, setLoading] = useState(false);
     const [userPermissions, setUserPermissions] = useState([]);
     const [addMemberOpen, setAddMemberOpen] = useState(false);

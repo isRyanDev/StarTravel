@@ -199,7 +199,7 @@ function RegisterContent() {
                                     <p>Email address</p>
                                 </InputLabel>
 
-                                <TextInput type={"email"} value={email} setUsername={setEmail} placeholder={"Enter your email"}/>
+                                <TextInput type={"email"} value={email} setText={setEmail} placeholder={"Enter your email"}/>
 
                             </InputContent>
                         </InputContainer>
@@ -210,7 +210,7 @@ function RegisterContent() {
                                     <p>Username</p>
                                 </InputLabel>
 
-                                <TextInput type={"text"} value={username} setUsername={setUsername} placeholder={"Create a username"}/>
+                                <TextInput type={"text"} value={username} setText={setUsername} placeholder={"Create a username"}/>
 
                             </InputContent>
                         </InputContainer>
