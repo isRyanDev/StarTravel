@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    baseURL: "https://jstar.api.ryandev.com.br/users",
+    baseURL: "https://star.api.ryandev.com.br/users",
     // baseURL: "http://localhost:8080/users",
 });
 
