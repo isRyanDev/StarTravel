@@ -217,7 +217,8 @@ const Profile = () => {
                     </ProfileButton>
 
                     <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                        {role !== "Customers" ? <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton> : null}
+                        {/* {role !== "Customers" ? <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton> : null} */}
+                        <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton>
                         <ModalButton onClick={userLogout}>Logout</ModalButton>
                     </ModalContainer>
                 </ProfileContainer>
