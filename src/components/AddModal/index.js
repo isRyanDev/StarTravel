@@ -128,10 +128,7 @@ function AddModal({ isOpen, setIsOpen, title, subtitle, text, setText, handleAdd
             setApiResponse("Please fill in all fields.");
             return;
         }
-
-        localStorage.setItem("notifyMessage", "Task added successfully!");
         handleAddTask();
-        window.location.reload();
     };
 
     return (

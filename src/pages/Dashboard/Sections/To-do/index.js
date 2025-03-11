@@ -1,148 +1,148 @@
-import { useEffect, useState } from "react";
-import { userAddList, userGetList } from "../../../../services/tdLists";
-import styled from "styled-components";
-import Loading from "../../../../components/Loading";
-import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
-import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
-import AddModal from "../../../../components/AddModal";
+    import { useEffect, useState } from "react";
+    import { userAddList, userGetList } from "../../../../services/tdLists";
+    import styled from "styled-components";
+    import Loading from "../../../../components/Loading";
+    import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
+    import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
+    import AddModal from "../../../../components/AddModal";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 92%;
-    width: 100%;
-    gap: 2.3rem;
-    font-family: 'Nunito Sans', sans-serif;
-`;
+    const Container = styled.div`
+        display: flex;
+        flex-direction: column;
+        height: 92%;
+        width: 100%;
+        gap: 2.3rem;
+        font-family: 'Nunito Sans', sans-serif;
+    `;
 
-const ToDoContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 2.3rem;
-    font-family: 'Nunito Sans', sans-serif;
-    padding: 2.3rem 1.8rem;
-`;
+    const ToDoContainer = styled.div`
+        display: flex;
+        flex-direction: column;
+        gap: 2.3rem;
+        font-family: 'Nunito Sans', sans-serif;
+        padding: 2.3rem 1.8rem;
+    `;
 
-const TeamTopBar = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-`;
+    const TeamTopBar = styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    `;
 
-const Title = styled.h1`
-    font-size: 32px;
-    font-weight: bold;
-`;
+    const Title = styled.h1`
+        font-size: 32px;
+        font-weight: bold;
+    `;
 
-const AddButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--secondary-color);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: var(--dashboard-secondary-color);
+    const AddButton = styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--secondary-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: var(--dashboard-secondary-color);
 
-    &:hover {
+        &:hover {
+            cursor: pointer;
+        }
+    `;
+
+    const TaskContainer = styled.div`
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    `;
+
+    const Task = styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        color: ${props => props.checked ? "var(--secondary-color)" : "black"};
+        border: 0.6px solid #D5D5D5;
+        background: ${(props) => (props.checked ? "var(--dashboard-secondary-color)" : "#FBFCFF")};
+        transition: all 0.3s ease-in-out;
+    `;
+
+    const TaskContent = styled.div`
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    `;
+
+    const CheckboxContainer = styled.label`
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
-    }
-`;
 
-const TaskContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-`;
+        .custom-checkbox:checked + .checkmark {
+            background-color: transparent;
+            border: 1px solid white;
+            box-shadow: 0 3px 7px rgba(33, 150, 243, 0.3);
+        }
 
-const Task = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 1rem;
-    padding: 1rem 2rem;
-    color: ${props => props.checked ? "var(--secondary-color)" : "black"};
-    border: 0.6px solid #D5D5D5;
-    background: ${(props) => (props.checked ? "var(--dashboard-secondary-color)" : "#FBFCFF")};
-    transition: all 0.3s ease-in-out;
-`;
+        .custom-checkbox:checked + .checkmark:after {
+            display: block;
+            animation: checkAnim 0.2s forwards;
+        }
 
-const TaskContent = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-`;
+        @keyframes checkAnim {
+            0% { height: 0; }
+            100% { height: 10px; }
+        }
+    `;
 
-const CheckboxContainer = styled.label`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    const CheckboxInput = styled.input`
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    `;
 
-    .custom-checkbox:checked + .checkmark {
-        background-color: transparent;
-        border: 1px solid white;
-        box-shadow: 0 3px 7px rgba(33, 150, 243, 0.3);
-    }
-
-    .custom-checkbox:checked + .checkmark:after {
-        display: block;
-        animation: checkAnim 0.2s forwards;
-    }
-
-    @keyframes checkAnim {
-        0% { height: 0; }
-        100% { height: 10px; }
-    }
-`;
-
-const CheckboxInput = styled.input`
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-`;
-
-const Checkmark = styled.span`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 6px;
-    border: 1px solid var(--dashboard-border-color);
-    transition: background-color 0.5s;
-
-    &:after {
-        content: "";
-        display: none;
+    const Checkmark = styled.span`
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
-        top: -2px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-    }
-`;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 6px;
+        border: 1px solid var(--dashboard-border-color);
+        transition: background-color 0.5s;
 
-const DeleteButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--secondary-color);
-    padding: 1rem;
-    border-radius: 0.5rem;
+        &:after {
+            content: "";
+            display: none;
+            position: relative;
+            top: -2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    `;
 
-    &:hover {
-        cursor: pointer;
-    }
-`;
+    const DeleteButton = styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--secondary-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    `;
 
 function ToDoSection() {
     const [userTdList, setUserTdList] = useState([]);
@@ -152,53 +152,45 @@ function ToDoSection() {
 
     const fetchUserlist = async () => {
         const username = localStorage.getItem("username");
-
-        if (typeof window !== "undefined" && username) {
-            try {
-                setLoading(true);
-                const response = await userGetList({ username });
-
-                setUserTdList(Array.isArray(response) ? response : []);
-            } catch (error) {
-                console.error("Error fetching user list:", error);
-                setUserTdList([]);
-            } finally {
-                setLoading(false);
-            }
+    
+        try {
+            setLoading(true);
+            const response = await userGetList({ username });
+    
+            setUserTdList(Array.isArray(response) ? response : []);
+        } catch (error) {
+            console.error("Erro ao buscar tarefas:", error);
+            setUserTdList([]);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            fetchUserlist();
-        }
+        fetchUserlist();
     }, []);
 
     const handleAddTask = async () => {
         if (!newTask.trim()) return;
-
+    
         const newTaskObject = {
             id: userTdList.length + 1,
             content: newTask,
             done: false
         };
-
+    
         const updatedTasks = [...userTdList, newTaskObject];
-
+    
         setUserTdList(updatedTasks);
         setNewTask("");
-        setShowModal(false);
-
-        if (typeof window !== "undefined") {
-            localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Salva localmente
-        }
-
+        setShowModal(false); 
+    
         try {
             await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
         } catch (error) {
             console.error("Erro ao adicionar tarefa:", error);
         }
-    };
+    };    
 
     const handleCheckboxChange = async (taskId) => {
         const updatedTasks = userTdList.map(task => 
@@ -206,10 +198,6 @@ function ToDoSection() {
         );
 
         setUserTdList(updatedTasks);
-
-        if (typeof window !== "undefined") {
-            localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Salva localmente
-        }
 
         try {
             await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
@@ -221,10 +209,6 @@ function ToDoSection() {
     const handleDeleteTask = async (taskId) => {
         const updatedTasks = userTdList.filter(task => task.id !== taskId);
         setUserTdList(updatedTasks);
-
-        if (typeof window !== "undefined") {
-            localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Salva localmente
-        }
 
         try {
             await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
