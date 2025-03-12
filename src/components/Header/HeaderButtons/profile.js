@@ -117,6 +117,10 @@ const ModalContainer = styled.div`
     z-index: ${(props) => (props.isModalActive ? "1" : "-1")};
     opacity: ${(props) => (props.isModalActive ? "1" : "0")};
     transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
+
+    @media screen and (min-width: 636px) {    
+        width: 60%;
+    }
 `;
 
 const ModalButton = styled.button`

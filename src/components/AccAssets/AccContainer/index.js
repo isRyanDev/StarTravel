@@ -28,17 +28,17 @@ const AccContentContainer = styled.div`
     transition: all 1s ease-in-out;
 
     &.active{
-        opacity: 1;
-        transform: scale(1);
+      opacity: 1;
+      transform: scale(1);
     }
 
     @media screen and (min-width: 1000px){
-        width: 40%;
+      width: 40%;
     }
 
     @media screen and (min-width: 750px) and (min-height: 850px){
-        width: 40rem;
-        height: ${props => props.height || "unset"};
+      width: 40rem;
+      height: ${props => props.height || "unset"};
     }
 `
 
