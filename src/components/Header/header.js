@@ -8,7 +8,6 @@ const HeaderContainer = styled.header`
     flex-direction: row;
     height: 10vh;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
     justify-content: space-around;
     align-items: center;
     z-index: 100;
