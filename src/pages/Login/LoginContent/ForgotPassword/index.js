@@ -22,7 +22,7 @@ const SendEmailContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2.3125rem;
-    transform: translateX(+50vw);
+    transform: translateX(+100vw);
     transition: opacity .3s ease-in-out, transform .7s ease-in-out;
     opacity: 0;
     width: 100%;
@@ -128,7 +128,7 @@ const SendPasswordContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2.3125rem;
-    transform: translateX(+50vw);
+    transform: translateX(+100vw);
     transition: opacity .3s ease-in-out, transform .7s ease-in-out;
     opacity: 0;
     width: 100%;

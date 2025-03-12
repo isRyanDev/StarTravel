@@ -45,9 +45,13 @@ const ServicesSubtitle = styled.h3`
 
 const ServicesTitle = styled.h1`
     font-family: 'Volkhov', sans-serif;
-    font-size: 4rem;
+    font-size: 2rem;
     color: var(--primary-color);
     transition: all .7s;
+
+    @media screen and (min-width: 1640px){
+        font-size: 4rem;
+    }
 `
 
 const ServicesContent = styled.div`

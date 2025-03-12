@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const LogoContainer = styled.div`
-    width: 11rem;
     height: 2.3rem;
+
+    @media screen and (min-width: 636px){
+        width: 15rem;
+    }
 `
 
 const LinkStyled = styled(Link)`

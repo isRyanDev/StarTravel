@@ -11,7 +11,6 @@ const FooterContainer = styled.footer`
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 75vw;
     opacity: 0;
     transform: translateX(+10rem);
     overflow: hidden;

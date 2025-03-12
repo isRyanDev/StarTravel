@@ -48,8 +48,12 @@ const ProfileContainer = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-around;
-    width: 11rem;
+
     align-items: center;
+
+    @media screen and (min-width: 636px) {    
+        width: 15rem;
+    }
 `;
 
 const ProfileButton = styled.button`

@@ -20,8 +20,8 @@ const AccContentContainer = styled.div`
     border-radius: 1.5rem;
     border: 1px solid #B9B9B9;
     background-color: var(--secondary-color);
-    height: 80%;
-    width: 80%;
+    height: 95%;
+    width: 95%;
     overflow: hidden;
     opacity: 0;
     transform: scale(0.9);

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const HeaderButtonsContainer = styled.div`
     display: none;
 
-    @media screen and (min-width: 636px){
+    @media screen and (min-width: 975px){
         display: flex;
         flex-direction: row;
         align-items: center;
