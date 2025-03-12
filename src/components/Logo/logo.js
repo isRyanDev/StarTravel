@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const LogoContainer = styled.div`
-    width: 15rem;
+    width: 11rem;
     height: 2.3rem;
 `
 

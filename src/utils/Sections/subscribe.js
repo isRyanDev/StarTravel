@@ -10,6 +10,7 @@ const SubscribeContainer = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     transform: translateX(-10rem);
     opacity: 0;
     transition: transform 1s ease-in-out, opacity .5s ease-in-out; 
@@ -33,10 +34,10 @@ const SubscribeContent = styled.div`
     justify-content: center;
     gap: 4rem;
     height: 25rem;
-    width: 72rem;
 
     @media screen and (min-width: 1640px){
         gap: 6rem;
+        width: 72rem;
     }
 `
 

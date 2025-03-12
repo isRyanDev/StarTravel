@@ -8,6 +8,7 @@ const AboutContainer = styled.section`
     flex-direction: column;
     align-items: center;
     height: 90vh;
+    width: 100vw;
     transform: translateX(-10rem);
     opacity: 0;
     transition: transform 1s ease-in-out, opacity .5s ease-in-out;

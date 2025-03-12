@@ -14,6 +14,7 @@ const FooterContainer = styled.footer`
     max-width: 75vw;
     opacity: 0;
     transform: translateX(+10rem);
+    overflow: hidden;
     padding: 2rem;
     transition: all 1s ease-in-out;
     gap: 2rem;

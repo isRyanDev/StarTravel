@@ -11,7 +11,6 @@ const ButtonContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 15rem;
 `;
 
 const LinkStyled = styled(Link)`
@@ -49,6 +48,7 @@ const ProfileContainer = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-around;
+    width: 11rem;
     align-items: center;
 `;
 

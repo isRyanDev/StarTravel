@@ -6,16 +6,11 @@ const HeaderButtonsContainer = styled.div`
 
     @media screen and (min-width: 636px){
         display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        transition: all .7s;
         color: var(--secondary-color);
-        margin: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: row;
         gap: 1.5rem;
-        flex-grow: 1;
         transition: all .7s;
     }
 `

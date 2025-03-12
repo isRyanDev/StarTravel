@@ -8,6 +8,7 @@ const HeaderContainer = styled.header`
     flex-direction: row;
     height: 10vh;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
     justify-content: space-around;
     align-items: center;
     z-index: 100;
@@ -17,7 +18,6 @@ const HeaderContainer = styled.header`
     }
 
     @media screen and (min-width: 1640px){
-        display: flex;  
         width: 75vw;
     }
 `
