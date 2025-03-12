@@ -87,10 +87,15 @@ const SubscribeEmail = styled.div`
     flex-direction: row;
     align-items: center;
     height: 4rem;
+    width: 18rem;
     background-color: var(--secondary-color);
     padding: 0 1.2rem 0 1.2rem;
     border-radius: .5rem;
     gap: .8rem;
+
+    @media screen and (min-width: 1640px){
+        width: 26rem;
+    }
 `
 
 const EmailImg = styled.img`
@@ -100,22 +105,18 @@ const EmailImg = styled.img`
 const SubscribeEmailInput = styled.input`
     border: none;
     background-color: transparent;
-    width: 20rem;
+    width: 100%;
     color: var(--primary-color);
 
     &:focus-visible{
         outline: none;
-    }
-
-    @media screen and (min-width: 1640px){
-        width: 26rem;
     }
 `
 
 const SubscribeSubmit = styled.button`
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
-    width: 24.2rem;
+    width: 100%;
     height: 4rem;
     border: none;
     background-color: var(--tertiary-color);

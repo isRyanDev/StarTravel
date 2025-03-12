@@ -58,18 +58,24 @@ const FooterSubtitle = styled.p`
 
 const FooterListContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1rem;
 
     @media screen and (min-width: 1640px){
+        flex-direction: row;
         gap: 4rem;
     }
 `
 
 const FooterList = styled.div`
     display: flex;
-    flex-direction: column;
-    gap: .5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @media screen and (min-width: 1640px){
+        justify-content: unset;
+    }
 `
 
 const FooterListTitle = styled.h1`
@@ -84,7 +90,6 @@ const FooterLinks = styled.div`
     display: flex;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
-    height: 5rem;
 `
 
 const LinkStyled = styled(Link)`
@@ -183,10 +188,11 @@ function Footer(){
 
                 <FooterListContainer>
                             <FooterList>          
-                                <FooterListTitle>
-                                    Company
-                                </FooterListTitle>
                                 <FooterLinks>
+                                    <FooterListTitle>
+                                        Company
+                                    </FooterListTitle>
+
                                     <LinkStyled to="/about">
                                         About
                                     </LinkStyled>
@@ -197,19 +203,18 @@ function Footer(){
                                         Help/FAQ
                                     </LinkStyled>
                                 </FooterLinks>
-                            </FooterList>
 
-                            <FooterList>  
-                                <FooterListTitle>
-                                    Contacts
-                                </FooterListTitle>
                                 <FooterLinks>
-                                        <LinkStyled to="mailto:suporte@star.com" target="blank">
-                                            Email
-                                        </LinkStyled>
-                                        <LinkStyled to="whatsapp://send?phone=+55(00)00000-0000" target="blank">
-                                            Phone
-                                        </LinkStyled>
+                                    <FooterListTitle>
+                                        Contacts
+                                    </FooterListTitle>
+
+                                    <LinkStyled to="mailto:suporte@star.com" target="blank">
+                                        Email
+                                    </LinkStyled>
+                                    <LinkStyled to="whatsapp://send?phone=+55(00)00000-0000" target="blank">
+                                        Phone
+                                    </LinkStyled>
                                 </FooterLinks>
                             </FooterList>
 

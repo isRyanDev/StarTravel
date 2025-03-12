@@ -47,6 +47,7 @@ const LoginSubtitle = styled.p`
     font-family: "Nunito Sans";
     text-align: center;
     font-size: 18px;
+    padding: 0 .5rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;

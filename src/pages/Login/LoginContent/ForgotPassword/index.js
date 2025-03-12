@@ -70,6 +70,7 @@ const LoginSubtitle = styled.p`
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
+    padding: 0 .5rem;
     line-height: normal;
     letter-spacing: -0.064px;
 `
