@@ -6,15 +6,13 @@ import EmailIcon from "../../assets/Icons/subscribe-email-element.png"
 const SubscribeContainer = styled.section`
     display: flex;
     margin-top: 2rem;
-    height: 50vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     transform: translateX(-10rem);
     opacity: 0;
     transition: transform 1s ease-in-out, opacity .5s ease-in-out; 
-    gap: 4rem;
+    gap: 2rem;
 
     &.active{
         transform: translateX(0);
@@ -22,6 +20,7 @@ const SubscribeContainer = styled.section`
     }
 
     @media screen and (min-width: 1640px){
+        height: 60vh;
         justify-content: space-between;
         margin: 0;
     }
