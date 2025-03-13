@@ -246,13 +246,13 @@ function Profile() {
 
     return (
         <>
-            {user ? ( // Se o usuário estiver logado
+            {user ? (
                 <ProfileContainer>
                     <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>
                         {loading ? <SmallLoad /> : <ProfileImg src={profilePath} alt="" />}
                         
                         <UserProfile>
-                            <Username>{user.username}</Username> {/* Agora usa o username do contexto */}
+                            <Username>{user.username}</Username>
                             <UserRole>{role || "Loading..."}</UserRole>
                         </UserProfile>
 

@@ -144,7 +144,7 @@ const CheckboxContainer = styled.div`
         fill: none;
         stroke: #fff;
         stroke-miterlimit: 10;
-        strokeWidth: 2px;
+        stroke-width: 2px;
         stroke-dashoffset: 100;
         stroke-dasharray: 100;
         transition: ease all 0.6s;
@@ -154,9 +154,9 @@ const CheckboxContainer = styled.div`
     & .check {
         fill: none;
         stroke: #fff;
-        strokeLinecap: round;
-        strokeLinejoin: round;
-        strokeWidth: 2px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
         stroke-dashoffset: 22;
         stroke-dasharray: 22;
         transition: ease all 0.6s;
@@ -270,9 +270,9 @@ function LoginContent() {
     
             console.log("API response:", response);
 
-            if (response && response.sucess) { 
+            if (response && response.success) { 
                 setApiResponseColor("#6579FC");
-                setApiResponse(response.sucess);
+                setApiResponse(response.success);
 
                 setTimeout(() => {
                     navigate("/");
