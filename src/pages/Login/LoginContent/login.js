@@ -64,7 +64,11 @@ const LoginFormContainer = styled.form`
     align-items: center;
     width: 80%;
     justify-content: center;
-    gap: 3.5rem;
+    gap: 2rem;
+
+    @media screen and (min-height: 700px) {
+        gap: 3.5rem;
+    }
 `
 
 const FormContent = styled.div`
