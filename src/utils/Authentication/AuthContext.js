@@ -12,24 +12,24 @@ export function AuthProvider({ children }) {
                 method: 'POST',
                 credentials: 'include'
             });
-    
+
             if (!response.ok) {
                 setUser(null);
                 return;
             }
-    
+
             const data = await response.json();
             setUser(prev => ({ ...prev, token: data.accessToken }));
         } catch (error) {
             console.error('Erro ao atualizar token:', error);
             setUser(null);
         }
-    }    
+    }
 
     useEffect(() => {
         async function checkAuth() {
             try {
-                const response = await fetch('https://star.api.ryandev.com.br/users/auth/me', {
+                const response = await fetch('https://star.api.ryandev.com.br/users/auth', {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -51,6 +51,16 @@ export function AuthProvider({ children }) {
 
         checkAuth();
     }, []);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (user && user.token) {
+                refreshAccessToken();
+            }
+        }, 15 * 60 * 1000);
+
+        return () => clearInterval(intervalId);
+    }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, setUser, loading, refreshAccessToken }}>
