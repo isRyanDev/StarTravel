@@ -118,7 +118,7 @@ const ModalContainer = styled.div`
     background-color: var(--secondary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.7s;
-    z-index: ${(props) => (props.isModalActive ? "1" : "-1")};
+    z-index: ${(props) => (props.isModalActive ? "1000" : "-1")};
     opacity: ${(props) => (props.isModalActive ? "1" : "0")};
     transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
 
