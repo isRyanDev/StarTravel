@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 const SeachBarContainer = styled.div`
-    display: flex;
+    display: none;
     flex-direction: row;
-    
     align-items: center;
     width: 25rem;
     height: 2.5rem;
@@ -12,6 +11,10 @@ const SeachBarContainer = styled.div`
     border-radius: 19px;
     border: 0.6px solid var(--dashboard-border-color);
     background: #F5F6FA;
+
+    @media screen and (min-width: 1200px){
+        display: flex;
+    }
 `;
 
 const SearchLupe = styled.button`

@@ -70,9 +70,21 @@ const UsersContainer = styled.div`
     display: grid;
     justify-content: center;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
     width: 100%;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (min-width: 900px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 `;
 
 const UserCard = styled(Card)`

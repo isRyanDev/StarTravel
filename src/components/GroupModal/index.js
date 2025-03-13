@@ -7,21 +7,21 @@ import FormButton from "../AccAssets/AccInputs/Button";
 import APIResponse from "../ApiResponse";
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s ease-in-out;
-  z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+    z-index: 1000;
 
-  opacity: ${(props) => (props.isOpen ? 1 : 0)};
-  pointer-events: ${(props) => (props.isOpen ? "auto" : "none")};
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    pointer-events: ${(props) => (props.isOpen ? "auto" : "none")};
 `
 
 const ModalContainer = styled.div`
@@ -31,13 +31,22 @@ const ModalContainer = styled.div`
     justify-content: center;
     gap: 3rem;
     border-radius: 1rem;
-    width: 30vw;
-    height: 60vh;
+    height: 70vh;
+    width: 70vw;
     padding: 3rem;
     background-color: var(--secondary-color);
     font-family: "Nunito Sans", sans-serif;
     transform: ${(props) => (props.isOpen ? "scale(1)" : "scale(0.9)")};
     opacity: ${(props) => (props.isOpen ? "1" : "0")};
+
+    @media screen and (min-width: 625px){
+        width: 60vw;
+    }
+
+    @media screen and (min-width: 1000px){
+        width: 30vw;
+        height: 60vh;
+    }
 `
 
 const Texts = styled.div`

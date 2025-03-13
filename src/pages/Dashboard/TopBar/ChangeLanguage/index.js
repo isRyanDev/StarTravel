@@ -6,7 +6,7 @@ import BRflag from "../../../../assets/Images/br-flag.png";
 import { ReactComponent as ArrowBottomSVG } from "../../../../assets/Svg-Icons/ArrowBottom.svg";
 
 const LanguagesContainer = styled.div`
-    display: flex;
+    display: none;
     flex-direction: row;
     position: relative;
     justify-content: center;
@@ -16,6 +16,10 @@ const LanguagesContainer = styled.div`
     font-family: "Nunito Sans";
     font-size: 1rem;
     color: rgba(100, 100, 100, 1);
+
+    @media screen and (min-width: 415px){
+        display: flex;
+    }
 `;
 
 const Flag = styled.img`

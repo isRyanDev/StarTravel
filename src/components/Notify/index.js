@@ -4,16 +4,16 @@ import styled from "styled-components";
 const NotifyContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: .5rem;
-    position: absolute;
+    gap: 0.5rem;
+    position: fixed;
     top: 10vh;
-    right: 1rem;
-    max-height: 80vh;
-    justify-content: center;
+    right: 0;
+    max-width: 20rem;
+    overflow: hidden;
     z-index: 100;
-
-    transform: ${(props) => (props.active ? "translateX(0)" : "translateX(25rem)")};
-    transition: all 0.8s ease-in-out;
+    transform: ${(props) => (props.active ? "translateX(-10px)" : "translateX(120%)")};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.8s ease-in-out;
 `;
 
 const NotifyContent = styled.div`

@@ -1,13 +1,35 @@
 import styled from "styled-components";
 import SideBarList from "./List";
+import { useEffect, useState } from "react";
 
 const SideBarContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: ${(props) => (props.isActive ? "20rem" : "0rem")};
-    transform: ${(props) => (props.isActive ? "translateX(0)" : "translateX(-20rem)")};
-    transition: all 0.3s ease-in-out;
+    width: ${({ isActive, isMobile }) => (isActive ? (isMobile ? "15rem" : "20rem") : "0")};
+    transform: ${({ isActive, isMobile }) => (isActive ? "translateX(0)" : isMobile ? "translateX(-15rem)" : "translateX(-20rem)")};
+    position: ${({ isMobile }) => (isMobile ? "fixed" : "relative")};
+    height: ${({ isMobile }) => (isMobile ? "100%" : "unset")};
+    z-index: 100;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     background-color: rgba(255, 255, 255, 1);
+`;
+
+const IconContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+`;
+
+const SlideSideBar = styled.div`
+    display: ${({ isMobile }) => (isMobile ? "flex" : "none")};
+    justify-content: center;
+    align-items: center;
+
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 const SideBarIcon = styled.div`
@@ -69,7 +91,18 @@ const SideBarSettingsList = [
     },
 ]
 
-function SideBar({isActive, selectedSection, setSelectedSection, setConfirmation, setConfirmationText}){
+function SideBar({isActive, selectedSection, setSelectedSection, setConfirmation, setConfirmationText, setSideBar}){
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const handleSelect = (name) => {
         if(name === "Logout"){
@@ -83,10 +116,18 @@ function SideBar({isActive, selectedSection, setSelectedSection, setConfirmation
     };
 
     return(
-        <SideBarContainer isActive={isActive} aria-hidden={!isActive}>
-            <SideBarIcon>
-                <p style={{ color: "rgb(72, 128, 255)"}}>Star</p><p>Travel</p>
-            </SideBarIcon>
+        <SideBarContainer isMobile={isMobile} isActive={isActive} aria-hidden={!isActive}>
+            <IconContainer>
+                <SlideSideBar isMobile={isMobile} onClick={() => setSideBar(prev => !prev)}>
+                    <svg width="25" height="20" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.75 0.5625H17.25V1.9375H0.75V0.5625ZM0.75 6.0625H17.25V7.4375H0.75V6.0625ZM0.75 11.5625H17.25V12.9375H0.75V11.5625Z" fill="#202224"/>
+                    </svg>
+                </SlideSideBar>
+
+                <SideBarIcon>
+                    <p style={{ color: "rgb(72, 128, 255)"}}>Star</p><p>Travel</p>
+                </SideBarIcon>
+            </IconContainer>
 
             <SideBarList list={SideBarDefaultList} selectedSection={selectedSection} handleSelect={handleSelect}/>
 

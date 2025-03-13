@@ -22,13 +22,14 @@ const DashboardContainer = styled.div`
     display: flex;
     flex-direction: row;
     min-height: 100vh;
-    width: 100vw;
+    overflow-x: hidden;
     background-color: rgba(245, 246, 250, 1);
 `;
 
 const DashboardContent = styled.div`
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     height: 100vh;
     width: 100%;
 `
@@ -94,7 +95,7 @@ function Dashboard() {
 
             <ConfirmModal text={confirmationText} isOpen={confirmationIsOpen} setIsOpen={setConfirmationIsOpen} setConfirm={setConfirm}/>
 
-            <SideBar setConfirmationText={setConfirmationText} setConfirmation={setConfirmationIsOpen} selectedSection={selectedSection} setSelectedSection={setSelectedSection} isActive={activeSideBar}/>
+            <SideBar setSideBar={setActiveSideBar} setConfirmationText={setConfirmationText} setConfirmation={setConfirmationIsOpen} selectedSection={selectedSection} setSelectedSection={setSelectedSection} isActive={activeSideBar}/>
 
             <DashboardContent>
                 <TopBar setSideBar={setActiveSideBar}/>

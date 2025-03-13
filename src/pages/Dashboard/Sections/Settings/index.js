@@ -27,9 +27,19 @@ const SettingsContent = styled.div`
 `;
 
 const ProfileOptions = styled.div`
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2,1fr);
     gap: .5rem;
+
+    @media screen and (min-width: 350px) {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    @media screen and (min-width: 825px) {
+        display: flex;
+        flex-direction: row;
+    }
 `;
 
 const ProfileImg = styled.img`

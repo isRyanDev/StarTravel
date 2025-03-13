@@ -12,7 +12,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease-in-out;
-  z-index: 10;
+  z-index: 1000;
 
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   pointer-events: ${(props) => (props.isOpen ? "auto" : "none")};
@@ -24,12 +24,20 @@ const ModalContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 3rem;
+    width: 80%;
+    height: 25%;
+    padding: 5%;
     border-radius: 1rem;
-    padding: 3rem;
     background-color: var(--secondary-color);
     font-family: "Nunito Sans", sans-serif;
     transform: ${(props) => (props.isOpen ? "scale(1)" : "scale(0.9)")};
     opacity: ${(props) => (props.isOpen ? "1" : "0")};
+
+    @media screen and (min-width: 375px){
+        width: unset;
+        height: unset;
+        padding: 3rem;
+    }
 `
 
 const ModalConfirmation = styled.p`
