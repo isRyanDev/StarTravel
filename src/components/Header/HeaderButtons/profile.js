@@ -5,6 +5,11 @@ import { getGroup, getProfile } from "../../../services/userAccount";
 import userLogout from "../../../utils/logout";
 import SmallLoad from "../../SmallLoad";
 
+import { ReactComponent as Dash } from "../../../assets/Svg-Icons/Dashboard.svg";
+import { ReactComponent as ManageAcc } from "../../../assets/Svg-Icons/ManageAcc.svg";
+import { ReactComponent as Logout } from "../../../assets/Svg-Icons/LogoutProfile.svg";
+import { ReactComponent as ChangePass } from "../../../assets/Svg-Icons/ChangePass.svg";
+
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -105,7 +110,7 @@ const ModalContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 0.7rem;
+    border-radius: 14px;
     max-height: 50vh;
     gap: 0.5rem;
     width: 100%;
@@ -113,20 +118,19 @@ const ModalContainer = styled.div`
     background-color: var(--secondary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.7s;
-    padding: ${(props) => (props.isModalActive ? ".5rem" : "0")};
     z-index: ${(props) => (props.isModalActive ? "1" : "-1")};
     opacity: ${(props) => (props.isModalActive ? "1" : "0")};
     transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
 
     @media screen and (min-width: 636px) {    
-        width: 60%;
+        width: 80%;
     }
 `;
 
 const ModalButton = styled.button`
-    font-family: "Nunito Sans";
-    font-size: 1rem;
-    color: rgba(100, 100, 100, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     background-color: transparent;
     border: none;
@@ -137,6 +141,31 @@ const ModalButton = styled.button`
         font-weight: bold;
         color: black;
     }
+`;
+
+const ModalContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    width: 100%;
+    color: #404040;
+    font-family: "Nunito Sans";
+    font-size: 14px;
+`;
+
+const Divider = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: rgba(224, 224, 224, 1);
+`;
+
+const Dashboard = styled(Dash)`
+    width: 16px;
+    height: 16px;
+    fill: var(--dashboard-secondary-color);
 `;
 
 const Profile = () => {
@@ -202,6 +231,29 @@ const Profile = () => {
         }
     };    
 
+    const profileOptions = [
+        {
+            content: "Dashboard",
+            action: () => navigate("/dashboard"),
+            src: <Dashboard/>
+        },
+        {
+            content: "Manage Account",
+            action: "",
+            src: <ManageAcc/>
+        },
+        {
+            content: "Change Password",
+            action: "",
+            src: <ChangePass/>
+        },
+        {
+            content: "Log out",
+            action: userLogout,
+            src: <Logout/>
+        }
+    ]  
+
     const profilePath = `/profile/${userProfileImg}.png`;
 
     return (
@@ -225,9 +277,18 @@ const Profile = () => {
                     </ProfileButton>
 
                     <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                        {/* {role !== "Customers" ? <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton> : null} */}
-                        <ModalButton onClick={() => navigate("/dashboard")}>Dashboard</ModalButton>
-                        <ModalButton onClick={userLogout}>Logout</ModalButton>
+                        <ModalButton>
+                            {profileOptions.map((option, index) => (
+                                <ModalButton key={index} onClick={option.action}>
+                                    <ModalContent>
+                                        {option.src}
+                                        {option.content}
+                                    </ModalContent>
+
+                                    {index !== profileOptions.length - 1 && <Divider/>}
+                                </ModalButton>
+                            ))}
+                        </ModalButton>
                     </ModalContainer>
                 </ProfileContainer>
             ) : (
