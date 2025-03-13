@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getGroup, getProfile } from "../../../services/userAccount";
+import { AuthContext } from '../../../utils/Authentication/AuthContext';
 import userLogout from "../../../utils/logout";
 import SmallLoad from "../../SmallLoad";
 
@@ -53,7 +53,6 @@ const ProfileContainer = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-around;
-
     align-items: center;
 
     @media screen and (min-width: 636px) {    
@@ -169,8 +168,8 @@ const Dashboard = styled(Dash)`
     fill: var(--dashboard-secondary-color);
 `;
 
-const Profile = () => {
-    const username = localStorage.getItem("username");
+function Profile() {
+    const { user } = useContext(AuthContext);
     const [role, setRole] = useState("");
     const [userProfileImg, setUserProfileImg] = useState("");
     const [isModalActive, setIsModalActive] = useState(false);
@@ -200,25 +199,13 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        const fetchUserInfos = async () => {
-            try {
-                const userId = localStorage.getItem("userId");
-                if (userId) {
-                    setLoading(true);
-                    const userRole = await getGroup(userId);
-                    const userProfile = await getProfile(userId);
-                    setRole(userRole.group);
-                    setUserProfileImg(userProfile.profile);
-                    setLoading(false);
-                }
-            } catch (error) {
-                setRole("Client"); 
-                setUserProfileImg("default");
-            }
-        };
-
-        fetchUserInfos();
-    }, []);
+        if (user) {
+            setLoading(true);
+            setRole(user.profile);
+            setUserProfileImg(user.userUuid);
+            setLoading(false);
+        }
+    }, [user]);
 
     const profileToggle = () => {
         if (!isModalActive) {
@@ -230,66 +217,63 @@ const Profile = () => {
                 if (!isModalActive) setModalIsVisible(false); 
             }, 500);
         }
-    };    
+    };
 
     const profileOptions = [
         {
             content: "Dashboard",
             action: () => navigate("/dashboard"),
-            src: <Dashboard/>
+            src: <Dashboard />
         },
         {
             content: "Manage Account",
             action: "",
-            src: <ManageAcc/>
+            src: <ManageAcc />
         },
         {
             content: "Change Password",
             action: "",
-            src: <ChangePass/>
+            src: <ChangePass />
         },
         {
             content: "Log out",
             action: userLogout,
-            src: <Logout/>
+            src: <Logout />
         }
-    ]  
+    ];  
 
     const profilePath = `/profile/${userProfileImg}.png`;
 
     return (
         <>
-            {username ? (
+            {user ? ( // Se o usuário estiver logado
                 <ProfileContainer>
                     <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>
-                        {loading ? <SmallLoad/> : 
-                            <ProfileImg src={profilePath} alt="" />
-                        }
+                        {loading ? <SmallLoad /> : <ProfileImg src={profilePath} alt="" />}
                         
                         <UserProfile>
-                            <Username>{username}</Username>
+                            <Username>{user.username}</Username> {/* Agora usa o username do contexto */}
                             <UserRole>{role || "Loading..."}</UserRole>
                         </UserProfile>
 
                         <ArrowSVG isModalActive={isModalActive} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 19.1C15.0258 19.1 19.1 15.0258 19.1 10C19.1 4.97421 15.0258 0.9 10 0.9C4.97421 0.9 0.9 4.97421 0.9 10C0.9 15.0258 4.97421 19.1 10 19.1Z" stroke="#5C5C5C" strokeWidth="0.2"/>
-                            <path d="M10 10.7929L7.73162 8.14645C7.56425 7.95118 7.29289 7.95118 7.12553 8.14645C6.95816 8.34171 6.95816 8.65829 7.12553 8.85355L9.69695 11.8536C9.86432 12.0488 10.1357 12.0488 10.303 11.8536L12.8745 8.85355C13.0418 8.65829 13.0418 8.34171 12.8745 8.14645Z" fill="#565656"/>
+                            <path d="M10 10.7929L7.73162 8.14645C7.56425 7.95118 7.29289 7.95118 7.12553 8.14645C6.95816 8.34171 6.95816 8.65829 7.12553 8.85355L9.69695 11.8536C9.86432 12.0488 10.1357 12.0488 10.303 11.8536L12.8745 8.85355C13.0418 8.65829 13.0418 8.34171 12.8745 8.14645C12.7071 7.95118 12.4358 7.95118 12.2684 8.14645L10 10.7929Z" fill="#5C5C5C"/>
                         </ArrowSVG>
                     </ProfileButton>
 
                     <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                        <ModalButton>
-                            {profileOptions.map((option, index) => (
-                                <ModalButton key={index} onClick={option.action}>
+                        {profileOptions.map((option, idx) => (
+                            <div key={idx}>
+                                <ModalButton onClick={option.action}>
                                     <ModalContent>
                                         {option.src}
-                                        {option.content}
+                                        <span>{option.content}</span>
                                     </ModalContent>
-
-                                    {index !== profileOptions.length - 1 && <Divider/>}
                                 </ModalButton>
-                            ))}
-                        </ModalButton>
+                                {idx !== profileOptions.length - 1 && <Divider />}
+                            </div>
+                        ))}
                     </ModalContainer>
                 </ProfileContainer>
             ) : (

@@ -261,7 +261,8 @@ function LoginContent() {
 
         const credentials = {
             username,
-            password
+            password,
+            rememberMe: isChecked
         };
     
         try {
@@ -271,26 +272,10 @@ function LoginContent() {
 
             if (response && response.sucess) { 
                 setApiResponseColor("#6579FC");
-
-                if(isChecked){
-                    setApiResponse(response.sucess);
-                    localStorage.setItem("token", response.token);
-                    localStorage.setItem("username", credentials.username);
-                    localStorage.setItem("userId", response.id);
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 1000);
-                    return;
-                }
+                setApiResponse(response.sucess);
 
                 setTimeout(() => {
-                    localStorage.setItem("isLogged", true);
-                    localStorage.setItem("token", response.token);
-                    setApiResponse(response.sucess);
-                }, 100);
-
-                setTimeout(() => {
-                    navigate("/dashboard");
+                    navigate("/");
                 }, 1000);
             } else {
                 setApiResponseColor("red");

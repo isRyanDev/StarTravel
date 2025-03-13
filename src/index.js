@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard/index';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound/index';
+import { AuthProvider } from './utils/Authentication/AuthContext';
+import PrivateRoute from './routes/PrivateRoute';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -64,15 +66,17 @@ root.render(
   <React.StrictMode>
     <GlobalStyle />
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/destinations" element={<Destinations/>} />
-        <Route path="/services" element={<Services/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/*" element={<NotFound/>} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/destinations" element={<Destinations/>} />
+          <Route path="/services" element={<Services/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/*" element={<NotFound/>} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
