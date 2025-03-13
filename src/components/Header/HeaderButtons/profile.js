@@ -134,12 +134,12 @@ const ModalButton = styled.button`
     width: 100%;
     background-color: transparent;
     border: none;
+    color: #404040;
     transition: all 0.1s ease-in-out;
 
     &:hover {
         cursor: pointer;
         font-weight: bold;
-        color: black;
     }
 `;
 
@@ -151,9 +151,10 @@ const ModalContent = styled.div`
     padding: 10px 12px;
     box-sizing: border-box;
     width: 100%;
-    color: #404040;
+
     font-family: "Nunito Sans";
     font-size: 14px;
+    text-align: left;
 `;
 
 const Divider = styled.div`
