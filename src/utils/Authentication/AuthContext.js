@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
         async function checkAuth() {
             try {
                 const response = await fetch('https://star.api.ryandev.com.br/users/auth', {
-                    method: 'POST',
+                    method: 'GET',
                     credentials: 'include',
                 });
 
