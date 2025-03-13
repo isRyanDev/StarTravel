@@ -14,7 +14,7 @@ const RegisterContainer = styled.div`
     align-items: center;
     justify-content: center;
     padding: 60px;
-    gap: 2.3rem;
+    gap: 1.5rem;
     width: 100%;
     opacity: 1;
     transform: translateX(0);
@@ -23,6 +23,10 @@ const RegisterContainer = styled.div`
     &.forgot-password{
         opacity: 0;
         transform: translateX(-50vw);
+    }
+
+    @media screen and (min-height: 700px) {
+        gap: 2.3rem;
     }
 `
 
@@ -59,7 +63,11 @@ const RegisterFormContainer = styled.form`
     align-items: center;
     width: 80%;
     justify-content: center;
-    gap: 3.5rem;
+    gap: 2rem;
+
+    @media screen and (min-height: 700px) {
+        gap: 3.5rem;
+    }
 `
 
 const FormContent = styled.div`
@@ -67,8 +75,12 @@ const FormContent = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1rem;
     width: 100%;
+
+    @media screen and (min-height: 700px) {
+        gap: 2.5rem;
+    }
 `
 
 const InputContainer = styled.div`

@@ -24,7 +24,7 @@ const ModalContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 3rem;
-    width: 80%;
+    width: 70%;
     height: 25%;
     padding: 5%;
     border-radius: 1rem;
@@ -33,7 +33,7 @@ const ModalContainer = styled.div`
     transform: ${(props) => (props.isOpen ? "scale(1)" : "scale(0.9)")};
     opacity: ${(props) => (props.isOpen ? "1" : "0")};
 
-    @media screen and (min-width: 375px){
+    @media screen and (min-width: 450px){
         width: unset;
         height: unset;
         padding: 3rem;

@@ -14,7 +14,7 @@ const LoginContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2.3125rem;
+    gap: 1.5rem;
     width: 100%;
     height: 100%;
     opacity: 1;
@@ -24,6 +24,10 @@ const LoginContainer = styled.div`
     &.forgot-password{
         opacity: 0;
         transform: translateX(-50vw);
+    }
+
+    @media screen and (min-height: 700px) {
+        gap: 2.3rem;
     }
 `
 
@@ -68,8 +72,12 @@ const FormContent = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1rem;
     width: 100%;
+
+    @media screen and (min-height: 700px) {
+        gap: 2.5rem;
+    }
 `
 
 const InputContainer = styled.div`
