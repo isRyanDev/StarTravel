@@ -77,8 +77,9 @@ function SideBar({ isActive, selectedSection, setSelectedSection, setConfirmatio
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         window.addEventListener("resize", handleResize);
+        if (isMobile) setSideBar(false);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [isMobile, setSideBar]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
