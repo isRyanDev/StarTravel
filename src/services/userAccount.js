@@ -15,6 +15,15 @@ async function userLogin(credentials) {
     }
 }
 
+async function userLogout() {
+    try {
+        const response = await loginAPI.post("/logout");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function userRegister(credentials) {
     try {
         const response = await loginAPI.post("/register", credentials);
@@ -96,4 +105,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout };
