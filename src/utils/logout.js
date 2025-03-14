@@ -1,10 +1,11 @@
-async function userLogout(){
+import { userLogout } from "../services/userAccount";
+
+async function Logout(){
     try {
         await userLogout();
-        window.location.href = "/";
     } catch (error) {
         console.error("Error logging out:", error);
     }
 };
 
-export default userLogout;
+export default Logout;

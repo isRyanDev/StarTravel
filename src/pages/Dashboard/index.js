@@ -15,8 +15,8 @@ import InvoiceBody from "./Sections/Invoice";
 import TeamBody from "./Sections/Team";
 import SettingsBody from "./Sections/Settings";
 import ConfirmModal from "../../components/ConfirmModal";
-import userLogout from "../../utils/logout";
 import Notify from "../../components/Notify";
+import Logout from "../../utils/logout";
 
 const DashboardContainer = styled.div`
     display: flex;
@@ -40,9 +40,6 @@ function Dashboard() {
     const [confirmationIsOpen, setConfirmationIsOpen] = useState(false);
     const [confirmationText, setConfirmationText] = useState("");
     const [confirm, setConfirm] = useState(false);
-    const navigate = useNavigate();
-    const username = localStorage.getItem("username");
-    const logged = localStorage.getItem("isLogged");
 
     useEffect(() => {
         document.title = "Star Travel | Dashboard";
@@ -50,7 +47,7 @@ function Dashboard() {
 
     useEffect(() => {
         if(confirm){
-            userLogout();
+            Logout();
             setConfirm(false);
         }
     }, [setConfirm, confirm]);

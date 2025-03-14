@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../../utils/Authentication/AuthContext';
-import userLogout from "../../../utils/logout";
+import Logout from "../../../utils/logout";
 import SmallLoad from "../../SmallLoad";
 
 import { ReactComponent as Dash } from "../../../assets/Svg-Icons/Dashboard.svg";
 import { ReactComponent as ManageAcc } from "../../../assets/Svg-Icons/ManageAcc.svg";
-import { ReactComponent as Logout } from "../../../assets/Svg-Icons/LogoutProfile.svg";
+import { ReactComponent as LogoutSVG } from "../../../assets/Svg-Icons/LogoutProfile.svg";
 import { ReactComponent as ChangePass } from "../../../assets/Svg-Icons/ChangePass.svg";
 
 const ButtonContainer = styled.div`
@@ -238,8 +238,8 @@ function Profile() {
         },
         {
             content: "Log out",
-            action: userLogout,
-            src: <Logout />
+            action: Logout,
+            src: <LogoutSVG />
         }
     ];  
 
