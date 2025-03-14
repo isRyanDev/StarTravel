@@ -178,7 +178,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
-        const loggedUser = user.id;
+        const loggedUser = user.username;
         e.preventDefault();
 
         const body = {
