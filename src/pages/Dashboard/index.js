@@ -65,15 +65,6 @@ function Dashboard() {
         }
     }, []);
 
-    useEffect(() => {
-        if (!logged && !username) {
-            navigate("/login");
-        }
-        else{
-            localStorage.removeItem("isLogged");
-        }
-    }, [logged, username, navigate]);
-
     const sections = {
         "Dashboard": <DashboardBody/>,
         "Products": <ProductsBody/>,
