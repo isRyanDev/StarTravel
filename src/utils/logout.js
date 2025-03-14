@@ -1,12 +1,10 @@
-function deleteCookie(name) {
-    document.cookie = `${name}=; max-age=0; path=/; SameSite=None; Secure`;
-}
-
-function userLogout(){
-    localStorage.clear();
-    deleteCookie('authToken');
-    deleteCookie('refreshToken');
-    window.location.href = "/";
+async function userLogout(){
+    try {
+        await userLogout();
+        window.location.href = "/";
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
 };
 
 export default userLogout;
