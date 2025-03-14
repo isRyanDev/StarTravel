@@ -133,7 +133,8 @@ function TeamSection() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await getUsers(user.userId);
+            console.log(user);
+            const response = await getUsers(user.id);
             setUsers(response);
 
             const role = await getGroup();
