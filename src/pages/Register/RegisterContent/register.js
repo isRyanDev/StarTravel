@@ -163,21 +163,13 @@ function RegisterContent() {
 
         try {
             const response = await userRegister(credentials);
-    
-            console.log("API response:", response);
 
             if (response && response.success) {
-
-                setApiResponseColor("#6579FC");
-
-                setApiResponse("Successfully! You will be redirected in 5 seconds.");
-
-                localStorage.setItem("token", response.token);
-                localStorage.setItem("username", credentials.username);
-                localStorage.setItem("userId", response.userId);
+                setApiResponseColor("#6579FC");     
+                setApiResponse("Successfully! Login to the following page.");
 
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/login");
                 }, 5000);
             } else {
                 setApiResponseColor("red");

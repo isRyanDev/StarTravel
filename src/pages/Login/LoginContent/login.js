@@ -267,8 +267,6 @@ function LoginContent() {
     
         try {
             const response = await userLogin(credentials);
-    
-            console.log("API response:", response);
 
             if (response && response.success) { 
                 setApiResponseColor("#6579FC");
@@ -276,6 +274,7 @@ function LoginContent() {
 
                 setTimeout(() => {
                     navigate("/");
+                    window.location.reload();
                 }, 1000);
             } else {
                 setApiResponseColor("red");
