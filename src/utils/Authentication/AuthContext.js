@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
         try {
             const response = await fetch('https://api.ryandev.com.br/auth/refresh', {
                 method: 'POST',
-                credentials: 'include'
+                credentials: 'include',
             });
 
             if (!response.ok) {
@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
             const data = await response.json();
             setUser(prev => ({ ...prev, token: data.accessToken }));
         } catch (error) {
-            console.error('Erro ao atualizar token:', error);
+            console.error('Error refreshing access token:', error);
             setUser(null);
         }
     }
@@ -35,14 +35,14 @@ export function AuthProvider({ children }) {
                 });
 
                 if (!response.ok) {
-                    setUser(null);
+                    setUser(null); 
                     return;
                 }
 
                 const data = await response.json();
-                setUser(data);
+                setUser(data); 
             } catch (error) {
-                console.error('Erro ao verificar autenticacao:', error);
+                console.error('Error checking authentication:', error);
                 setUser(null);
             } finally {
                 setLoading(false);
@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
             if (user && user.token) {
                 refreshAccessToken();
             }
-        }, 15 * 60 * 1000);
+        }, 15 * 60 * 1000); 
 
         return () => clearInterval(intervalId);
     }, [user]);
