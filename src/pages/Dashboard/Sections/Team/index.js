@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ReactComponent as Card } from "./card.svg";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
 import FormModal from "../../../../components/GroupModal";
 import groups from "../../../../utils/groups.json";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
+import { AuthContext } from "../../../../utils/Authentication/AuthContext";
 const { getUsers, getGroup } = require("../../../../services/userAccount");
 
 const Container = styled.div`
@@ -126,15 +127,16 @@ function TeamSection() {
     const [editMemberOpen, setEditMemberOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState("");
     const [selectedGroup, setSelectedGroup] = useState("Select");
+    const { user } = useContext(AuthContext);
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await getUsers();
+            const response = await getUsers(user.userId);
             setUsers(response);
 
-            const role = await getGroup(localStorage.getItem("userId"));
+            const role = await getGroup();
             
             for(let i = 0; i < groups.length; i++) {
                 if(groups[i].group === role.group) {
