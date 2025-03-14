@@ -133,12 +133,10 @@ function TeamSection() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            console.log(user);
-            const id = user.id.toString();
-            const response = await getUsers(id);
+            const response = await getUsers();
             setUsers(response);
 
-            const role = await getGroup();
+            const role = await getGroup(user.id);
             
             for(let i = 0; i < groups.length; i++) {
                 if(groups[i].group === role.group) {
