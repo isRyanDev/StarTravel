@@ -1,10 +1,11 @@
-    import { useEffect, useState } from "react";
+    import { useContext, useEffect, useState } from "react";
     import { userAddList, userGetList } from "../../../../services/tdLists";
     import styled from "styled-components";
     import Loading from "../../../../components/Loading";
     import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
     import AddModal from "../../../../components/AddModal";
+import { AuthContext } from "../../../../utils/Authentication/AuthContext";
 
     const Container = styled.div`
         display: flex;
@@ -149,9 +150,10 @@ function ToDoSection() {
     const [showModal, setShowModal] = useState(false);
     const [newTask, setNewTask] = useState("");
     const [loading, setLoading] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const fetchUserlist = async () => {
-        const username = localStorage.getItem("username");
+        const username = user.username;
     
         try {
             setLoading(true);
@@ -171,6 +173,8 @@ function ToDoSection() {
     }, []);
 
     const handleAddTask = async () => {
+        const username = user.username;
+
         if (!newTask.trim()) return;
     
         const newTaskObject = {
@@ -186,13 +190,15 @@ function ToDoSection() {
         setShowModal(false); 
     
         try {
-            await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
+            await userAddList({ username: username, newList: updatedTasks });
         } catch (error) {
             console.error("Erro ao adicionar tarefa:", error);
         }
     };    
 
     const handleCheckboxChange = async (taskId) => {
+        const username = user.username;
+
         const updatedTasks = userTdList.map(task => 
             task.id === taskId ? { ...task, done: !task.done } : task
         );
@@ -200,18 +206,20 @@ function ToDoSection() {
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
+            await userAddList({ username: username, newList: updatedTasks });
         } catch (error) {
             console.error("Error updating task:", error);
         }
     };
 
     const handleDeleteTask = async (taskId) => {
+        const username = user.username;
+
         const updatedTasks = userTdList.filter(task => task.id !== taskId);
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ username: localStorage.getItem("username"), newList: updatedTasks });
+            await userAddList({ username: username, newList: updatedTasks });
         } catch (error) {
             console.error("Error deleting task:", error);
         }

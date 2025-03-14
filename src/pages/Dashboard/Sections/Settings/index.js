@@ -1,7 +1,8 @@
 import { postProfile } from "../../../../services/userAccount";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import SmallLoad from "../../../../components/SmallLoad";
+import { AuthContext } from "../../../../utils/Authentication/AuthContext";
 
 const SettingsContainer = styled.div`
     display: flex;
@@ -56,9 +57,10 @@ const profileImages = ["men1", "men2", "men3", "woman1", "woman2", "woman3"];
 
 function SettingsSections() {
     const [loading, setLoading] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const changeProfileImage = async (image) => {
-        const userId = localStorage.getItem("userId");
+        const userId = user.id;
 
         if (!userId) {
             return;

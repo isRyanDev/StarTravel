@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import { setGroup, updateGroup } from "../../services/userAccount";
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import groups from "../../utils/groups.json"
 import TextInput from "../AccAssets/AccInputs/TextInput";
 import FormButton from "../AccAssets/AccInputs/Button";
 import APIResponse from "../ApiResponse";
+import { AuthContext } from "../../utils/Authentication/AuthContext";
 
 const Container = styled.div`
     position: fixed;
@@ -168,6 +169,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
     const [username, setUsername] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         if (isEdit) {
@@ -176,7 +178,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
-        const loggedUser = localStorage.getItem("username");
+        const loggedUser = user.id;
         e.preventDefault();
 
         const body = {

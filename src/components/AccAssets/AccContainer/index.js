@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Background from "../AccBackground/background";
-import loginValidation from "../../../utils/loginValidation";
 
 const AccContainer = styled.div`
     display: flex;
@@ -47,8 +46,6 @@ function Accounts({content, height}) {
 
     useEffect(() => {
         document.title = "Star Travel | Login";
-
-        loginValidation();
       }, []);
 
     useEffect(() => {

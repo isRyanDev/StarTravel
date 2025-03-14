@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "../../components/Header/header";
 import Footer from "../../components/Footer/footer";
 import SectionDestinations from "../../utils/Sections/destinations";
-import loginValidation from "../../utils/loginValidation";
 
 const AboutContainer = styled.div`
   display: flex;
@@ -17,8 +16,6 @@ function Destinations() {
   useEffect(() => {
     document.title = "Star Travel | Destinations";
     localStorage.removeItem("currentSection");
-
-    loginValidation();
   }, []);
 
   return (

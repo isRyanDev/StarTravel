@@ -7,7 +7,6 @@ import SectionDestinations from "../../utils/Sections/destinations";
 import Decoration from "../../components/Decoration/decoration";
 import SectionSubscribe from "../../utils/Sections/subscribe";
 import Footer from "../../components/Footer/footer";
-import loginValidation from "../../utils/loginValidation";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -22,8 +21,6 @@ function Home() {
   useEffect(() => {
     document.title = "Star Travel | Home";
     localStorage.removeItem("currentSection");
-
-    loginValidation();
   }, []);
 
   return (
