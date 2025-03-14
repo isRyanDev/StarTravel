@@ -105,7 +105,7 @@ const ButtonContainer = styled.div`
  `;
  
  const ModalContainer = styled.div`
-     /* display: ${(props) => (props.modalIsVisible ? "flex" : "none")}; */
+     display: ${(props) => (props.modalIsVisible ? "flex" : "none")};
      position: absolute;
      flex-direction: column;
      align-items: center;
@@ -119,7 +119,7 @@ const ButtonContainer = styled.div`
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
      transition: all 0.7s;
      z-index: ${(props) => (props.isModalActive ? "1000" : "-1")};
-     /* opacity: ${(props) => (props.isModalActive ? "1" : "0")}; */
+     opacity: ${(props) => (props.isModalActive ? "1" : "0")};
      transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
  
      @media screen and (min-width: 636px) {    
@@ -202,8 +202,8 @@ function Profile() {
     useEffect(() => {
         if (user) {
             setLoading(true);
-            setRole(user.profile);
-            setUserProfileImg(user.userUuid);
+            setRole(user.user_group);
+            setUserProfileImg(user.user_profile);
             setLoading(false);
         }
     }, [user]);
