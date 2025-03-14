@@ -11,162 +11,163 @@ import { ReactComponent as Logout } from "../../../assets/Svg-Icons/LogoutProfil
 import { ReactComponent as ChangePass } from "../../../assets/Svg-Icons/ChangePass.svg";
 
 const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-`;
-
-const LinkStyled = styled(Link)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    text-decoration: none;
-`;
-
-const HeaderButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    background-color: var(--background);
-    padding: 0 1rem;
-    width: 100%;
-    height: 2.8rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: "Nunito Sans";
-    font-size: 1.1rem;
-    color: var(--secondary-color);
-    font-weight: bold;
-    transition: all 0.7s;
-
-    &:hover {
-        background-color: var(--secondary-color);
-        color: var(--background);
-    }
-`;
-
-const ProfileContainer = styled.div`
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
-    @media screen and (min-width: 636px) {    
-        width: 15rem;
-    }
-`;
-
-const ProfileButton = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-`;
-
-const ArrowSVG = styled.svg`
-    transition: all 0.3s ease-in-out;
-    transform: ${(props) => (props.isModalActive ? "rotate(180deg)" : "rotate(0deg)")};
-`
-
-const ProfileImg = styled.img`
-    width: 3rem;
-`;
-
-const UserProfile = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-`;
-
-const Username = styled.p`
-    font-family: "Nunito Sans";
-    font-size: 1rem;
-    color: var(--primary-color);
-    font-weight: bold;
-    transition: all 0.7s;
-`;
-
-const UserRole = styled.p`
-    font-family: "Nunito Sans";
-    font-size: 12px;
-    color: var(--dashboard-text-color);
-    font-weight: 600;
-    transition: all 0.7s;
-`;
-
-const ModalContainer = styled.div`
-    display: ${(props) => (props.modalIsVisible ? "flex" : "none")};
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    max-height: 50vh;
-    gap: 0.5rem;
-    width: 100%;
-    top: 3.5rem;
-    background-color: var(--secondary-color);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.7s;
-    z-index: ${(props) => (props.isModalActive ? "1000" : "-1")};
-    opacity: ${(props) => (props.isModalActive ? "1" : "0")};
-    transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
-
-    @media screen and (min-width: 636px) {    
-        width: 80%;
-    }
-`;
-
-const ModalButton = styled.button`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    color: #404040;
-    transition: all 0.1s ease-in-out;
-
-    &:hover {
-        cursor: pointer;
-        font-weight: bold;
-    }
-`;
-
-const ModalContent = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    padding: 10px 12px;
-    box-sizing: border-box;
-    width: 100%;
-
-    font-family: "Nunito Sans";
-    font-size: 14px;
-    text-align: left;
-`;
-
-const Divider = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: rgba(224, 224, 224, 1);
-`;
-
-const Dashboard = styled(Dash)`
-    width: 16px;
-    height: 16px;
-    fill: var(--dashboard-secondary-color);
-`;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+ `;
+ 
+ const LinkStyled = styled(Link)`
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 50%;
+     text-decoration: none;
+ `;
+ 
+ const HeaderButton = styled.div`
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 5px;
+     background-color: var(--background);
+     padding: 0 1rem;
+     width: 100%;
+     height: 2.8rem;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     font-family: "Nunito Sans";
+     font-size: 1.1rem;
+     color: var(--secondary-color);
+     font-weight: bold;
+     transition: all 0.7s;
+ 
+     &:hover {
+         background-color: var(--secondary-color);
+         color: var(--background);
+     }
+ `;
+ 
+ const ProfileContainer = styled.div`
+     display: flex;
+     position: relative;
+     flex-direction: column;
+     justify-content: space-around;
+ 
+     align-items: center;
+ 
+     @media screen and (min-width: 636px) {    
+         width: 15rem;
+     }
+ `;
+ 
+ const ProfileButton = styled.button`
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: row;
+     gap: 1rem;
+     border-radius: 0.5rem;
+     border: none;
+     background-color: transparent;
+     cursor: pointer;
+ `;
+ 
+ const ArrowSVG = styled.svg`
+     transition: all 0.3s ease-in-out;
+     transform: ${(props) => (props.isModalActive ? "rotate(180deg)" : "rotate(0deg)")};
+ `
+ 
+ const ProfileImg = styled.img`
+     width: 3rem;
+ `;
+ 
+ const UserProfile = styled.div`
+     display: flex;
+     flex-direction: column;
+     gap: 3px;
+ `;
+ 
+ const Username = styled.p`
+     font-family: "Nunito Sans";
+     font-size: 1rem;
+     color: var(--primary-color);
+     font-weight: bold;
+     transition: all 0.7s;
+ `;
+ 
+ const UserRole = styled.p`
+     font-family: "Nunito Sans";
+     font-size: 12px;
+     color: var(--dashboard-text-color);
+     font-weight: 600;
+     transition: all 0.7s;
+ `;
+ 
+ const ModalContainer = styled.div`
+     /* display: ${(props) => (props.modalIsVisible ? "flex" : "none")}; */
+     position: absolute;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     border-radius: 14px;
+     max-height: 50vh;
+     gap: 0.5rem;
+     width: 100%;
+     top: 3.5rem;
+     background-color: var(--secondary-color);
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     transition: all 0.7s;
+     z-index: ${(props) => (props.isModalActive ? "1000" : "-1")};
+     /* opacity: ${(props) => (props.isModalActive ? "1" : "0")}; */
+     transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
+ 
+     @media screen and (min-width: 636px) {    
+         width: 80%;
+     }
+ `;
+ 
+ const ModalButton = styled.button`
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     width: 100%;
+     background-color: transparent;
+     border: none;
+     color: #404040;
+     transition: all 0.1s ease-in-out;
+ 
+     &:hover {
+         cursor: pointer;
+         font-weight: bold;
+     }
+ `;
+ 
+ const ModalContent = styled.div`
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     gap: 14px;
+     padding: 10px 12px;
+     box-sizing: border-box;
+     width: 100%;
+ 
+     font-family: "Nunito Sans";
+     font-size: 14px;
+     text-align: left;
+ `;
+ 
+ const Divider = styled.div`
+     width: 100%;
+     height: 1px;
+     background-color: rgba(224, 224, 224, 1);
+ `;
+ 
+ const Dashboard = styled(Dash)`
+     width: 16px;
+     height: 16px;
+     fill: var(--dashboard-secondary-color);
+ `;
 
 function Profile() {
     const { user } = useContext(AuthContext);
@@ -263,16 +264,14 @@ function Profile() {
                     </ProfileButton>
 
                     <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                        {profileOptions.map((option, idx) => (
-                            <div key={idx}>
-                                <ModalButton onClick={option.action}>
-                                    <ModalContent>
-                                        {option.src}
-                                        <span>{option.content}</span>
-                                    </ModalContent>
-                                </ModalButton>
-                                {idx !== profileOptions.length - 1 && <Divider />}
-                            </div>
+                        {profileOptions.map((option, index) => (
+                            <ModalButton key={index} onClick={option.action}>
+                                <ModalContent>
+                                    {option.src}
+                                    <span>{option.content}</span>
+                                </ModalContent>
+                                {index !== profileOptions.length - 1 && <Divider />}
+                            </ModalButton>
                         ))}
                     </ModalContainer>
                 </ProfileContainer>
