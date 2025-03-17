@@ -23,6 +23,7 @@ const ApiRes = styled.p`
     font-size: 1rem;
     background: none;
     font-weight: 500;
+    text-align: center;
     color: ${(props) => props.color || "black"};
     transition: all .7s;
     animation: pulseApiResponse 1.5s infinite; 

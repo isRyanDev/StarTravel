@@ -42,6 +42,15 @@ async function refreshToken() {
     }
 }
 
+async function userPermissions() {
+    try {
+        const response = await loginAPI.get("/permissions");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function userRegister(credentials) {
     try {
         const response = await loginAPI.post("/register", credentials);
@@ -71,7 +80,7 @@ async function resetPassword(uuid, newpassword) {
 
 async function getGroup(id) {
     try {
-        const response = await loginAPI.get(`/group/${id}`);
+        const response = await loginAPI.get(`/group`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -123,4 +132,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken, userPermissions };

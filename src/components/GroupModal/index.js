@@ -1,11 +1,9 @@
 import styled from "styled-components"
-import { setGroup, updateGroup } from "../../services/userAccount";
-import { useContext, useEffect, useState } from "react"
-import groups from "../../utils/groups.json"
+import { getGroup, setGroup, updateGroup } from "../../services/userAccount";
+import { useEffect, useState } from "react"
 import TextInput from "../AccAssets/AccInputs/TextInput";
 import FormButton from "../AccAssets/AccInputs/Button";
 import APIResponse from "../ApiResponse";
-import { AuthContext } from "../../utils/Authentication/AuthContext";
 
 const Container = styled.div`
     position: fixed;
@@ -169,16 +167,26 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
     const [username, setUsername] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
-    const { user } = useContext(AuthContext);
+    const [groups, setGroups] = useState([]);
+
+    async function fetchGroups() {
+        try {
+            const response = await getGroup();
+            setGroups(response);
+        } catch (error) {
+            throw error;
+        }
+    }
 
     useEffect(() => {
+        fetchGroups();
+
         if (isEdit) {
             setUsername(member);
         }
     }, [isEdit, member]);
 
     const handleSubmit = async (e) => {
-        const loggedUser = user.username;
         e.preventDefault();
 
         const body = {
@@ -189,12 +197,6 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
         if (!username || !selectedGroup || selectedGroup === "Select") {
             setApiResponseColor("red");
             setApiResponse("Please fill in all fields.");
-            return;
-        }
-        
-        if (username.toUpperCase() === loggedUser.toUpperCase()) {
-            setApiResponseColor("red");
-            setApiResponse("You can't manage your group");
             return;
         }
 
@@ -292,15 +294,9 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                         <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value)}}>
                             <option value={""}>Select</option>
 
-                            {reqUsername ? (
-                                groups.filter((roles) => roles.group !== "Customers").map((roles) => (
-                                    <option key={roles.group} value={roles.group}>{roles.group}</option>
-                                ))
-                            ) : (
-                                groups.map((roles) => (
-                                    <option key={roles.group} value={roles.group}>{roles.group}</option>
-                                ))
-                            )}
+                            {groups.map((group) => (
+                                <option key={group} value={group}>{group}</option>
+                            ))}
                         </SelectInput>
                     </InputContent>
 

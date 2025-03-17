@@ -1,12 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as Card } from "./card.svg";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
 import FormModal from "../../../../components/GroupModal";
-import groups from "../../../../utils/groups.json";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
-import { AuthContext } from "../../../../utils/Authentication/AuthContext";
-const { getUsers, getGroup } = require("../../../../services/userAccount");
+const { getUsers, userPermissions } = require("../../../../services/userAccount");
 
 const Container = styled.div`
     display: flex;
@@ -54,7 +52,7 @@ const Title = styled.h1`
 `;
 
 const AddButton = styled.div`
-    display: ${(props) => (props.display || "none")};
+    display: flex;
     justify-content: center;
     align-items: center;
     color: var(--secondary-color);
@@ -122,12 +120,11 @@ const ProfileImg = styled.img`
 
 function TeamSection() {
     const [loading, setLoading] = useState(false);
-    const [userPermissions, setUserPermissions] = useState([]);
+    const [userPerms, setUserPerms] = useState([]);
     const [addMemberOpen, setAddMemberOpen] = useState(false);
     const [editMemberOpen, setEditMemberOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState("");
     const [selectedGroup, setSelectedGroup] = useState("Select");
-    const { user } = useContext(AuthContext);
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
@@ -136,13 +133,8 @@ function TeamSection() {
             const response = await getUsers();
             setUsers(response);
 
-            const role = await getGroup(user.id);
-            
-            for(let i = 0; i < groups.length; i++) {
-                if(groups[i].group === role.group) {
-                    setUserPermissions(groups[i].permissions);
-                }
-            }
+            const permissions = await userPermissions();
+            setUserPerms(permissions);
 
             setLoading(false);
         } catch (error) {
@@ -166,7 +158,7 @@ function TeamSection() {
                 <TeamContainer>
                     <TeamTopBar>
                         <Title>Team</Title>
-                        <AddButton display={userPermissions.includes("add-member") ? "flex" : "none"} onClick={() => setAddMemberOpen(true)}>Add New Member</AddButton>
+                        <AddButton display={userPerms.includes("add-member") ? "flex" : "none"} onClick={() => setAddMemberOpen(true)}>Add New Member</AddButton>
                     </TeamTopBar>      
 
                     <UsersContainer>
@@ -182,8 +174,8 @@ function TeamSection() {
                                     <p>{user.user_group}</p>
                                     <p>{user.email}</p>
                                 </User>
-                                
-                                <EditContainer display={userPermissions.includes("edit-member") ? "flex" : "none"} onClick={() => handleEditMember(user.username, user.user_group)} >
+
+                                <EditContainer display={userPerms.includes("edit-member") ? "flex" : "none"} onClick={() => handleEditMember(user.username, user.user_group)} >
                                     <Edit/>
                                 </EditContainer>
                             </UserCardContainer>
