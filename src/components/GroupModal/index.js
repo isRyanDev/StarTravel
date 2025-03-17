@@ -296,10 +296,6 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                         <SelectInput value={selectedGroup} onChange={(e) => {setSelectedGroup(e.target.value)}}>
                             <option value={""}>Select</option>
 
-                            {groups.map((group) => (
-                                <option key={group.name} value={group.name}>{group.name}</option>
-                            ))}
-
                             {reqUsername ? (
                                 groups.filter((group) => group.name !== "Customers").map((group) => (
                                     <option key={group.name} value={group.name}>{group.name}</option>
