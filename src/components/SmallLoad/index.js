@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+`
+
 const Load = styled.svg`
     width: 2rem;
     transform-origin: center;
@@ -42,9 +49,11 @@ const Load = styled.svg`
 
 function SmallLoad() {
     return (
-        <Load viewBox="25 25 50 50">
-          <circle r="20" cy="50" cx="50"></circle>
-        </Load>
+        <Container>
+            <Load viewBox="25 25 50 50">
+            <circle r="20" cy="50" cx="50"></circle>
+            </Load>
+        </Container>
     );    
 }
 

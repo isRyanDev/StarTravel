@@ -105,10 +105,10 @@ function SideBarList({list, selectedSection, handleSelect, dividerVisible, subti
                 const Icons = sideBarIcons[item.svg ? item.svg : item.name];
                 
                 return(
-                    <SideBarItem key={item.name} onClick={() => handleSelect(item.name)}>
+                    <SideBarItem key={item.name}>
                         <Selected style={{ transform: selectedSection === item.name ? "translateX(0)" : "translateX(-0.4rem)" }}></Selected>
 
-                        <SideBarItemButton style={{ backgroundColor: selectedSection === item.name ? "var(--dashboard-secondary-color)" : "var(--dashboard-primary-color)", 
+                        <SideBarItemButton onClick={() => handleSelect(item.name)} style={{ backgroundColor: selectedSection === item.name ? "var(--dashboard-secondary-color)" : "var(--dashboard-primary-color)", 
                             color: selectedSection === item.name ? "var(--secondary-color)" : "black"}}> 
 
                             {Icons && <Icons style={{ fill: selectedSection === item.name ? "var(--secondary-color)" : "black", transition: "all .3s ease-in-out"}}/>}
