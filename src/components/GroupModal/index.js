@@ -180,7 +180,9 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
 
     useEffect(() => {
         fetchGroups();
+    }, []);
 
+    useEffect(() => {
         if (isEdit) {
             setUsername(member);
         }
@@ -295,7 +297,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                             <option value={""}>Select</option>
 
                             {groups.map((group) => (
-                                <option key={group} value={group}>{group}</option>
+                                <option key={group.name} value={group.name}>{group.name}</option>
                             ))}
                         </SelectInput>
                     </InputContent>

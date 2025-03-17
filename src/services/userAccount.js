@@ -78,7 +78,7 @@ async function resetPassword(uuid, newpassword) {
     }
 }
 
-async function getGroup(id) {
+async function getGroup() {
     try {
         const response = await loginAPI.get(`/group`);
         return response.data;
@@ -114,15 +114,6 @@ async function getUsers() {
     }
 }
 
-async function getProfile(id) {
-    try {
-        const response = await loginAPI.get(`/profile/${id}`);
-        return response.data;
-    } catch (error) {
-        return error.response?.data || error.message;
-    }
-}
-
 async function postProfile(id, newProfile) {
     try {
         const response = await loginAPI.post(`/profile/${id}`, newProfile);
@@ -132,4 +123,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken, userPermissions };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken, userPermissions };
