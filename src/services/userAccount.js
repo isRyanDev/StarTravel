@@ -24,6 +24,24 @@ async function userLogout() {
     }
 }
 
+async function userAuth() {
+    try {
+        const response = await loginAPI.get("/auth");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function refreshToken() {
+    try {
+        const response = await loginAPI.post("/refresh-token");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
 async function userRegister(credentials) {
     try {
         const response = await loginAPI.post("/register", credentials);
@@ -105,4 +123,4 @@ async function postProfile(id, newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout };
+export { userLogin, userUUID, resetPassword, userRegister, getGroup, getProfile, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken };

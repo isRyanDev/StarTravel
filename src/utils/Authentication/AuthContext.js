@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { refreshToken, userAuth } from '../../services/userAccount';
 
 export const AuthContext = createContext();
 
@@ -9,20 +10,15 @@ export function AuthProvider({ children }) {
 
     async function refreshAccessToken() {
         try {
-            const response = await fetch('https://star.api.ryandev.com.br/users/refresh-token', {
-                method: 'POST',
-                credentials: 'include',
-            });
+            const response = await refreshToken();
 
-            if (!response.ok) {
+            if (!response.success) {
                 setUser(null);
                 setAccessToken(null);
                 return;
             }
 
-            const data = await response.json();
-            setAccessToken(data.accessToken);
-
+            setAccessToken(response.accessToken);
             await checkAuth();
         } catch (error) {
             console.error('Error refreshing access token:', error);
@@ -33,19 +29,15 @@ export function AuthProvider({ children }) {
 
     async function checkAuth() {
         try {
-            const response = await fetch('https://star.api.ryandev.com.br/users/auth', {
-                method: 'GET',
-                credentials: 'include',
-            });
+            const response = await userAuth();
 
-            if (!response.ok) {
+            if (!response.success) {
                 await refreshAccessToken();
                 return;
             }
 
-            const data = await response.json();
-            setUser(data);
-            setAccessToken(data.token);
+            setUser(response.user);
+            setAccessToken(response.token);
         } catch (error) {
             console.error('Error checking authentication:', error);
             setUser(null);
