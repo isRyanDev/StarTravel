@@ -5,7 +5,7 @@
     import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
     import AddModal from "../../../../components/AddModal";
-import { AuthContext } from "../../../../utils/Authentication/AuthContext";
+import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
 
     const Container = styled.div`
         display: flex;

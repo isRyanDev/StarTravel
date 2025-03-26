@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../utils/Authentication/AuthContext';
+import { AuthContext } from '../hooks/Authentication/AuthContext';
 import { Navigate } from 'react-router-dom';
 import FullLoad from '../components/FullLoad';
 

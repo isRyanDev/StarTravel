@@ -134,6 +134,7 @@ function TeamSection() {
             setUsers(response);
 
             const permissions = await userPermissions();
+            console.log(permissions);
             setUserPerms(permissions);
 
             setLoading(false);

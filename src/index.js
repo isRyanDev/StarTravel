@@ -9,7 +9,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard/index';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound/index';
-import { AuthProvider } from './utils/Authentication/AuthContext';
+import { AuthProvider } from './hooks/Authentication/AuthContext';
 import PrivateRoute from './routes/PrivateRoute';
 
 const GlobalStyle = createGlobalStyle`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from '../../../utils/Authentication/AuthContext';
+import { AuthContext } from '../../../hooks/Authentication/AuthContext';
 import Logout from "../../../utils/logout";
 import SmallLoad from "../../SmallLoad";
 

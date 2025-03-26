@@ -2,7 +2,7 @@ import { postProfile } from "../../../../services/userAccount";
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import SmallLoad from "../../../../components/SmallLoad";
-import { AuthContext } from "../../../../utils/Authentication/AuthContext";
+import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
 
 const SettingsContainer = styled.div`
     display: flex;

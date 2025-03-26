@@ -1,11 +1,10 @@
-import { createContext, useState, useEffect } from 'react';
-import { refreshToken, userAuth } from '../../services/userAccount';
+import { createContext, useState, useEffect } from "react";
+import { refreshToken, userAuth } from "../../services/userAccount";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [accessToken, setAccessToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
     async function refreshAccessToken() {
@@ -14,16 +13,14 @@ export function AuthProvider({ children }) {
 
             if (!response.success) {
                 setUser(null);
-                setAccessToken(null);
                 return;
             }
 
-            setAccessToken(response.accessToken);
+            await new Promise(resolve => setTimeout(resolve, 100));
+
             await checkAuth();
         } catch (error) {
-            console.error('Error refreshing access token:', error);
             setUser(null);
-            setAccessToken(null);
         }
     }
 
@@ -36,12 +33,13 @@ export function AuthProvider({ children }) {
                 return;
             }
 
-            setUser(response.user);
-            setAccessToken(response.token);
+            setUser(prevUser => ({
+                ...prevUser, 
+                ...response.user
+            }));
+
         } catch (error) {
-            console.error('Error checking authentication:', error);
             setUser(null);
-            setAccessToken(null);
         } finally {
             setLoading(false);
         }
@@ -60,7 +58,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, accessToken, loading }}>
+        <AuthContext.Provider value={{ user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );
