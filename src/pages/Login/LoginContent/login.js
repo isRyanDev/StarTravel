@@ -7,6 +7,7 @@ import APIResponse from "../../../components/ApiResponse/index.js";
 import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import TextInput from "../../../components/AccAssets/AccInputs/TextInput/index.js";
 import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
+import CircleLoad from "../../../components/CircleLoad/index.js";
 
 const LoginContainer = styled.div`
     display: flex;
@@ -221,6 +222,8 @@ function LoginContent() {
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
     const [isReset, setIsReset] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const loginContentRef = useRef(null);
     const loginFormRef = useRef(null);
     const navigate = useNavigate();
@@ -250,6 +253,8 @@ function LoginContent() {
 
     const handleForm = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setButtonDisabled(true);
         setApiResponse("");
         setApiResponseColor("");
 
@@ -268,9 +273,9 @@ function LoginContent() {
         try {
             const response = await userLogin(credentials);
 
-            if (response && response.success) { 
+            if (response.success) { 
                 setApiResponseColor("#6579FC");
-                setApiResponse(response.success);
+                setApiResponse(response.message);
 
                 setTimeout(() => {
                     navigate("/");
@@ -278,19 +283,14 @@ function LoginContent() {
                 }, 1000);
             } else {
                 setApiResponseColor("red");
-
-                if (response && response.error) {
-                    setTimeout(() => {
-                        setApiResponse(response.error);
-                    }, 100);
-                }
-                else {
-                    setApiResponse(response);
-                }
+                setApiResponse(response.message);
+                setButtonDisabled(false);
             }
         } catch (error) {
+            setApiResponseColor("red");
             setApiResponse("Login failed.");
         }
+        setLoading(false);
     };
     
     return (
@@ -344,11 +344,13 @@ function LoginContent() {
                     </FormContent>
 
                     <LoginButtonContainer>
-                        <Button type={"submit"} content={"Sign In"}/>
+                        <Button isDisabled={buttonDisabled} type={"submit"} content={"Sign In"}/>
 
                         <LoginSubtitle>Don't have an account? <LinkStyled to="/register">Create Account</LinkStyled></LoginSubtitle>
 
-                        <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                        {loading ? <CircleLoad/> :
+                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                        }
                     </LoginButtonContainer>
                 </LoginFormContainer>
             </LoginContainer>

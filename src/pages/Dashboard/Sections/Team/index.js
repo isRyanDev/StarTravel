@@ -130,12 +130,11 @@ function TeamSection() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await getUsers();
-            setUsers(response);
+            const responseUsers = await getUsers();
+            setUsers(responseUsers.users);
 
-            const permissions = await userPermissions();
-            console.log(permissions);
-            setUserPerms(permissions);
+            const responsePerms = await userPermissions();
+            setUserPerms(responsePerms.permissions);
 
             setLoading(false);
         } catch (error) {
@@ -148,6 +147,8 @@ function TeamSection() {
     }, []);
 
     const handleEditMember = (member, group) => {
+        console.log(member, group);
+
         setSelectedGroup(group);
         setSelectedMember(member);
         setEditMemberOpen(true);

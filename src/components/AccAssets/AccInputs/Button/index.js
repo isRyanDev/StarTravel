@@ -4,7 +4,6 @@ const AccButton = styled.button`
     width: 82%;
     height: 3.5rem;
     border-radius: 0.5rem;
-    opacity: 0.8;
     border: none;
     background: var(--background);
     color: var(--secondary-color);
@@ -12,16 +11,18 @@ const AccButton = styled.button`
     font-size: 1.25rem;
     font-weight: 700;
     transition: all .7s;
-    cursor: pointer;
+    opacity: ${props => props.disabled ? 0.5 : 0.8};
+    pointer-events: ${props => props.disabled ? 'none' : 'unset'};
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
 
     &:hover{
         opacity: 1;
     }
 `
 
-function FormButton({type, content, action}){
+function FormButton({type, content, action, isDisabled}){
     return(
-        <AccButton type={type} onClick={action}>{content}</AccButton>
+        <AccButton disabled={isDisabled} type={type} onClick={action}>{content}</AccButton>
     )
 }
 

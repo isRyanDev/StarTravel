@@ -191,15 +191,16 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
             const response = await userUUID({"email": email});
             console.log("API response:", response);
     
-            if (response && response.userUUID) {
+            if (response.success) {
                 setUuid(response.userUUID);
                 reactiveSlide();
             }
             else{
-                setApiResponse("Email not found.");
                 setApiResponseColor("red");
+                setApiResponse("Email not found.");
             }
         } catch (error) {
+            setApiResponseColor("red");
             setApiResponse("An error occurred. Please try again later.");
         }
     };
@@ -223,15 +224,20 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
             const response = await resetPassword(uuid, {"newpassword": newPassword});
             console.log("API response:", response);
 
-            if (response && response.sucess) {
+            if (response.sucess) {
                 setApiResponseColor("#6579FC");
-                setApiResponse("Successfully! You will be redirected in 5 seconds.");
+                setApiResponse(response.message);
 
                 setTimeout(() => {
                     window.location.reload();
                 }, 5000);
             }
+            else{
+                setApiResponseColor("red");
+                setApiResponse(response.message);
+            }
         } catch (error) {
+            resetPassword
             setApiResponse("An error occurred. Please try again later.");
         }
     }

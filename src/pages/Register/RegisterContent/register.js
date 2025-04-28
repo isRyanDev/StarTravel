@@ -7,6 +7,7 @@ import APIResponse from "../../../components/ApiResponse";
 import Button from "../../../components/AccAssets/AccInputs/Button";
 import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput";
 import TextInput from "../../../components/AccAssets/AccInputs/TextInput";
+import CircleLoad from "../../../components/CircleLoad";
 
 const RegisterContainer = styled.div`
     display: flex;
@@ -141,11 +142,15 @@ function RegisterContent() {
     const [email, setEmail] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const registerContentRef = useRef(null);
     const navigate = useNavigate();
 
     const handleForm = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setButtonDisabled(true);
         setApiResponse("");
         setApiResponseColor("");
 
@@ -164,7 +169,7 @@ function RegisterContent() {
         try {
             const response = await userRegister(credentials);
 
-            if (response && response.success) {
+            if (response.success) {
                 setApiResponseColor("#6579FC");     
                 setApiResponse("Successfully! Login to the following page.");
 
@@ -173,19 +178,14 @@ function RegisterContent() {
                 }, 5000);
             } else {
                 setApiResponseColor("red");
-
-                if (response && response.error) {
-                    setTimeout(() => {
-                        setApiResponse(response.error);
-                    }, 100);
-                }
-                else {
-                    setApiResponse(response);
-                }
+                setApiResponse(response.message);
+                setButtonDisabled(false);
             }
         } catch (error) {
+            setApiResponseColor("red");
             setApiResponse("Register failed.");
         }
+        setLoading(false);
     }
 
     return (
@@ -234,11 +234,13 @@ function RegisterContent() {
                     </FormContent>
 
                     <RegisterButtonContainer>
-                        <Button type={"submit"} content={"Sign Up"}/>
+                        <Button isDisabled={buttonDisabled} type={"submit"} content={"Sign Up"}/>
 
                         <RegisterSubtitle>Already have an account? <LinkStyled to="/login">Login</LinkStyled></RegisterSubtitle>
 
-                        <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                        {loading ? <CircleLoad/> : 
+                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                        }   
                     </RegisterButtonContainer>
                 </RegisterFormContainer>
             </RegisterContainer>

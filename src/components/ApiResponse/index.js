@@ -6,7 +6,7 @@ const ApiResContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 1rem;
+    height: 2rem;
     transition: all .7s;
     transform: scale(0);
     opacity: 0;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import TextInput from "../AccAssets/AccInputs/TextInput";
 import FormButton from "../AccAssets/AccInputs/Button";
 import APIResponse from "../ApiResponse";
+import CircleLoad from "../CircleLoad";
 
 const Container = styled.div`
     position: fixed;
@@ -168,13 +169,15 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
     const [groups, setGroups] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     async function fetchGroups() {
         try {
             const response = await getGroup();
-            setGroups(response);
+            setGroups(response.groups);
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }
 
@@ -190,6 +193,8 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setButtonDisabled(true);
 
         const body = {
             "username": username,
@@ -206,38 +211,47 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
             try {
                 const response = await updateGroup(body);
 
-                if(response.error){
-                    setApiResponseColor("red");
-                    setApiResponse(response.error);
-                    return;
-                }
-                else{
+                if(response.success){
                     localStorage.setItem("notifyMessage", response.message);
                 }
+                else{
+                    setApiResponseColor("red");
+                    setApiResponse(response.message);
+                    setLoading(false);
+                    setButtonDisabled(false);
+                    return;
+                }
             } catch (error) {
-                throw error;
+                setApiResponseColor("red");
+                setApiResponse(error.message);
+                return;
             }
         }
         else{
             try {
                 const response = await setGroup(body);
                 
-                if(response.error){
-                    setApiResponseColor("red");
-                    setApiResponse(response.error);
-                    return;
-                }
-                else{
+                if(response.success){
                     localStorage.setItem("notifyMessage", response.message);
                 }
+                else{
+                    setApiResponseColor("red");
+                    setApiResponse(response.message);
+                    setLoading(false);
+                    setButtonDisabled(false);
+                    return;
+                }
             } catch (error) {
-                throw error;
+                setApiResponseColor("red");
+                setApiResponse(error.message);
+                return;
             }
         }
 
         setUsername("");
         setSelectedGroup("");
         setIsOpen(false);
+        setLoading(false);
         window.location.reload();
     }
 
@@ -309,11 +323,13 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                     </InputContent>
 
                     <ButtonsContainer>
-                        <FormButton type={"submit"} content={"Continue"}/>
+                        <FormButton isDisabled={buttonDisabled} type={"submit"} content={"Continue"}/>
                         <Button onClick={handleCancel}>Cancel</Button>
                     </ButtonsContainer>
 
-                    <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                    {loading ? <CircleLoad/> :
+                        <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor}/>
+                    }   
                 </FormContainer>
             </ModalContainer>
         </Container>

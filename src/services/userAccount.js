@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    baseURL: "https://star.api.ryandev.com.br/users",
-    // baseURL: "http://localhost:8080/users",
+    // baseURL: "https://star.api.ryandev.com.br/users",
+    baseURL: "http://localhost:8080/users",
     withCredentials: true,
 });
 
@@ -114,9 +114,9 @@ async function getUsers() {
     }
 }
 
-async function postProfile(id, newProfile) {
+async function postProfile(newProfile) {
     try {
-        const response = await loginAPI.post(`/profile/${id}`, newProfile);
+        const response = await loginAPI.post(`/profile`, newProfile);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
