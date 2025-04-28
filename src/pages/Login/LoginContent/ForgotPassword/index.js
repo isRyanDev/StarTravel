@@ -192,7 +192,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
             console.log("API response:", response);
     
             if (response.success) {
-                setUuid(response.userUUID);
+                setUuid(response.uuid);
                 reactiveSlide();
             }
             else{
@@ -237,7 +237,6 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                 setApiResponse(response.message);
             }
         } catch (error) {
-            resetPassword
             setApiResponse("An error occurred. Please try again later.");
         }
     }
