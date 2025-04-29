@@ -33,11 +33,12 @@ export function AuthProvider({ children }) {
                 return;
             }
 
-            setUser(prevUser => ({
-                ...prevUser, 
-                ...response.user
-            }));
-
+            if(response.user.user_group && response.user.user_profile && response.user.email && response.user.username){
+                setUser(prevUser => ({
+                    ...prevUser, 
+                    ...response.user
+                }));
+            }
         } catch (error) {
             setUser(null);
         } finally {

@@ -10,6 +10,10 @@ function PrivateRoute({ children }) {
         
     if (!user) return <Navigate to="/login" replace />;
 
+    if (user && user.user_group === "Customers") {
+        return <Navigate to="/not-authorized" replace />;
+    }
+
     return children;
 }
 
