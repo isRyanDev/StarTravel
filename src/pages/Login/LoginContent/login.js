@@ -261,6 +261,8 @@ function LoginContent() {
         if (!username || !password) {
             setApiResponseColor("red");
             setApiResponse("Please fill in all fields.");
+            setLoading(false);
+            setButtonDisabled(false);
             return;
         }
 

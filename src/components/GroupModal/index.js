@@ -204,6 +204,8 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
         if (!username || !selectedGroup || selectedGroup === "Select") {
             setApiResponseColor("red");
             setApiResponse("Please fill in all fields.");
+            setLoading(false);
+            setButtonDisabled(false);
             return;
         }
 

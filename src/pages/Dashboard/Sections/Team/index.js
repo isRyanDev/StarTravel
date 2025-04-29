@@ -1,34 +1,12 @@
 import { useState, useEffect } from "react";
-import { ReactComponent as Card } from "./card.svg";
+import { ReactComponent as Card } from "../../../../assets/Svg-Icons/card.svg";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
 import FormModal from "../../../../components/GroupModal";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
+import SectionsContainer from "../../../../components/SectionsContainer";
+import SectionsTopBar from "../../../../components/SectionsTopBar";
 const { getUsers, userPermissions } = require("../../../../services/userAccount");
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 92%;
-    width: 100%;
-    gap: 2.3rem;
-    font-family: 'Nunito Sans', sans-serif;
-`;
-
-const TeamContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 2.3rem 1.8rem;
-`
-
-const TeamTopBar = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-`
 
 const EditContainer = styled.div`
     display: ${(props) => (props.display || "none")};
@@ -45,11 +23,6 @@ const Edit = styled(EditIcon)`
     height: 100%;
     stroke: var(--dashboard-secondary-color);
 `
-
-const Title = styled.h1`
-    font-size: 32px;
-    font-weight: bold;
-`;
 
 const AddButton = styled.div`
     display: flex;
@@ -155,13 +128,13 @@ function TeamSection() {
     }
 
     return (
-        <Container>
+        <SectionsContainer>
             {loading ? <Loading /> : 
-                <TeamContainer>
-                    <TeamTopBar>
-                        <Title>Team</Title>
+                <>
+                    <SectionsTopBar>
+                        <h1>Team</h1>
                         <AddButton display={userPerms.includes("add-member") ? "flex" : "none"} onClick={() => setAddMemberOpen(true)}>Add New Member</AddButton>
-                    </TeamTopBar>      
+                    </SectionsTopBar>      
 
                     <UsersContainer>
                         {users.filter((user) => user.user_group !== "Customers").map((user) => (
@@ -205,9 +178,9 @@ function TeamSection() {
                         setSelectedGroup={setSelectedGroup}
                         reqUsername={true}
                     />
-                </TeamContainer>
+                </>
             }
-        </Container>   
+        </SectionsContainer>   
     );
 }
 

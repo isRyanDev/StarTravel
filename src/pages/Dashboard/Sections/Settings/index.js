@@ -3,19 +3,8 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import SmallLoad from "../../../../components/SmallLoad";
 import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
-
-const SettingsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 2.3rem;
-    font-family: 'Nunito Sans', sans-serif;
-    padding: 2.3rem 1.8rem;
-`;
-
-const Title = styled.h1`
-    font-size: 32px;
-    font-weight: bold;
-`;
+import SectionsContainer from "../../../../components/SectionsContainer";
+import SectionsTopBar from "../../../../components/SectionsTopBar";
 
 const SettingsContent = styled.div`
     display: flex;
@@ -57,19 +46,12 @@ const profileImages = ["men1", "men2", "men3", "woman1", "woman2", "woman3"];
 
 function SettingsSections() {
     const [loading, setLoading] = useState(false);
-    const { user } = useContext(AuthContext);
 
     const changeProfileImage = async (image) => {
-        const userId = user.id;
-
-        if (!userId) {
-            return;
-        }
-
         setLoading(true);
 
         try {
-            await postProfile(userId, { profile: image });
+            await postProfile({ profile: image });
             window.location.reload();
         } catch (error) {
             console.log("Error changing profile image:");
@@ -79,8 +61,10 @@ function SettingsSections() {
     };
 
     return (
-        <SettingsContainer>
-            <Title>General Settings</Title>
+        <SectionsContainer>
+            <SectionsTopBar>
+                <h1>General Settings</h1>
+            </SectionsTopBar>
 
             <SettingsContent>
                 <p>Choose your profile icon</p>
@@ -100,7 +84,7 @@ function SettingsSections() {
                     )}
                 </ProfileOptions>
             </SettingsContent>
-        </SettingsContainer>
+        </SectionsContainer>
     );
 }
 

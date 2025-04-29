@@ -262,15 +262,27 @@ function Profile() {
                         </ProfileButton>
 
                         <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                            {profileOptions.map((option, index) => (
-                                <ModalButton key={index} onClick={option.action}>
-                                    <ModalContent>
-                                        {option.src}
-                                        <span>{option.content}</span>
-                                    </ModalContent>
-                                    {index !== profileOptions.length - 1 && <Divider />}
-                                </ModalButton>
-                            ))}
+                            {user.user_group === "Customers" ? 
+                                profileOptions.filter(option => option.content !== "Dashboard").map((option, index) => (
+                                    <ModalButton key={index} onClick={option.action}>
+                                        <ModalContent>
+                                            {option.src}
+                                            <span>{option.content}</span>
+                                        </ModalContent>
+                                        {index !== profileOptions.length - 1 && <Divider />}
+                                    </ModalButton>
+                                ))
+                            : 
+                                profileOptions.map((option, index) => (
+                                    <ModalButton key={index} onClick={option.action}>
+                                        <ModalContent>
+                                            {option.src}
+                                            <span>{option.content}</span>
+                                        </ModalContent>
+                                        {index !== profileOptions.length - 1 && <Divider />}
+                                    </ModalButton>
+                                ))
+                            }
                         </ModalContainer>
                     </ProfileContainer>
                 ) : (

@@ -5,37 +5,9 @@
     import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
     import AddModal from "../../../../components/AddModal";
-import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
-
-    const Container = styled.div`
-        display: flex;
-        flex-direction: column;
-        height: 92%;
-        width: 100%;
-        gap: 2.3rem;
-        font-family: 'Nunito Sans', sans-serif;
-    `;
-
-    const ToDoContainer = styled.div`
-        display: flex;
-        flex-direction: column;
-        gap: 2.3rem;
-        font-family: 'Nunito Sans', sans-serif;
-        padding: 2.3rem 1.8rem;
-    `;
-
-    const TeamTopBar = styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    `;
-
-    const Title = styled.h1`
-        font-size: 32px;
-        font-weight: bold;
-    `;
+    import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
+    import SectionsContainer from "../../../../components/SectionsContainer";
+    import SectionsTopBar from "../../../../components/SectionsTopBar";
 
     const AddButton = styled.div`
         display: flex;
@@ -226,15 +198,15 @@ function ToDoSection() {
     };
 
     return (
-        <Container>
+        <SectionsContainer>
             {loading ? (
                 <Loading />
             ) : (
-                <ToDoContainer>
-                    <TeamTopBar>
-                        <Title>To-Do List</Title>
+                <>
+                    <SectionsTopBar>
+                        <h1>To-Do List</h1>
                         <AddButton onClick={() => setShowModal(true)}>Add New Task</AddButton>
-                    </TeamTopBar>
+                    </SectionsTopBar>
 
                     <TaskContainer>
                         {userTdList.map((task) => (
@@ -257,7 +229,7 @@ function ToDoSection() {
                             </Task>
                         ))}
                     </TaskContainer>
-                </ToDoContainer>
+                </>
             )}
 
             <AddModal 
@@ -270,7 +242,7 @@ function ToDoSection() {
                 handleAddTask={handleAddTask}
             />
 
-        </Container>
+        </SectionsContainer>
     );
 }
 
