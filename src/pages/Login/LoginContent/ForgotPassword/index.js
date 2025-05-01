@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { userUUID, resetPassword } from "../../../../services/userAccount";
+import { resetPassword, sendCode, verifyCode } from "../../../../services/userAccount";
 import APIResponse from "../../../../components/ApiResponse/index.js";
 import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import TextInput from "../../../../components/AccAssets/AccInputs/TextInput/index.js";
@@ -39,6 +39,30 @@ const SendEmailContainer = styled.div`
     }
 `
 
+const ConfirmCodeContainer = styled.div`
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.3125rem;
+    transform: translateX(+100vw);
+    transition: opacity .3s ease-in-out, transform .7s ease-in-out;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+
+    &.active{
+        opacity: 1;
+        transform: translate(0);
+    }
+
+    &.reactive{
+        opacity: 1;
+        transform: translate(-100vw);
+    }
+`;
+
 const ResetFormContainer = styled.form`
     display: flex;
     flex-direction: column;
@@ -48,7 +72,7 @@ const ResetFormContainer = styled.form`
     gap: 2rem;
 `
 
-const LoginTexts = styled.div`
+const HeaderTexts = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,14 +80,14 @@ const LoginTexts = styled.div`
     gap: 1rem;
 `
 
-const LoginTitle = styled.h1`
+const HeaderTitle = styled.h1`
     color: var(--login-text-color);
     font-family: "Nunito Sans";
     font-size: 2rem;
     font-weight: 700;
 `
 
-const LoginSubtitle = styled.p`
+const HeaderSubtitle = styled.p`
     color: var(--login-text-color);
     text-align: center;
     font-family: "Nunito Sans";
@@ -146,39 +170,14 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
     const [email, setEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPass, setconfirmPass] = useState("");
-    const [uuid, setUuid] = useState("");
-    const sendEmailRef = useRef(null);
-    const sendPassRef = useRef(null);
-    const emailFormRef = useRef(null);
-    const passwordFormRef = useRef(null);
+    const [code, setCode] = useState("");
+    const [step, setStep] = useState("");
 
     useEffect(() => {
-        const sendEmail = sendEmailRef.current;
+        isResetPass ? setStep("email") : setStep("");
+    }, [isResetPass])
 
-        isResetPass ? sendEmail.classList.add("active") : sendEmail.classList.remove("active");
-    })
-
-    const reactiveSlide = () => {
-        const sendEmail = sendEmailRef.current;
-        const sendPass = sendPassRef.current;
-        const emailForm = emailFormRef.current;
-        const passwordForm = passwordFormRef.current;
-        setIsResetPass(!isResetPass);
-
-        sendEmail.classList.toggle("reactive");
-        sendPass.classList.toggle("active");
-
-        setTimeout(() => {
-            setApiResponse("");
-            setEmail("");
-            setNewPassword("");
-            setconfirmPass("");
-            emailForm.reset();
-            passwordForm.reset();
-        }, 300);
-    };
-
-    const getUUID = async (e) => {
+    const handleSendCode = async (e) => {
         e.preventDefault(); 
 
         if (!email) {
@@ -188,12 +187,12 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
         }
     
         try {
-            const response = await userUUID({"email": email});
-            console.log("API response:", response);
+            const response = await sendCode({"email": email});
     
             if (response.success) {
-                setUuid(response.uuid);
-                reactiveSlide();
+                setApiResponseColor("");
+                setApiResponse("");
+                setStep("code")
             }
             else{
                 setApiResponseColor("red");
@@ -204,6 +203,26 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
             setApiResponse("An error occurred. Please try again later.");
         }
     };
+
+    const handleVerifyCode = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await verifyCode({"email": email, "code": code});
+
+            if (response.success) {
+                setApiResponseColor("");
+                setApiResponse("");
+                setStep("password");
+            }
+            else{
+                setApiResponseColor("red");
+                setApiResponse(response.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const resetPass = async (e) => {
         e.preventDefault();
@@ -221,16 +240,19 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
         }
 
         try {
-            const response = await resetPassword(uuid, {"newpassword": newPassword});
-            console.log("API response:", response);
+            const response = await resetPassword({
+                "email": email,
+                "code": code,
+                "newpassword": newPassword
+            });
 
-            if (response.sucess) {
+            if (response.success) {
                 setApiResponseColor("#6579FC");
                 setApiResponse(response.message);
 
                 setTimeout(() => {
                     window.location.reload();
-                }, 5000);
+                }, 2000);
             }
             else{
                 setApiResponseColor("red");
@@ -243,13 +265,13 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
 
     return(
             <ForgotPasswordContainer>
-                <SendEmailContainer ref={sendEmailRef}>
-                    <LoginTexts>
-                        <LoginTitle>Recover Password</LoginTitle>
-                        <LoginSubtitle>Please enter your email address to continue</LoginSubtitle>
-                    </LoginTexts>
+                <SendEmailContainer className={step === "email" ? "active" : step === "code" || step === "password" ? "reactive" : ""}>
+                    <HeaderTexts>
+                        <HeaderTitle>Recover Password</HeaderTitle>
+                        <HeaderSubtitle>Please enter your email address to continue</HeaderSubtitle>
+                    </HeaderTexts>
 
-                    <ResetFormContainer ref={emailFormRef} onSubmit={getUUID} id="forgotForm">
+                    <ResetFormContainer onSubmit={handleSendCode} id="forgotForm">
                         <InputContainer>
                             <InputContent>
                                 <InputLabel>
@@ -275,13 +297,45 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                     </ResetFormContainer>
                 </SendEmailContainer>
 
-                <SendPasswordContainer ref={sendPassRef}>
-                    <LoginTexts>
-                        <LoginTitle>Recover Password</LoginTitle>
-                        <LoginSubtitle>Please enter a new password to recover your account</LoginSubtitle>
-                    </LoginTexts>
+                <ConfirmCodeContainer className={step === "code" ? "active" : step === "password" ? "reactive" : ""}>
+                    <HeaderTexts>
+                        <HeaderTitle>Send verification code</HeaderTitle>
+                        <HeaderSubtitle>Please enter the code sent to your email</HeaderSubtitle>
+                    </HeaderTexts>
 
-                    <ResetFormContainer ref={passwordFormRef} onSubmit={resetPass} id="resetForm">
+                    <ResetFormContainer onSubmit={handleVerifyCode} id="forgotForm">
+                        <InputContainer>
+                            <InputContent>
+                                <InputLabel>
+                                    <p>Code:</p>
+                                </InputLabel>
+
+                                <TextInput type="number" value={code} setText={setCode} placeholder={"Enter your verification code"}/>
+
+                            </InputContent>
+                        </InputContainer>
+
+                        <ForgotButtons>
+                            <>
+                                <ResetButtonContainer>
+                                    <Button type={"submit"} content={"Continue"}/>
+                                    <Button type={"button"} content={"Back to Login"} action={slide}/>
+                                </ResetButtonContainer>
+                            </>
+
+                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                        </ForgotButtons>
+
+                    </ResetFormContainer>
+                </ConfirmCodeContainer>
+
+                <SendPasswordContainer className={step === "password" ? "active" : ""}>
+                    <HeaderTexts>
+                        <HeaderTitle>Recover Password</HeaderTitle>
+                        <HeaderSubtitle>Please enter a new password to recover your account</HeaderSubtitle>
+                    </HeaderTexts>
+
+                    <ResetFormContainer onSubmit={resetPass} id="resetForm">
                         <InputContainer>
                             <InputContent>
                                 <InputLabel>
@@ -308,7 +362,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                             <>
                                 <ResetButtonContainer>
                                     <Button type={"submit"} content={"Reset Password"}/>
-                                    <Button type={"button"} content={"Back to email address"} action={reactiveSlide}/>
+                                    <Button type={"button"} content={"Back to email address"} action={() => setStep("email")}/>
                                 </ResetButtonContainer>
                             </>
 

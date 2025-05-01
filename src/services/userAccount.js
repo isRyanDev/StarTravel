@@ -69,9 +69,27 @@ async function userUUID(email) {
     }
 }
 
-async function resetPassword(uuid, newpassword) {
+async function resetPassword(parameters) {
     try {
-        const response = await loginAPI.post(`/${uuid}/reset-password`, newpassword);
+        const response = await loginAPI.post(`/reset-password`, parameters);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function sendCode(email) {
+    try {
+        const response = await loginAPI.post(`/send-code`, email);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function verifyCode(parameters) {
+    try {
+        const response = await loginAPI.post(`/verify-code`, parameters);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -123,4 +141,20 @@ async function postProfile(newProfile) {
     }
 }
 
-export { userLogin, userUUID, resetPassword, userRegister, getGroup, postProfile, getUsers, updateGroup, setGroup, userLogout, userAuth, refreshToken, userPermissions };
+export { 
+    userLogin, 
+    userUUID, 
+    resetPassword, 
+    userRegister, 
+    getGroup, 
+    postProfile, 
+    getUsers, 
+    updateGroup, 
+    setGroup, 
+    userLogout, 
+    userAuth, 
+    refreshToken, 
+    userPermissions,
+    sendCode,
+    verifyCode
+    };
