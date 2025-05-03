@@ -5,6 +5,7 @@ import APIResponse from "../../../../components/ApiResponse/index.js";
 import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import TextInput from "../../../../components/AccAssets/AccInputs/TextInput/index.js";
 import Button from "../../../../components/AccAssets/AccInputs/Button/index.js";
+import CircleLoad from "../../../../components/CircleLoad/index.js";
 
 const ForgotPasswordContainer = styled.div`
     display: flex;
@@ -165,11 +166,13 @@ const SendPasswordContainer = styled.div`
     }
 `
 
-function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApiResponse}) {
+function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
     const [apiResponseColor, setApiResponseColor] = useState("");
     const [email, setEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPass, setconfirmPass] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [code, setCode] = useState("");
     const [step, setStep] = useState("");
 
@@ -179,6 +182,8 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
 
     const handleSendCode = async (e) => {
         e.preventDefault(); 
+        setLoading(true);
+        setIsButtonDisabled(true);
 
         if (!email) {
             setApiResponse("Please fill in all fields.");
@@ -196,16 +201,21 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
             }
             else{
                 setApiResponseColor("red");
-                setApiResponse("Email not found.");
+                setApiResponse(response.message);
             }
         } catch (error) {
             setApiResponseColor("red");
-            setApiResponse("An error occurred. Please try again later.");
+            setApiResponse(error.message);
         }
+
+        setLoading(false);
+        setIsButtonDisabled(false);
     };
 
     const handleVerifyCode = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setIsButtonDisabled(true);
 
         try {
             const response = await verifyCode({"email": email, "code": code});
@@ -220,12 +230,18 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                 setApiResponse(response.message);
             }
         } catch (error) {
-            console.log(error);
+            setApiResponseColor("red");
+            setApiResponse(error.message);
         }
+
+        setLoading(false);
+        setIsButtonDisabled(false);
     }
 
     const resetPass = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setIsButtonDisabled(true);
 
         if (!newPassword) {
             setApiResponse("Please fill in all fields.");
@@ -259,8 +275,22 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                 setApiResponse(response.message);
             }
         } catch (error) {
-            setApiResponse("An error occurred. Please try again later.");
+            setApiResponseColor("red");
+            setApiResponse(error.message);
         }
+
+        setLoading(false);
+        setIsButtonDisabled(false);
+    }
+
+    function handleCancel(){
+        setEmail("");
+        setNewPassword("");
+        setCode("");
+        setconfirmPass("");
+        setApiResponse("");
+        setApiResponseColor("");
+        setStep("email");
     }
 
     return(
@@ -271,7 +301,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <HeaderSubtitle>Please enter your email address to continue</HeaderSubtitle>
                     </HeaderTexts>
 
-                    <ResetFormContainer onSubmit={handleSendCode} id="forgotForm">
+                    <ResetFormContainer onSubmit={handleSendCode}>
                         <InputContainer>
                             <InputContent>
                                 <InputLabel>
@@ -286,12 +316,14 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <ForgotButtons>
                             <>
                                 <ResetButtonContainer>
-                                    <Button type={"submit"} content={"Continue"}/>
-                                    <Button type={"button"} content={"Back to Login"} action={slide}/>
+                                    <Button isDisabled={isButtonDisabled} type={"submit"} content={"Continue"}/>
+                                    <Button isDisabled={isButtonDisabled} type={"button"} content={"Back to Login"} action={slide}/>
                                 </ResetButtonContainer>
                             </>
 
-                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            {loading ? <CircleLoad/> : 
+                                <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            }
                         </ForgotButtons>
 
                     </ResetFormContainer>
@@ -303,7 +335,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <HeaderSubtitle>Please enter the code sent to your email</HeaderSubtitle>
                     </HeaderTexts>
 
-                    <ResetFormContainer onSubmit={handleVerifyCode} id="forgotForm">
+                    <ResetFormContainer onSubmit={handleVerifyCode}>
                         <InputContainer>
                             <InputContent>
                                 <InputLabel>
@@ -318,12 +350,14 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <ForgotButtons>
                             <>
                                 <ResetButtonContainer>
-                                    <Button type={"submit"} content={"Continue"}/>
-                                    <Button type={"button"} content={"Back to Login"} action={slide}/>
+                                    <Button isDisabled={isButtonDisabled} type={"submit"} content={"Continue"}/>
+                                    <Button isDisabled={isButtonDisabled} type={"button"} content={"Back to email adress"} action={handleCancel}/>
                                 </ResetButtonContainer>
                             </>
 
-                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            {loading ? <CircleLoad/> : 
+                                <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            }
                         </ForgotButtons>
 
                     </ResetFormContainer>
@@ -335,7 +369,7 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <HeaderSubtitle>Please enter a new password to recover your account</HeaderSubtitle>
                     </HeaderTexts>
 
-                    <ResetFormContainer onSubmit={resetPass} id="resetForm">
+                    <ResetFormContainer onSubmit={resetPass}>
                         <InputContainer>
                             <InputContent>
                                 <InputLabel>
@@ -361,14 +395,15 @@ function ForgotPassword({slide, isResetPass, setIsResetPass, apiResponse, setApi
                         <ForgotButtons>
                             <>
                                 <ResetButtonContainer>
-                                    <Button type={"submit"} content={"Reset Password"}/>
-                                    <Button type={"button"} content={"Back to email address"} action={() => setStep("email")}/>
+                                    <Button isDisabled={isButtonDisabled} type={"submit"} content={"Reset Password"}/>
+                                    <Button isDisabled={isButtonDisabled} type={"button"} content={"Back to email address"} action={handleCancel}/>
                                 </ResetButtonContainer>
                             </>
 
-                            <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            {loading ? <CircleLoad/> : 
+                                <APIResponse apiResponse={apiResponse} apiResponseColor={apiResponseColor} />
+                            }
                         </ForgotButtons>
-
                     </ResetFormContainer>
                 </SendPasswordContainer>
             </ForgotPasswordContainer>

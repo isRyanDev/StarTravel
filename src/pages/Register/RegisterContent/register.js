@@ -171,11 +171,11 @@ function RegisterContent() {
 
             if (response.success) {
                 setApiResponseColor("#6579FC");     
-                setApiResponse("Successfully! Login to the following page.");
+                setApiResponse(response.message);
 
                 setTimeout(() => {
                     navigate("/login");
-                }, 5000);
+                }, 3000);
             } else {
                 setApiResponseColor("red");
                 setApiResponse(response.message);
@@ -226,7 +226,7 @@ function RegisterContent() {
                                     <p>Password</p>
                                 </InputLabel>
                                 
-                                <InputPass setPassword={setPassword} placeholder={"Create a password"}/>
+                                <InputPass value={password} setPassword={setPassword} placeholder={"Create a password"}/>
 
                             </InputContent>
 

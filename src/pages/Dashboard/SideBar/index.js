@@ -54,7 +54,7 @@ const SideBarDefaultList = [
     { name: "Products" },
     { name: "Favorites" },
     { name: "Order Lists", svg: "OrderList" },
-    { name: "Products Stock", svg: "ProductStock" }
+    { name: "Products Stock", svg: "ProductStock" },
 ];
 
 const SideBarPagesList = [

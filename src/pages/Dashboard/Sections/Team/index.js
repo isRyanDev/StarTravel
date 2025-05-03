@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ReactComponent as Card } from "../../../../assets/Svg-Icons/card.svg";
+import { ReactComponent as Card } from "../../../../assets/Svg-Icons/TeamCard.svg";
 import styled from "styled-components";
 import Loading from "../../../../components/Loading";
 import FormModal from "../../../../components/GroupModal";
@@ -120,8 +120,6 @@ function TeamSection() {
     }, []);
 
     const handleEditMember = (member, group) => {
-        console.log(member, group);
-
         setSelectedGroup(group);
         setSelectedMember(member);
         setEditMemberOpen(true);

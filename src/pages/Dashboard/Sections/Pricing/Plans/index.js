@@ -1,13 +1,13 @@
+import { ReactComponent as Card } from "../../../../../assets/Svg-Icons/PriceCard.svg"
 import styled from "styled-components";
 
 const PlanContent = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
     align-items: center;
     justify-content: center;
     background-color: var(--secondary-color);
-    overflow: hidden;    
-    box-sizing: border-box;
     gap: 2.5rem;
     padding: 1rem 0;
     border-radius: 1.5rem;
@@ -94,6 +94,7 @@ const StartedButton = styled.div`
     color: var(--dashboard-secondary-color);
     border: 2px solid var(--dashboard-secondary-color);
     transition: all 0.5s ease-in-out;
+    z-index: 15;
     cursor: pointer;
 
     &:hover{
@@ -102,9 +103,15 @@ const StartedButton = styled.div`
     }
 `
 
+const PriceCard = styled(Card)`
+    position: absolute;
+`
+
 function PlanElement({plan, benefits}){
     return(
         <PlanContent>
+            <PriceCard/>
+
             <PlanInfo>
                 <PlanName>{plan.name}</PlanName>
                 <Desc>Monthly Charge</Desc>

@@ -225,7 +225,6 @@ function LoginContent() {
     const [loading, setLoading] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const loginContentRef = useRef(null);
-    const loginFormRef = useRef(null);
     const navigate = useNavigate();
 
     const handleCheckboxChange = () => {
@@ -233,18 +232,14 @@ function LoginContent() {
     };
 
     const slide = () => {
-        const forgotForm = document.getElementById("forgotForm")
-        const loginForm = loginFormRef.current;
         const form = loginContentRef.current;
     
         form.classList.toggle("forgot-password");
         setIsReset(!isReset);
 
         setTimeout(() => {
-            loginForm.reset();
             setUsername("");
             setPassword("");
-            forgotForm.reset();
             setApiResponse("");
             setApiResponseColor("");
             setIsChecked(false);
@@ -303,7 +298,7 @@ function LoginContent() {
                     <LoginSubtitle>Please enter your username and password to continue</LoginSubtitle>
                 </LoginTexts>
 
-                <LoginFormContainer ref={loginFormRef} onSubmit={handleForm}>
+                <LoginFormContainer onSubmit={handleForm}>
                     <FormContent>
                         <InputContainer>
                             <InputContent>
@@ -323,7 +318,7 @@ function LoginContent() {
                                     <LinkStyled onClick={slide}>Forgot Password?</LinkStyled>
                                 </InputLabel>
                                 
-                                <InputPass setPassword={setPassword} placeholder={"Enter your password"}/>
+                                <InputPass value={password} setPassword={setPassword} placeholder={"Enter your password"}/>
 
                             </InputContent>
 

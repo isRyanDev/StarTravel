@@ -8,6 +8,7 @@ const PlansContainer = styled.div`
     grid-template-columns: 1fr;
     gap: 1rem;
     width: 100%;
+    overflow: hidden;
 
     @media screen and (min-width: 1000px) and (min-height: 950px) {
         grid-template-columns: 1fr 1fr 1fr;

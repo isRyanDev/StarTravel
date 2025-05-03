@@ -20,6 +20,12 @@ const Input = styled.input`
         font-family: "Nunito Sans";
         font-size: 1.125rem;
     }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 `
 
 function TextInput({setText, placeholder, type, value}){

@@ -86,7 +86,7 @@ const ShowPasswordContainer = styled.label`
     }
 `
 
-function InputPass({setPassword, placeholder}) {
+function InputPass({value, setPassword, placeholder}) {
     const [showPass, setShowPass] = useState(false);
 
     const togglePassword = () => {
@@ -97,6 +97,7 @@ function InputPass({setPassword, placeholder}) {
             <PasswordContainer>
                 <InputPassword 
                     type={showPass ? "text" : "password"}
+                    value={value || ""}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={placeholder}
                 />

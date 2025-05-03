@@ -1,11 +1,10 @@
-    import { useContext, useEffect, useState } from "react";
+    import { useEffect, useState } from "react";
     import { userAddList, userGetList } from "../../../../services/tdLists";
     import styled from "styled-components";
     import Loading from "../../../../components/Loading";
     import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
     import AddModal from "../../../../components/AddModal";
-    import { AuthContext } from "../../../../hooks/Authentication/AuthContext";
     import SectionsContainer from "../../../../components/SectionsContainer";
     import SectionsTopBar from "../../../../components/SectionsTopBar";
 
@@ -122,18 +121,15 @@ function ToDoSection() {
     const [showModal, setShowModal] = useState(false);
     const [newTask, setNewTask] = useState("");
     const [loading, setLoading] = useState(false);
-    const { user } = useContext(AuthContext);
 
     const fetchUserlist = async () => {
-        const username = user.username;
-    
         try {
             setLoading(true);
-            const response = await userGetList({ username });
+            const response = await userGetList();
     
-            setUserTdList(Array.isArray(response) ? response : []);
+            setUserTdList(Array.isArray(response.list) ? response.list : []);
         } catch (error) {
-            console.error("Erro ao buscar tarefas:", error);
+            console.error("Error fetching user list:", error);
             setUserTdList([]);
         } finally {
             setLoading(false);
@@ -145,8 +141,6 @@ function ToDoSection() {
     }, []);
 
     const handleAddTask = async () => {
-        const username = user.username;
-
         if (!newTask.trim()) return;
     
         const newTaskObject = {
@@ -162,15 +156,13 @@ function ToDoSection() {
         setShowModal(false); 
     
         try {
-            await userAddList({ username: username, newList: updatedTasks });
+            await userAddList({ newList: updatedTasks });
         } catch (error) {
             console.error("Erro ao adicionar tarefa:", error);
         }
     };    
 
     const handleCheckboxChange = async (taskId) => {
-        const username = user.username;
-
         const updatedTasks = userTdList.map(task => 
             task.id === taskId ? { ...task, done: !task.done } : task
         );
@@ -178,20 +170,18 @@ function ToDoSection() {
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ username: username, newList: updatedTasks });
+            await userAddList({ newList: updatedTasks });
         } catch (error) {
             console.error("Error updating task:", error);
         }
     };
 
     const handleDeleteTask = async (taskId) => {
-        const username = user.username;
-
         const updatedTasks = userTdList.filter(task => task.id !== taskId);
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ username: username, newList: updatedTasks });
+            await userAddList({ newList: updatedTasks });
         } catch (error) {
             console.error("Error deleting task:", error);
         }

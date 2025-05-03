@@ -3,11 +3,12 @@ import axios from "axios";
 const loginAPI = axios.create({
     baseURL: "https://star.api.ryandev.com.br/tdlists",
     // baseURL: "http://localhost:8080/tdlists",
+    withCredentials: true,
 });
 
-async function userGetList(username) {
+async function userGetList() {
     try {
-        const response = await loginAPI.post("/user-list", username);
+        const response = await loginAPI.post("/user-list");
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;

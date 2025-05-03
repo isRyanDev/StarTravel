@@ -73,11 +73,10 @@ function Dashboard() {
         "Invoice": <InvoiceBody/>,
         "Team": <TeamBody/>,
         "Settings": <SettingsBody/>,
-    }   
+    }
 
     return (
         <DashboardContainer>
-
             <Notify/>
 
             <ConfirmModal text={confirmationText} isOpen={confirmationIsOpen} setIsOpen={setConfirmationIsOpen} setConfirm={setConfirm}/>
