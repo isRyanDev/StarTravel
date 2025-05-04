@@ -225,13 +225,8 @@ function Profile() {
         },
         {
             content: "Manage Account",
-            action: "",
+            action: () => navigate("/manage-account"),
             src: <ManageAcc />
-        },
-        {
-            content: "Change Password",
-            action: "",
-            src: <ChangePass />
         },
         {
             content: "Log out",

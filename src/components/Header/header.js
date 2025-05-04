@@ -8,7 +8,7 @@ const HeaderContainer = styled.header`
     flex-direction: row;
     height: 10vh;
     font-family: 'Poppins', sans-serif;
-    width: 100vw;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     z-index: 100;
@@ -18,15 +18,15 @@ const HeaderContainer = styled.header`
     }
 
     @media screen and (min-width: 1640px){
-        width: 75vw;
+        width: 75%;
     }
 `
 
-function Header({profileColor}){
+function Header({profileColor, logoColor}){
     return(
         <HeaderContainer>
 
-            <Logo/>
+            <Logo color={logoColor}/>
             
             <HeaderButtons/>
 

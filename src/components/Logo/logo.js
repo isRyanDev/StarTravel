@@ -32,7 +32,7 @@ const LogoButton = styled.button`
 
     &:hover .hover-text{
         width: 7.2rem;
-        filter: drop-shadow(0 0 23px var(--secondary-color));
+        filter: drop-shadow(0 0 23px ${(props) => props.logoColor || "var(--secondary-color)"});
         transition: all .7s;
     }
 `
@@ -41,23 +41,23 @@ const HoverText = styled.span`
     position: absolute;
     box-sizing: border-box;
     content: attr(data-text);
-    color: var(--secondary-color);
+    color: ${(props) => props.logoColor || "var(--secondary-color)"};
     width: 0%;
     inset: 0;
-    border-right: 6px solid var(--secondary-color);
+    border-right: 6px solid ${(props) => props.logoColor || "var(--secondary-color)"};
     overflow: hidden;
     transition: 0.5s;
-    -webkit-text-stroke: 1px var(--secondary-color);
+    -webkit-text-stroke: 1px ${(props) => props.logoColor || "var(--secondary-color)"};
     transition: all .7s;
 `
 
-function Logo() {
+function Logo({color}) {
     return (
             <LogoContainer>
                 <LinkStyled to="/">
-                    <LogoButton data-text="Awesome">
+                    <LogoButton data-text="Awesome" logoColor={color}>
                         <span>&nbsp;Star&nbsp;</span>
-                        <HoverText className="hover-text" aria-hidden="true">&nbsp;Star&nbsp;</HoverText>
+                        <HoverText logoColor={color} className="hover-text" aria-hidden="true">&nbsp;Star&nbsp;</HoverText>
                     </LogoButton>
                 </LinkStyled>
             </LogoContainer>

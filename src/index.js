@@ -1,6 +1,7 @@
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import React from 'react';
+import { AuthProvider } from './hooks/Authentication/AuthContext';
 import ReactDOM from 'react-dom/client';
 import Home from './pages/Home/index';
 import Destinations from './pages/Destinations/index';
@@ -9,7 +10,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard/index';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound/index';
-import { AuthProvider } from './hooks/Authentication/AuthContext';
+import ManageAccount from './pages/ManageAccount/index';
 import PrivateRoute from './routes/PrivateRoute';
 
 const GlobalStyle = createGlobalStyle`
@@ -23,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     --login-text-color: rgb(32,34,36);
     --dashboard-secondary-color: rgb(72, 128, 255);
     --dashboard-border-color: rgb(213,213,213);
+    --dashboard-background-color: rgba(245, 246, 250, 1);;
   }
 
   * {
@@ -74,6 +76,7 @@ root.render(
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/register" element={<Register/>} />
+          <Route path='/manage-account' element={<ManageAccount/>}/>
           <Route path="/*" element={<NotFound/>} />
         </Routes>
       </AuthProvider>

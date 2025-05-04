@@ -188,6 +188,8 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
         if (!email) {
             setApiResponse("Please fill in all fields.");
             setApiResponseColor("red");
+            setLoading(false);
+            setIsButtonDisabled(false);
             return;
         }
     
@@ -206,10 +208,10 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
         } catch (error) {
             setApiResponseColor("red");
             setApiResponse(error.message);
+        } finally{
+            setLoading(false);
+            setIsButtonDisabled(false);
         }
-
-        setLoading(false);
-        setIsButtonDisabled(false);
     };
 
     const handleVerifyCode = async (e) => {
@@ -232,10 +234,10 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
         } catch (error) {
             setApiResponseColor("red");
             setApiResponse(error.message);
+        } finally {
+            setLoading(false);
+            setIsButtonDisabled(false);
         }
-
-        setLoading(false);
-        setIsButtonDisabled(false);
     }
 
     const resetPass = async (e) => {
@@ -246,12 +248,16 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
         if (!newPassword) {
             setApiResponse("Please fill in all fields.");
             setApiResponseColor("red");
+            setLoading(false);
+            setIsButtonDisabled(false);
             return;
         }
 
         if(newPassword !== confirmPass){
             setApiResponse("Passwords do not match.");
             setApiResponseColor("red");
+            setLoading(false);
+            setIsButtonDisabled(false);
             return;
         }
 
@@ -277,10 +283,10 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
         } catch (error) {
             setApiResponseColor("red");
             setApiResponse(error.message);
+        } finally{
+            setLoading(false);
+            setIsButtonDisabled(false);
         }
-
-        setLoading(false);
-        setIsButtonDisabled(false);
     }
 
     function handleCancel(){
@@ -376,7 +382,7 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
                                     <p>New password:</p>
                                 </InputLabel>
 
-                                <InputPass setPassword={setNewPassword} placeholder={"Create a new password"}/>
+                                <InputPass value={newPassword} setPassword={setNewPassword} placeholder={"Create a new password"}/>
 
                             </InputContent>
                         </InputContainer>
@@ -387,7 +393,7 @@ function ForgotPassword({slide, isResetPass, apiResponse, setApiResponse}) {
                                     <p>Confirm password:</p>
                                 </InputLabel>
 
-                                <InputPass setPassword={setconfirmPass} placeholder={"Confirm your new password"}/>
+                                <InputPass value={confirmPass} setPassword={setconfirmPass} placeholder={"Confirm your new password"}/>
 
                             </InputContent>
                         </InputContainer>
