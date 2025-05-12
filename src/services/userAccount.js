@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    baseURL: "https://star.api.ryandev.com.br/users",
-    // baseURL: "http://localhost:8080/users",
+    // baseURL: "https://star.api.ryandev.com.br/users",
+    baseURL: "http://localhost:8080/users",
     withCredentials: true,
 });
 
@@ -96,6 +96,16 @@ async function verifyCode(parameters) {
     }
 }
 
+async function manageUser(parameters) {
+    try {
+        const response = await loginAPI.post(`/manage-user`, parameters);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+
 async function getGroup() {
     try {
         const response = await loginAPI.get(`/group`);
@@ -156,5 +166,6 @@ export {
     refreshToken, 
     userPermissions,
     sendCode,
-    verifyCode
+    verifyCode,
+    manageUser
     };

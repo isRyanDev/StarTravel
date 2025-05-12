@@ -3,15 +3,17 @@ import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './hooks/Authentication/AuthContext';
 import ReactDOM from 'react-dom/client';
-import Home from './pages/Home/index';
-import Destinations from './pages/Destinations/index';
-import Services from './pages/Services/index';
+import Home from './pages/Home';
+import Destinations from './pages/Destinations';
+import Services from './pages/Services';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard/index';
+import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
-import NotFound from './pages/NotFound/index';
-import ManageAccount from './pages/ManageAccount/index';
+import NotFound from './pages/NotFound';
+import ManageAccount from './pages/ManageAccount';
 import PrivateRoute from './routes/PrivateRoute';
+import UnloggedRoute from './routes/UnloggedRoute';
+import LoggedRoute from './routes/LoggedRoute';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -75,8 +77,8 @@ root.render(
           <Route path="/services" element={<Services/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path='/manage-account' element={<ManageAccount/>}/>
+          <Route path="/register" element={<LoggedRoute><Register/></LoggedRoute>} />
+          <Route path='/manage-account' element={<UnloggedRoute><ManageAccount/></UnloggedRoute>} />
           <Route path="/*" element={<NotFound/>} />
         </Routes>
       </AuthProvider>

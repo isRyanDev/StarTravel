@@ -7,7 +7,7 @@ const BackgroundContainer = styled.div`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    z-index: -1;
+    z-index: 1;
 
     svg {
         width: 100%;
@@ -24,7 +24,7 @@ const TLContainer = styled.div`
     opacity: 0;
     transform: translate(-10rem, -10rem);
     transition: transform .8s ease-in-out, opacity 1s ease-in-out;
-    z-index: -1;
+    z-index: 1;
 
     &.active {
         transform: translate(0);
@@ -41,7 +41,7 @@ const TRContainer = styled.div`
     opacity: 0;
     transform: translate(+10rem, -10rem);
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-    z-index: -1;
+    z-index: 1;
 
     &.active {
         transform: translate(0);
@@ -58,7 +58,7 @@ const BLContainer = styled.div`
     opacity: 0;
     transform: translate(-10rem, +10rem);
     transition: transform 1.2s ease-in-out, opacity 1s ease-in-out;
-    z-index: -1;
+    z-index: 1;
 
     &.active {
         transform: translate(0);
@@ -75,7 +75,7 @@ const BRContainer = styled.div`
     opacity: 0;
     transform: translate(+10rem, +10rem);
     transition: transform 1.4s ease-in-out, opacity 1s ease-in-out;
-    z-index: -1;
+    z-index: 1;
 
     &.active {
         transform: translate(0);

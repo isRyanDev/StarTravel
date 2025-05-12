@@ -8,7 +8,6 @@ import SmallLoad from "../../SmallLoad";
 import { ReactComponent as Dash } from "../../../assets/Svg-Icons/Dashboard.svg";
 import { ReactComponent as ManageAcc } from "../../../assets/Svg-Icons/ManageAcc.svg";
 import { ReactComponent as LogoutSVG } from "../../../assets/Svg-Icons/LogoutProfile.svg";
-import { ReactComponent as ChangePass } from "../../../assets/Svg-Icons/ChangePass.svg";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -53,7 +52,6 @@ const ButtonContainer = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-around;
-
     align-items: center;
 
     @media screen and (min-width: 636px) {    
@@ -105,7 +103,7 @@ const ButtonContainer = styled.div`
  `;
  
  const ModalContainer = styled.div`
-    display: ${(props) => (props.modalIsVisible ? "flex" : "none")};
+    display: flex;
     position: absolute;
     flex-direction: column;
     align-items: center;
@@ -117,9 +115,11 @@ const ButtonContainer = styled.div`
     background-color: var(--secondary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.7s;
-    z-index: ${(props) => (props.isModalActive ? "1000" : "-1")};
+    z-index: 10;
     opacity: ${(props) => (props.isModalActive ? "1" : "0")};
     transform: ${(props) => (props.isModalActive ? "translateY(0)" : "translateY(-1rem)")};
+    visibility: ${(props) => (props.isModalActive ? "visible" : "hidden")};
+    pointer-events: ${(props) => (props.isModalActive ? "all" : "none")};
 
     @media screen and (min-width: 636px) {    
         width: 80%;

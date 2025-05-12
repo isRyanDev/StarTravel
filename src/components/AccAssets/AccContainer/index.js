@@ -25,6 +25,7 @@ const AccContentContainer = styled.div`
     opacity: 0;
     transform: scale(0.9);
     transition: all 1s ease-in-out;
+    z-index: 2;
 
     &.active{
       opacity: 1;
