@@ -164,6 +164,7 @@ function TeamSection() {
                         selectedGroup={selectedGroup}
                         setSelectedGroup={setSelectedGroup}
                         isEdit={true}
+                        fetchUsers={fetchUsers}
                         reqUsername={false}
                     />
 
@@ -174,6 +175,7 @@ function TeamSection() {
                         subtitle="Please enter the new member's username and group to continue"
                         selectedGroup={selectedGroup}
                         setSelectedGroup={setSelectedGroup}
+                        fetchUsers={fetchUsers}
                         reqUsername={true}
                     />
                 </>

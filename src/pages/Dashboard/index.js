@@ -14,7 +14,6 @@ import InvoiceBody from "./Sections/Invoice";
 import TeamBody from "./Sections/Team";
 import SettingsBody from "./Sections/Settings";
 import ConfirmModal from "../../components/ConfirmModal";
-import Notify from "../../components/Notify";
 import Logout from "../../utils/logout";
 
 const DashboardContainer = styled.div`
@@ -77,8 +76,6 @@ function Dashboard() {
 
     return (
         <DashboardContainer>
-            <Notify/>
-
             <ConfirmModal text={confirmationText} isOpen={confirmationIsOpen} setIsOpen={setConfirmationIsOpen} setConfirm={setConfirm}/>
 
             <SideBar setSideBar={setActiveSideBar} setConfirmationText={setConfirmationText} setConfirmation={setConfirmationIsOpen} selectedSection={selectedSection} setSelectedSection={setSelectedSection} isActive={activeSideBar}/>

@@ -92,7 +92,7 @@ const ProfileModal = styled.div`
     transition: all 0.3s ease-in-out;
     padding: .5rem;
     gap: .5rem;
-    background-color: var(--background);
+    background-color: rgba(101, 121, 252, 0.9);
     border-radius: 1rem;
     height: 100%;
     width: 100%;

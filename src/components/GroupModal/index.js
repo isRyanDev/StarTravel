@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { getGroup, setGroup, updateGroup } from "../../services/userAccount";
 import { useEffect, useState } from "react"
+import { useNotify } from "../../hooks/Notify/NotifyContext";
 import TextInput from "../AccAssets/AccInputs/TextInput";
 import FormButton from "../AccAssets/AccInputs/Button";
 import APIResponse from "../ApiResponse";
@@ -164,13 +165,14 @@ const Button = styled.div`
 `;
 
 
-function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit}){
+function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, selectedGroup, setSelectedGroup, isEdit, fetchUsers}){
     const [username, setUsername] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const { addNotification } = useNotify();
 
     async function fetchGroups() {
         try {
@@ -214,7 +216,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                 const response = await updateGroup(body);
 
                 if(response.success){
-                    localStorage.setItem("notifyMessage", response.message);
+                    addNotification(response.message);
                 }
                 else{
                     setApiResponseColor("red");
@@ -234,7 +236,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
                 const response = await setGroup(body);
                 
                 if(response.success){
-                    localStorage.setItem("notifyMessage", response.message);
+                    addNotification(response.message);
                 }
                 else{
                     setApiResponseColor("red");
@@ -254,7 +256,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
         setSelectedGroup("");
         setIsOpen(false);
         setLoading(false);
-        window.location.reload();
+        fetchUsers();
     }
 
     const handleCancel = () => {

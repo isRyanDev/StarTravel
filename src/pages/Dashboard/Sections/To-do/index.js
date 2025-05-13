@@ -1,9 +1,10 @@
     import { useEffect, useState } from "react";
     import { userAddList, userGetList } from "../../../../services/tdLists";
-    import styled from "styled-components";
-    import Loading from "../../../../components/Loading";
     import { ReactComponent as Trash } from "../../../../assets/Svg-Icons/Trash.svg";
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
+    import { useNotify } from "../../../../hooks/Notify/NotifyContext"; 
+    import styled from "styled-components";
+    import Loading from "../../../../components/Loading";
     import AddModal from "../../../../components/AddModal";
     import SectionsContainer from "../../../../components/SectionsContainer";
     import SectionsTopBar from "../../../../components/SectionsTopBar";
@@ -121,6 +122,7 @@ function ToDoSection() {
     const [showModal, setShowModal] = useState(false);
     const [newTask, setNewTask] = useState("");
     const [loading, setLoading] = useState(false);
+    const { addNotification } = useNotify();
 
     const fetchUserlist = async () => {
         try {
@@ -156,7 +158,13 @@ function ToDoSection() {
         setShowModal(false); 
     
         try {
-            await userAddList({ newList: updatedTasks });
+            const response = await userAddList({ newList: updatedTasks });
+
+            if (response.success) {
+                addNotification("Task add successfully.");
+            } else{
+                addNotification("Error to add task.");
+            }
         } catch (error) {
             console.error("Erro ao adicionar tarefa:", error);
         }
@@ -170,7 +178,13 @@ function ToDoSection() {
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ newList: updatedTasks });
+            const response = await userAddList({ newList: updatedTasks });
+
+            if (response.success) {
+                addNotification("Task marked as done.");
+            } else{
+                addNotification("Error updating task.");
+            }
         } catch (error) {
             console.error("Error updating task:", error);
         }
@@ -181,7 +195,13 @@ function ToDoSection() {
         setUserTdList(updatedTasks);
 
         try {
-            await userAddList({ newList: updatedTasks });
+            const response = await userAddList({ newList: updatedTasks });
+
+            if (response.success) {
+                addNotification("Task deleted successfully.");
+            } else{
+                addNotification("Error deleting task.");
+            }
         } catch (error) {
             console.error("Error deleting task:", error);
         }

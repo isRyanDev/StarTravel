@@ -14,6 +14,8 @@ import ManageAccount from './pages/ManageAccount';
 import PrivateRoute from './routes/PrivateRoute';
 import UnloggedRoute from './routes/UnloggedRoute';
 import LoggedRoute from './routes/LoggedRoute';
+import { NotifyProvider } from './hooks/Notify/NotifyContext';
+import Notify from './components/Notify';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -71,16 +73,19 @@ root.render(
     <GlobalStyle />
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/destinations" element={<Destinations/>} />
-          <Route path="/services" element={<Services/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/register" element={<LoggedRoute><Register/></LoggedRoute>} />
-          <Route path='/manage-account' element={<UnloggedRoute><ManageAccount/></UnloggedRoute>} />
-          <Route path="/*" element={<NotFound/>} />
-        </Routes>
+        <NotifyProvider>
+          <Notify />
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/destinations" element={<Destinations/>} />
+            <Route path="/services" element={<Services/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/register" element={<LoggedRoute><Register/></LoggedRoute>} />
+            <Route path='/manage-account' element={<UnloggedRoute><ManageAccount/></UnloggedRoute>} />
+            <Route path="/*" element={<NotFound/>} />
+          </Routes>
+        </NotifyProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
