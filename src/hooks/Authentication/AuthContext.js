@@ -52,8 +52,8 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            checkAuth();
-        }, 15.1 * 60 * 1000);
+            refreshAccessToken();
+        }, 15 * 60 * 1000);
 
         return () => clearInterval(intervalId);
     }, []);
