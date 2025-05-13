@@ -13,10 +13,12 @@ import CircleLoad from "../../components/CircleLoad";
 const Container = styled.section`
     display: flex;
     flex-direction: column;
+    position: relative;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
     background-color: var(--background);
 `
 
@@ -26,8 +28,14 @@ const ContentContainer = styled.div`
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: 60%;
-    height: 90%;
+    margin: 1rem;
+    width: 90%;
+    min-height: 90%;
+
+    @media screen and (min-width: 1300px) {
+        width: 60%;
+        min-height: 90%;
+    }
 `
 
 const Title = styled.h1`
@@ -54,19 +62,68 @@ const UserInfosContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 1rem;
     height: 100%;
+
+    @media screen and (min-height: 800px) {
+        gap: 2rem;
+    }
 `   
 
 const ChangeProfileImg = styled.div`
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `
 
+const ProfileModal = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: .9rem;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    padding: .5rem;
+    gap: .5rem;
+    background-color: var(--background);
+    border-radius: 1rem;
+    height: 100%;
+    width: 100%;
+    transform: ${(props) => (props.isModalOpen ? "translateY(100%)" : "translateY(90%)")};
+    opacity: ${(props) => (props.isModalOpen ? "1" : "0")};
+    visibility: ${(props) => (props.isModalOpen ? "visible" : "hidden")};
+    pointer-events: ${(props) => (props.isModalOpen ? "all" : "none")};
+
+    @media screen and (min-width: 800px) {
+        transform: ${(props) => (props.isModalOpen ? "translateX(120%)" : "translateX(110%)")};
+    }
+`;
+
 const ProfileImg = styled.img`
     width: 8rem;
+`;
+
+const ProfileOptionsContainer = styled.div`
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(3,1fr);
+`
+
+const ProfileOptions = styled.img`
+    width: 3rem;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 `;
 
 const ChangeButton = styled.div`
@@ -89,9 +146,15 @@ const ChangeButton = styled.div`
 
 const UserInfos = styled.div`
     display: flex;
-    flex-direction: row;
-    width: 80%;
-    gap: 3.75rem;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+
+    @media screen and (min-width: 800px) {
+        width: 80%;
+        flex-direction: row;
+        gap: 3.75rem;
+    }
 `
 
 const Infos = styled.div`
@@ -127,10 +190,13 @@ const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 50%;
+    width: 100%;
     gap: 1rem;
-
     font-family: "Nunito Sans";
+
+    @media screen and (min-width: 800px) {
+        width: 50%;
+    }
 `
 
 const Button = styled.div`
@@ -150,6 +216,33 @@ const Button = styled.div`
     cursor: ${props => props.isDisabled ? 'not-allowed' : 'pointer'};
 `;
 
+const NumberInput = styled.input`
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: .5rem;
+    border: 1px solid #D8D8D8;
+    color: var(--login-text-color);
+    font-family: "Nunito Sans";
+    font-size: 1.125rem;
+    padding: 1rem;
+    background: #F1F4F9;
+
+    &:focus-visible{
+        outline: none;
+    }
+
+    &::placeholder{
+        color: #A6A6A6;
+        font-family: "Nunito Sans";
+        font-size: 1.125rem;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+`
 
 function ManageAccount(){
     const {user, checkAuth} = useContext(AuthContext);
@@ -163,6 +256,8 @@ function ManageAccount(){
     const [newUsername, setNewUsername] = useState(user.username);
     const [newDescription, setNewDescription] = useState(user.description);
     const [newPhoneNumber, setNewPhoneNumber] = useState(user.phone_number);
+    const [newProfile, setNewProfile] = useState(user.user_profile);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         document.title = "Star Travel | Manage Account";
@@ -189,6 +284,7 @@ function ManageAccount(){
                 newUsername,
                 newPhoneNumber,
                 newDescription,
+                newProfile
             })
 
             if(response.success) {
@@ -210,9 +306,37 @@ function ManageAccount(){
         setButtonDisabled(false);
     }
 
+    const handleProfile = (image) => {
+        setNewProfile(image);
+        setIsModalOpen(false);
+    }
+
+    const FormatPhoneNumber = (e) => {
+        const value = e.replace(/\D/g, "").slice(0, 11); 
+
+        let formattedValue = value;
+
+        if (value.length > 0) {
+            formattedValue = `(${value.slice(0, 2)}`;
+        }
+        if (value.length >= 3) {
+            formattedValue += `) ${value.slice(2, 3)}`;
+        }
+        if (value.length >= 4) {
+            formattedValue += ` ${value.slice(3, 7)}`;
+        }
+        if (value.length >= 8) {
+            formattedValue += `-${value.slice(7, 11)}`;
+        }
+
+        setNewPhoneNumber(formattedValue);
+    };
+
     const handleCancel = () => {
         navigate("/");
     }
+
+    const profileImages = ["men1", "men2", "men3", "woman1", "woman2", "woman3"];
 
     return(
         <Container>
@@ -225,10 +349,25 @@ function ManageAccount(){
                     
                     <UserInfosContainer onSubmit={handleSave}>
                         <ChangeProfileImg>
-                            <ProfileImg src={`/profile/${user.user_profile}.png`} alt={`${user.user_profile}`}/>
-                            <ChangeButton>
+                            <ProfileImg src={`/profile/${newProfile}.png`} alt={`${user.user_profile}`}/>
+                            <ChangeButton onClick={() => setIsModalOpen(prev => !prev)}>
                                 <p>Change your profile image</p>
                             </ChangeButton>
+
+                            <ProfileModal isModalOpen={isModalOpen}>
+                                <p>Select your new icon</p>
+
+                                <ProfileOptionsContainer>
+                                    {profileImages.map((image) => (
+                                        <ProfileOptions
+                                            key={image} 
+                                            src={`/profile/${image}.png`} 
+                                            alt={`Profile ${image}`} 
+                                            onClick={() => handleProfile(image)}
+                                        />
+                                    ))}
+                                </ProfileOptionsContainer>
+                            </ProfileModal>
                         </ChangeProfileImg>
 
                         <UserInfos>
@@ -255,11 +394,11 @@ function ManageAccount(){
 
                                 <InputContainer>
                                     <Label>Phone Number</Label>
-                                    <TextInput 
-                                        setText={setNewPhoneNumber}
-                                        placeholder={"Your phone number"}
-                                        type={"text"}
+                                    <NumberInput 
+                                        placeholder="Your phone number"
+                                        type="text"
                                         value={newPhoneNumber}
+                                        onChange={(e) => FormatPhoneNumber(e.target.value)} 
                                     />
                                 </InputContainer>
                             </Infos>
