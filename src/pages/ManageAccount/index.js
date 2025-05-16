@@ -1,13 +1,13 @@
-import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../hooks/Authentication/AuthContext";
+import { manageUser } from "../../services/user_groups";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import TextInput from "../../components/AccAssets/AccInputs/TextInput";
 import TextAreaInput from "../../components/AccAssets/AccInputs/TextArea";
 import Background from "../../components/AccAssets/AccBackground/background";
 import FormButton from "../../components/AccAssets/AccInputs/Button";
-import { useNavigate } from "react-router-dom";
 import APIResponse from "../../components/ApiResponse";
-import { manageUser } from "../../services/userAccount";
 import CircleLoad from "../../components/CircleLoad";
 
 const Container = styled.section`

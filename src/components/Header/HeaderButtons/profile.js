@@ -178,6 +178,24 @@ function Profile() {
     const modalRef = useRef(null);
     const profileButtonRef = useRef(null);
 
+    const [profileOptions, setProfileOptions] = useState([
+        {
+            content: "Dashboard",
+            action: () => navigate("/dashboard"),
+            src: <Dashboard />
+        },
+        {
+            content: "Manage Account",
+            action: () => navigate("/manage-account"),
+            src: <ManageAcc />
+        },
+        {
+            content: "Log out",
+            action: Logout,
+            src: <LogoutSVG />
+        }
+    ]);
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -203,6 +221,10 @@ function Profile() {
             setUserProfileImg(user.user_profile);
             setUsername(user.username);
         }
+
+        if(user && user.user_group === "Customers") {
+            setProfileOptions(profileOptions.filter(option => option.content !== "Dashboard"));
+        }
     }, [user]);
 
     const profileToggle = () => {
@@ -216,24 +238,6 @@ function Profile() {
             }, 500);
         }
     };
-
-    const profileOptions = [
-        {
-            content: "Dashboard",
-            action: () => navigate("/dashboard"),
-            src: <Dashboard />
-        },
-        {
-            content: "Manage Account",
-            action: () => navigate("/manage-account"),
-            src: <ManageAcc />
-        },
-        {
-            content: "Log out",
-            action: Logout,
-            src: <LogoutSVG />
-        }
-    ];  
 
     const profilePath = `/profile/${userProfileImg}.png`;
 
@@ -257,27 +261,17 @@ function Profile() {
                         </ProfileButton>
 
                         <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-                            {user.user_group === "Customers" ? 
-                                profileOptions.filter(option => option.content !== "Dashboard").map((option, index) => (
-                                    <ModalButton key={index} onClick={option.action}>
-                                        <ModalContent>
-                                            {option.src}
-                                            <span>{option.content}</span>
-                                        </ModalContent>
-                                        {index !== profileOptions.length - 1 && <Divider />}
-                                    </ModalButton>
-                                ))
-                            : 
-                                profileOptions.map((option, index) => (
-                                    <ModalButton key={index} onClick={option.action}>
-                                        <ModalContent>
-                                            {option.src}
-                                            <span>{option.content}</span>
-                                        </ModalContent>
-                                        {index !== profileOptions.length - 1 && <Divider />}
-                                    </ModalButton>
-                                ))
-                            }
+
+                        {profileOptions.map((option, index) => (
+                            <ModalButton key={index} onClick={option.action}>
+                                <ModalContent>
+                                    {option.src}
+                                    <span>{option.content}</span>
+                                </ModalContent>
+                                {index !== profileOptions.length - 1 && <Divider />}
+                            </ModalButton>
+                        ))}
+
                         </ModalContainer>
                     </ProfileContainer>
                 ) : (

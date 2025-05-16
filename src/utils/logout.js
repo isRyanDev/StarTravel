@@ -1,4 +1,4 @@
-import { userLogout } from "../services/userAccount";
+import { userLogout } from "../services/users";
 
 async function Logout(){
     try {

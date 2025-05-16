@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { getGroup, setGroup, updateGroup } from "../../services/userAccount";
+import { getGroups, addTeam, updateGroup } from "../../services/user_groups";
 import { useEffect, useState } from "react"
 import { useNotify } from "../../hooks/Notify/NotifyContext";
 import TextInput from "../AccAssets/AccInputs/TextInput";
@@ -176,7 +176,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
 
     async function fetchGroups() {
         try {
-            const response = await getGroup();
+            const response = await getGroups();
             setGroups(response.groups);
         } catch (error) {
             console.log(error);
@@ -233,7 +233,7 @@ function GroupModal({isOpen, setIsOpen, title, subtitle, reqUsername, member, se
         }
         else{
             try {
-                const response = await setGroup(body);
+                const response = await addTeam(body);
                 
                 if(response.success){
                     addNotification(response.message);

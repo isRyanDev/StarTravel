@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { resetPassword, sendCode, verifyCode } from "../../../../services/userAccount";
+import { resetPassword, sendCode, verifyCode } from "../../../../services/users";
 import APIResponse from "../../../../components/ApiResponse/index.js";
 import InputPass from "../../../../components/AccAssets/AccInputs/PasswordInput/index.js";
 import TextInput from "../../../../components/AccAssets/AccInputs/TextInput/index.js";

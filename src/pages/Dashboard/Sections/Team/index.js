@@ -6,7 +6,8 @@ import FormModal from "../../../../components/GroupModal";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
 import SectionsContainer from "../../../../components/SectionsContainer";
 import SectionsTopBar from "../../../../components/SectionsTopBar";
-const { getUsers, userPermissions } = require("../../../../services/userAccount");
+import { userPermissions } from "../../../../services/user_groups";
+const { getUsers } = require("../../../../services/users");
 
 const EditContainer = styled.div`
     display: ${(props) => (props.display || "none")};

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { refreshToken, userAuth } from "../../services/userAccount";
+import { refreshToken, userAuth } from "../../services/users";
 
 export const AuthContext = createContext();
 
