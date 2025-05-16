@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    // baseURL: "https://star.api.ryandev.com.br/groups",
-    baseURL: "http://localhost:8080/groups",
+    baseURL: "https://star.api.ryandev.com.br/groups",
+    // baseURL: "http://localhost:8080/groups",
     withCredentials: true,
 });
 

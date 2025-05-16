@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    // baseURL: "https://star.api.ryandev.com.br/products",
-    baseURL: "http://localhost:8080/products",
+    baseURL: "https://star.api.ryandev.com.br/products",
+    // baseURL: "http://localhost:8080/products",
     withCredentials: true,
 });
 

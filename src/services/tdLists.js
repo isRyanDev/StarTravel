@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const loginAPI = axios.create({
-    // baseURL: "https://star.api.ryandev.com.br/tdlists",
-    baseURL: "http://localhost:8080/tdlists",
+    baseURL: "https://star.api.ryandev.com.br/tdlists",
+    // baseURL: "http://localhost:8080/tdlists",
     withCredentials: true,
 });
 
