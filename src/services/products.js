@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const loginAPI = axios.create({
+const API = axios.create({
     baseURL: "https://star.api.ryandev.com.br/products",
     // baseURL: "http://localhost:8080/products",
     withCredentials: true,
@@ -8,7 +8,7 @@ const loginAPI = axios.create({
 
 async function getProducts(type) {
     try {
-        const response = await loginAPI.get(`/${type}`);
+        const response = await API.get(`/${type}`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;

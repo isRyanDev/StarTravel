@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const loginAPI = axios.create({
+const API = axios.create({
     baseURL: "https://star.api.ryandev.com.br/users",
     // baseURL: "http://localhost:8080/users",
     withCredentials: true,
@@ -8,7 +8,7 @@ const loginAPI = axios.create({
 
 async function userLogin(credentials) {
     try {
-        const response = await loginAPI.post("/login", credentials);
+        const response = await API.post("/login", credentials);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -17,7 +17,7 @@ async function userLogin(credentials) {
 
 async function userLogout() {
     try {
-        const response = await loginAPI.post("/logout");
+        const response = await API.post("/logout");
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -26,7 +26,7 @@ async function userLogout() {
 
 async function userAuth() {
     try {
-        const response = await loginAPI.get("/auth");
+        const response = await API.get("/auth");
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -35,7 +35,7 @@ async function userAuth() {
 
 async function refreshToken() {
     try {
-        const response = await loginAPI.post("/refresh-token");
+        const response = await API.post("/refresh-token");
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -44,7 +44,7 @@ async function refreshToken() {
 
 async function userRegister(credentials) {
     try {
-        const response = await loginAPI.post("/register", credentials);
+        const response = await API.post("/register", credentials);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -53,7 +53,7 @@ async function userRegister(credentials) {
 
 async function userUUID(email) {
     try {
-        const response = await loginAPI.post("/uuid", email);
+        const response = await API.post("/uuid", email);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -62,7 +62,7 @@ async function userUUID(email) {
 
 async function resetPassword(parameters) {
     try {
-        const response = await loginAPI.post(`/reset-password`, parameters);
+        const response = await API.post(`/reset-password`, parameters);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -71,7 +71,7 @@ async function resetPassword(parameters) {
 
 async function sendCode(email) {
     try {
-        const response = await loginAPI.post(`/send-code`, email);
+        const response = await API.post(`/send-code`, email);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -80,7 +80,7 @@ async function sendCode(email) {
 
 async function verifyCode(parameters) {
     try {
-        const response = await loginAPI.post(`/verify-code`, parameters);
+        const response = await API.post(`/verify-code`, parameters);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -89,7 +89,16 @@ async function verifyCode(parameters) {
 
 async function getUsers() {
     try {
-        const response = await loginAPI.get("/get");
+        const response = await API.get("/get");
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+async function manageUser(parameters) {
+    try {
+        const response = await API.post(`/manage-user`, parameters);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
@@ -106,5 +115,6 @@ export {
     refreshToken, 
     sendCode,
     verifyCode,
-    getUsers
+    getUsers,
+    manageUser
     };

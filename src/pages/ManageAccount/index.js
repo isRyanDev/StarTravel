@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../hooks/Authentication/AuthContext";
-import { manageUser } from "../../services/user_groups";
+import { manageUser } from "../../services/users";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TextInput from "../../components/Inputs/TextInput";
