@@ -4,8 +4,8 @@
     import { ReactComponent as Delete } from "../../../../assets/Svg-Icons/Delete.svg";
     import { useNotify } from "../../../../hooks/Notify/NotifyContext"; 
     import styled from "styled-components";
-    import Loading from "../../../../components/Loading";
-    import AddModal from "../../../../components/AddModal";
+    import DotLoading from "../../../../components/DotLoading";
+    import AddTaskModal from "../../../../components/AddTaskModal";
     import SectionsContainer from "../../../../components/SectionsContainer";
     import SectionsTopBar from "../../../../components/SectionsTopBar";
 
@@ -131,7 +131,7 @@ function ToDoSection() {
     
             setUserTdList(Array.isArray(response.list) ? response.list : []);
         } catch (error) {
-            console.error("Error fetching user list:", error);
+            console.error(error.message);
             setUserTdList([]);
         } finally {
             setLoading(false);
@@ -166,7 +166,7 @@ function ToDoSection() {
                 addNotification("Error to add task.");
             }
         } catch (error) {
-            console.error("Erro ao adicionar tarefa:", error);
+            addNotification(error.message);
         }
     };    
 
@@ -186,7 +186,7 @@ function ToDoSection() {
                 addNotification("Error updating task.");
             }
         } catch (error) {
-            console.error("Error updating task:", error);
+            addNotification(error.message);
         }
     };
 
@@ -203,14 +203,14 @@ function ToDoSection() {
                 addNotification("Error deleting task.");
             }
         } catch (error) {
-            console.error("Error deleting task:", error);
+            addNotification(error.message);
         }
     };
 
     return (
         <SectionsContainer>
             {loading ? (
-                <Loading />
+                <DotLoading />
             ) : (
                 <>
                     <SectionsTopBar>
@@ -242,7 +242,7 @@ function ToDoSection() {
                 </>
             )}
 
-            <AddModal 
+            <AddTaskModal 
                 isOpen={showModal}
                 setIsOpen={setShowModal}
                 text={newTask}

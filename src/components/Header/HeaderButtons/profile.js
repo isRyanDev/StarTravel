@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../../hooks/Authentication/AuthContext';
 import Logout from "../../../utils/logout";
-import SmallLoad from "../../SmallLoad";
+import SmallCircleLoad from "../../SmallCircleLoad";
 
 import { ReactComponent as Dash } from "../../../assets/Svg-Icons/Dashboard.svg";
 import { ReactComponent as ManageAcc } from "../../../assets/Svg-Icons/ManageAcc.svg";
@@ -243,7 +243,7 @@ function Profile() {
 
     return (
         <>
-            {loading ? <SmallLoad /> : (
+            {loading ? <SmallCircleLoad /> : (
                 user ? (
                     <ProfileContainer>
                         <ProfileButton isModalActive={isModalActive} onClick={profileToggle} ref={profileButtonRef}>

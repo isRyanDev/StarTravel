@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { AuthContext } from '../hooks/Authentication/AuthContext';
 import { Navigate } from 'react-router-dom';
-import FullLoad from '../components/FullLoad';
+import FullScreenLoad from '../components/FullScreenLoad';
 
 function PrivateRoute({ children }) {
     const { user, loading } = useContext(AuthContext);
 
-    if (loading) return <FullLoad />
+    if (loading) return <FullScreenLoad />
         
     if (!user) return <Navigate to="/login" replace />;
 

@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { userRegister } from "../../../services/users";
 import styled from "styled-components";
 import APIResponse from "../../../components/ApiResponse";
-import Button from "../../../components/AccAssets/AccInputs/Button";
-import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput";
-import TextInput from "../../../components/AccAssets/AccInputs/TextInput";
+import Button from "../../../components/Inputs/Button";
+import InputPass from "../../../components/Inputs/PasswordInput";
+import TextInput from "../../../components/Inputs/TextInput";
 import CircleLoad from "../../../components/CircleLoad";
 
 const RegisterContainer = styled.div`

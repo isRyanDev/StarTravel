@@ -47,7 +47,7 @@ const Load = styled.svg`
 
 `
 
-function SmallLoad() {
+function SmallCircleLoad() {
     return (
         <Container>
             <Load viewBox="25 25 50 50">
@@ -57,4 +57,4 @@ function SmallLoad() {
     );    
 }
 
-export default SmallLoad
+export default SmallCircleLoad

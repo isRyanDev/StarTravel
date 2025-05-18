@@ -17,7 +17,7 @@ async function manageUser(parameters) {
 
 async function getGroups() {
     try {
-        const response = await loginAPI.get('');
+        const response = await loginAPI.get('/get');
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;

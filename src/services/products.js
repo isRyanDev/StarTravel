@@ -8,7 +8,6 @@ const loginAPI = axios.create({
 
 async function getProducts(type) {
     try {
-        console.log(type);
         const response = await loginAPI.get(`/${type}`);
         return response.data;
     } catch (error) {

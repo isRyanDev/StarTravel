@@ -2,8 +2,8 @@ import styled from "styled-components"
 import { getGroups, addTeam, updateGroup } from "../../services/user_groups";
 import { useEffect, useState } from "react"
 import { useNotify } from "../../hooks/Notify/NotifyContext";
-import TextInput from "../AccAssets/AccInputs/TextInput";
-import FormButton from "../AccAssets/AccInputs/Button";
+import TextInput from "../Inputs/TextInput";
+import FormButton from "../Inputs/Button";
 import APIResponse from "../ApiResponse";
 import CircleLoad from "../CircleLoad";
 

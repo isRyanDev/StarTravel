@@ -1,10 +1,15 @@
 import styled from "styled-components"
-import { useState } from "react"
-import TextInput from "../../components/AccAssets/AccInputs/TextInput";
-import FormButton from "../../components/AccAssets/AccInputs/Button";
-import APIResponse from "../../components/ApiResponse";
+import { useEffect, useState } from "react"
+import TextInput from "../Inputs/TextInput";
+import FormButton from "../Inputs/Button";
+import APIResponse from "../ApiResponse";
+import SelectInput from "../Inputs/Select";
+import { getProductsTypes } from "../../services/products_types";
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,9 +17,6 @@ const Container = styled.div`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: all 0.5s ease-in-out;
   z-index: 1000;
 
@@ -26,11 +28,11 @@ const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 3rem;
+    justify-content: flex-start;
+    gap: 1.5rem;
     border-radius: 1rem;
     width: 70vw;
-    height: 70vh;
+    height: 75vh;
     padding: 3rem;
     background-color: var(--secondary-color);
     font-family: "Nunito Sans", sans-serif;
@@ -43,7 +45,6 @@ const ModalContainer = styled.div`
 
     @media screen and (min-width: 1000px){
         width: 30vw;
-        height: 60vh;
     }
 `
 
@@ -52,6 +53,7 @@ const Texts = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     gap: 1rem;
 `
 
@@ -77,9 +79,15 @@ const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    justify-content: flex-start;
     width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    gap: 2rem;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const InputContent = styled.div`
@@ -125,20 +133,55 @@ const Button = styled.div`
 `;
 
 
-function AddModal({ isOpen, setIsOpen, title, subtitle, text, setText, handleAddTask }) {
+function ProductModal({ isOpen, setIsOpen, title, subtitle}) {
+    const [selectedOption, setSelectedOption] = useState("");
+    const [typesList, setTypesList] = useState([]);
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
+
+    async function fetchProductsTypes(){
+        try {
+            const response = await getProductsTypes();
+
+            if(response.success){
+                setTypesList(response.types)
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    useEffect(() => {
+        fetchProductsTypes();
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (!text) {
-            setApiResponseColor("red");
-            setApiResponse("Please fill in all fields.");
-            return;
-        }
-        handleAddTask();
+        // if (!text) {
+        //     setApiResponseColor("red");
+        //     setApiResponse("Please fill in all fields.");
+        //     return;
+        // }
     };
+
+    const textDetails = [
+        {
+            label: "Name",
+            placeholder: "Product name",
+            type: "text"
+        },
+        {
+            label: "Company",
+            placeholder: "Product Company",
+            type: "text"
+        },
+        {
+            label: "Price",
+            placeholder: "Product price",
+            type: "number"
+        }
+    ]
 
     return (
         <Container isOpen={isOpen}>
@@ -149,12 +192,26 @@ function AddModal({ isOpen, setIsOpen, title, subtitle, text, setText, handleAdd
                 </Texts>
 
                 <FormContainer onSubmit={handleSubmit}>
+                    {textDetails.map((item, index) => (
+                        <InputContent key={index}>
+                            <InputLabel>
+                                <p>{item.label}</p>
+                            </InputLabel>
+
+                            <TextInput placeholder={item.placeholder} type={item.type} />
+                        </InputContent>
+                    ))}
+
                     <InputContent>
                         <InputLabel>
-                            <p>Task</p>
+                            <p>Product Type</p>
                         </InputLabel>
-
-                        <TextInput value={text} setText={setText} type={"text"} placeholder={"New task description"} />
+                        
+                        <SelectInput 
+                            list={typesList}
+                            selectedOption={selectedOption}
+                            setSelectedOption={setSelectedOption}
+                        />
                     </InputContent>
 
                     <ButtonsContainer>
@@ -169,4 +226,4 @@ function AddModal({ isOpen, setIsOpen, title, subtitle, text, setText, handleAdd
     );
 }
 
-export default AddModal;
+export default ProductModal;

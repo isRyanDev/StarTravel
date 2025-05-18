@@ -4,9 +4,9 @@ import { userLogin } from "../../../services/users";
 import styled from "styled-components";
 import ForgotPassword from "./ForgotPassword/index.js";
 import APIResponse from "../../../components/ApiResponse/index.js";
-import InputPass from "../../../components/AccAssets/AccInputs/PasswordInput/index.js";
-import TextInput from "../../../components/AccAssets/AccInputs/TextInput/index.js";
-import Button from "../../../components/AccAssets/AccInputs/Button/index.js";
+import InputPass from "../../../components/Inputs/PasswordInput/index.js";
+import TextInput from "../../../components/Inputs/TextInput/index.js";
+import Button from "../../../components/Inputs/Button/index.js";
 import CircleLoad from "../../../components/CircleLoad/index.js";
 
 const LoginContainer = styled.div`
@@ -280,12 +280,12 @@ function LoginContent() {
                 }, 1000);
             } else {
                 setApiResponseColor("red");
-                setApiResponse(response.message);
+                setApiResponse(response.message || "Login failed. Please try again.");
                 setButtonDisabled(false);
             }
         } catch (error) {
             setApiResponseColor("red");
-            setApiResponse("Login failed.");
+            setApiResponse(error.message || "An error occurred. Please try again.");
         }
         setLoading(false);
     };

@@ -19,7 +19,7 @@ import Logout from "../../utils/logout";
 const DashboardContainer = styled.div`
     display: flex;
     flex-direction: row;
-    min-height: 100vh;
+    height: 100vh;
     overflow-x: hidden;
     background-color: rgba(245, 246, 250, 1);
 `;
@@ -28,6 +28,7 @@ const DashboardContent = styled.div`
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    box-sizing: border-box;
     height: 100vh;
     width: 100%;
 `

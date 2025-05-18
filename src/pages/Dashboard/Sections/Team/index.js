@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ReactComponent as Card } from "../../../../assets/Svg-Icons/TeamCard.svg";
 import styled from "styled-components";
-import Loading from "../../../../components/Loading";
+import DotLoading from "../../../../components/DotLoading";
 import FormModal from "../../../../components/GroupModal";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
 import SectionsContainer from "../../../../components/SectionsContainer";
@@ -128,7 +128,7 @@ function TeamSection() {
 
     return (
         <SectionsContainer>
-            {loading ? <Loading /> : 
+            {loading ? <DotLoading /> : 
                 <>
                     <SectionsTopBar>
                         <h1>Team</h1>

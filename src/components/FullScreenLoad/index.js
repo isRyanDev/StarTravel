@@ -872,7 +872,7 @@ const Container = styled.div`
   }
 `;
 
-function FullLoad() {
+function FullScreenLoad() {
   return (
     <Container>
       <div class="loader">
@@ -908,4 +908,4 @@ function FullLoad() {
   );
 }
 
-export default FullLoad;
+export default FullScreenLoad;

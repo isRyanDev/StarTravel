@@ -54,7 +54,7 @@ const Dot = styled.div`
   
   
 
-function Loading() {
+function DotLoading() {
     return (
         <DotsContainer className="dots-container">
           <Dot></Dot>
@@ -67,4 +67,4 @@ function Loading() {
     )
 }
 
-export default Loading
+export default DotLoading

@@ -3,10 +3,10 @@ import { AuthContext } from "../../hooks/Authentication/AuthContext";
 import { manageUser } from "../../services/user_groups";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TextInput from "../../components/AccAssets/AccInputs/TextInput";
-import TextAreaInput from "../../components/AccAssets/AccInputs/TextArea";
+import TextInput from "../../components/Inputs/TextInput";
+import TextAreaInput from "../../components/Inputs/TextArea";
 import Background from "../../components/AccAssets/AccBackground/background";
-import FormButton from "../../components/AccAssets/AccInputs/Button";
+import FormButton from "../../components/Inputs/Button";
 import APIResponse from "../../components/ApiResponse";
 import CircleLoad from "../../components/CircleLoad";
 
@@ -299,7 +299,8 @@ function ManageAccount(){
                 setApiResponse(response.message);
             }
         } catch (error) {
-            console.log(error);
+            setApiResponseColor("red");
+            setApiResponse(error.message);
         }
 
         setLoading(false);
