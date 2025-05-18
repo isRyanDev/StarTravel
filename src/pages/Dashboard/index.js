@@ -20,14 +20,14 @@ const DashboardContainer = styled.div`
     display: flex;
     flex-direction: row;
     height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: rgba(245, 246, 250, 1);
 `;
 
 const DashboardContent = styled.div`
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    overflow: hidden;
     box-sizing: border-box;
     height: 100vh;
     width: 100%;

@@ -10,7 +10,7 @@
 
     const ProductsContainer = styled.div`
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(2, 1fr);
         gap: 1rem;
         font-family: "Nunito Sans", sans-serif;
@@ -21,17 +21,38 @@
         &::-webkit-scrollbar {
             display: none;
         }
+
+        @media screen and (min-width: 740px){
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (min-width: 1200px){
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (min-width: 1500px){
+            grid-template-columns: repeat(4, 1fr);
+        }
     `
 
     const Product = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        justify-self: center;
         align-items: flex-start;
         border-radius: 1rem;
         background-color: white;
         width: 100%;
         height: 100%;
+
+        @media screen and (min-width: 550px) and (max-width: 740px){
+            width: 80%;
+        }
+
+        @media screen and (min-width: 740px){
+            width: 100%;
+        }
     `
 
     const InformationsContainer = styled.div`
