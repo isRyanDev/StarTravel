@@ -6,13 +6,22 @@ const API = axios.create({
     withCredentials: true,
 });
 
-async function getProducts(type) {
+async function getProductsPerType(type) {
     try {
-        const response = await API.get(`/${type}`);
+        const response = await API.get(`/get/types/${type}`);
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;
     }
 }
 
-export { getProducts };
+async function getProductsTypes() {
+    try {
+        const response = await API.get(`/get/types`);
+        return response.data;
+    } catch (error) {
+        return error.response?.data || error.message;
+    }
+}
+
+export { getProductsPerType, getProductsTypes };

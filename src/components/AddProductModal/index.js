@@ -4,7 +4,7 @@ import TextInput from "../Inputs/TextInput";
 import FormButton from "../Inputs/Button";
 import APIResponse from "../ApiResponse";
 import SelectInput from "../Inputs/Select";
-import { getProductsTypes } from "../../services/products_types";
+import { getProductsTypes } from "../../services/products";
 
 const Container = styled.div`
   display: flex;

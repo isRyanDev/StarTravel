@@ -1,4 +1,4 @@
-    import { getProducts } from "../../../../services/products";
+    import { getProductsPerType } from "../../../../services/products";
     import { useEffect, useState } from "react";
     import { ReactComponent as FavoriteSVG } from "../../../../assets/Svg-Icons/favorite.svg";
     import styled from "styled-components"
