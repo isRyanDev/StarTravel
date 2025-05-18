@@ -6,7 +6,7 @@
     import SectionsTopBar from "../../../../components/SectionsTopBar";
     import SectionsContainer from "../../../../components/SectionsContainer";
     import AddProductModal from "../../../../components/AddProductModal";
-    import ExtendedLoad from "../../../../components/ExtendedLoad";
+    import SkeletonLoad from "../../../../components/SkeletonLoad";
 
     const ProductsContainer = styled.div`
         display: grid;
@@ -134,10 +134,6 @@
             fetchProducts();
         }, []);
 
-        function handleLoad(){
-            setTimeout(() => setImgLoad(false), 500);
-        }
-
         return loading ? ( 
                 <SectionsContainer>
                     <DotLoading/>
@@ -157,12 +153,12 @@
                             return(
                                 <Product>
                                     <ImageContainer>
-                                        {imgLoad && <ExtendedLoad/>}
+                                        {imgLoad && <SkeletonLoad/>}
                                             
                                         <ProductImg 
                                             src={`/travels/${product.source}.jpg`}
                                             alt="Product Image"
-                                            onLoad={handleLoad}
+                                            onLoad={() => setImgLoad(false)}
                                             style={{display: imgLoad ? "none" : "block"}}
                                         />
                                     </ImageContainer>

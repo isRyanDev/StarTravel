@@ -7,6 +7,7 @@ import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIco
 import SectionsContainer from "../../../../components/SectionsContainer";
 import SectionsTopBar from "../../../../components/SectionsTopBar";
 import { userPermissions } from "../../../../services/user_groups";
+import SkeletonLoad from "../../../../components/SkeletonLoad";
 const { getUsers } = require("../../../../services/users");
 
 const EditContainer = styled.div`
@@ -95,6 +96,7 @@ const ProfileImg = styled.img`
 function TeamSection() {
     const [loading, setLoading] = useState(false);
     const [userPerms, setUserPerms] = useState([]);
+    const [imgLoad, setImgLoad] = useState(true);
     const [addMemberOpen, setAddMemberOpen] = useState(false);
     const [editMemberOpen, setEditMemberOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState("");
@@ -140,9 +142,12 @@ function TeamSection() {
                             <UserCardContainer key={user.id}>
                                 <UserCard/>
                                 <User>
+                                    {imgLoad && <SkeletonLoad width="8rem" height="8rem" borderRadius="50%"/>}
                                     <ProfileImg 
                                         src={`/profile/${user.user_profile}.png`} 
                                         alt={`Profile`} 
+                                        onLoad={() => setImgLoad(false)}
+                                        style={{display: imgLoad ? "none" : "block"}}
                                     />
                                     <p><strong>{user.username}</strong></p>
                                     <p>{user.user_group}</p>

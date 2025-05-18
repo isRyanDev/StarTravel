@@ -296,11 +296,11 @@ function ManageAccount(){
                 }, 2000);
             } else{
                 setApiResponseColor("red");
-                setApiResponse(response.message);
+                setApiResponse(response.message || "Something went wrong");
             }
         } catch (error) {
             setApiResponseColor("red");
-            setApiResponse(error.message);
+            setApiResponse(error.message || "Something went wrong");
         }
 
         setLoading(false);
