@@ -117,7 +117,7 @@
         async function fetchProducts() {
             setLoading(true);
             try {
-                const response = await getProducts("Pass");
+                const response = await getProductsPerType("Pass");
 
                 if(!response.success){
                     console.log(response.message);
