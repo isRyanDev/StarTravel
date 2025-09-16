@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { ReactComponent as Card } from "../../../../assets/Svg-Icons/TeamCard.svg";
 import styled from "styled-components";
 import DotLoading from "../../../../components/DotLoading";
-import FormModal from "../../../../components/GroupModal";
 import { ReactComponent as EditIcon } from "../../../../assets/Svg-Icons/EditIcon.svg";
 import SectionsContainer from "../../../../components/SectionsContainer";
 import SectionsTopBar from "../../../../components/SectionsTopBar";
-import { userPermissions } from "../../../../services/user_groups";
+import { addTeam, getGroups, updateGroup, userPermissions } from "../../../../services/user_groups";
 import SkeletonLoad from "../../../../components/SkeletonLoad";
+import TextInput from "../../../../components/Inputs/TextInput";
+import SelectInput from "../../../../components/Inputs/Select";
+import FormModal from "../../../../components/FormModal";
+import { useApiResponse } from "../../../../hooks/ApiResponse/ApiContext";
+import { useNotify } from "../../../../hooks/Notify/NotifyContext";
 const { getUsers } = require("../../../../services/users");
 
 const EditContainer = styled.div`
@@ -93,14 +97,32 @@ const ProfileImg = styled.img`
     transition: all 0.3s ease-in-out;
 `;
 
+const Username = styled.div`
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: .5rem;
+    border: 1px solid #D8D8D8;
+    color: var(--login-text-color);
+    font-family: "Nunito Sans";
+    font-size: 1.125rem;
+    padding: 1rem;
+    background: #F1F4F9;
+`
+
 function TeamSection() {
+    const { addNotification} = useNotify();
+    const { setApiResponse, setApiResponseColor } = useApiResponse();
     const [loading, setLoading] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
     const [userPerms, setUserPerms] = useState([]);
     const [imgLoad, setImgLoad] = useState(true);
+    const [username, setUsername] = useState("");
     const [addMemberOpen, setAddMemberOpen] = useState(false);
     const [editMemberOpen, setEditMemberOpen] = useState(false);
-    const [selectedMember, setSelectedMember] = useState("");
-    const [selectedGroup, setSelectedGroup] = useState("Select");
+    const [memberSelected, setMemberSelected] = useState("");
+    const [memberSelectedGroup, setMemberSelectedGroup] = useState("");
+    const [selectedGroup, setSelectedGroup] = useState("");
+    const [groupsList, setGroupsList] = useState([]);
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
@@ -118,15 +140,132 @@ function TeamSection() {
         }
     };
 
+    async function fetchGroups() {
+        try {
+            const response = await getGroups();
+            
+            setGroupsList(response.groups);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         fetchUsers();
+        fetchGroups();
     }, []);
 
+    useEffect(() => {
+        if(!addMemberOpen || !editMemberOpen){
+            setApiResponse("");
+            setApiResponseColor("");
+            setUsername("");
+            setSelectedGroup("");
+            setMemberSelected("");
+            setMemberSelectedGroup("");
+        }
+    }, [addMemberOpen, editMemberOpen, setApiResponse, setApiResponseColor]);
+
     const handleEditMember = (member, group) => {
-        setSelectedGroup(group);
-        setSelectedMember(member);
+        setMemberSelectedGroup(group);
+        setMemberSelected(member);
         setEditMemberOpen(true);
     }
+
+    async function addTeamMember(){
+        setModalLoading(true);
+
+        if (!username || !selectedGroup || selectedGroup === "Select") {
+            setApiResponseColor("red");
+            setApiResponse("Please fill in all fields.");
+            setModalLoading(false);
+            return;
+        }
+
+        try {
+            const response = await addTeam({
+                "username": username,
+                "group": selectedGroup
+            });
+            
+            if(response.success){
+                addNotification(response.message);
+                setAddMemberOpen(false);
+                fetchUsers();
+            }
+            else{
+                setApiResponseColor("red");
+                setApiResponse(response.message);
+                setModalLoading(false);
+                return;
+            }
+        } catch (error) {
+            setApiResponseColor("red");
+            setApiResponse(error.message);
+            return;
+        }
+
+        setModalLoading(false);
+    }
+
+    async function editTeamMember() {
+        setModalLoading(true);
+
+        if (!memberSelected || !memberSelectedGroup || memberSelectedGroup === "Select") {
+            setApiResponseColor("red");
+            setApiResponse("Please fill in all fields.");
+            setModalLoading(false);
+            return;
+        }
+
+        try {
+            const response = await updateGroup({
+                "username": memberSelected,
+                "group": memberSelectedGroup
+            });
+
+            if(response.success){
+                addNotification(response.message);
+                setEditMemberOpen(false);
+                fetchUsers();
+            }
+            else{
+                setApiResponseColor("red");
+                setApiResponse(response.message || "An error occurred.");
+                setModalLoading(false);
+                return;
+            }
+        } catch (error) {
+            setApiResponseColor("red");
+            setApiResponse(error.message || "An error occurred.");
+            setModalLoading(false);
+            return;
+        }
+
+        setModalLoading(false);
+    }
+
+    const addMemberInputs = [
+        {
+            label: "Username",
+            component:  <TextInput value={username} setText={setUsername} type={"text"} placeholder={"New member"}/>
+        },
+        {
+            label: "Group",
+            component:  <SelectInput list={groupsList.filter((group) => group.name !== "Customers")} selectedOption={selectedGroup} setSelectedOption={setSelectedGroup}/>
+        }
+    ]
+
+    const editMemberInputs = [
+        {
+            label: "Username",
+            component: <Username><p>{memberSelected}</p></Username>
+        },
+        {
+            label: "Group",
+            component:  <SelectInput list={groupsList} selectedOption={memberSelectedGroup} setSelectedOption={setMemberSelectedGroup}/>
+        }
+    ]
 
     return (
         <SectionsContainer>
@@ -162,27 +301,23 @@ function TeamSection() {
                     </UsersContainer>
 
                     <FormModal
-                        setIsOpen={setEditMemberOpen}
-                        isOpen={editMemberOpen}
-                        title="Edit member"
-                        subtitle="Please enter the new group of the member to continue"
-                        member={selectedMember}
-                        selectedGroup={selectedGroup}
-                        setSelectedGroup={setSelectedGroup}
-                        isEdit={true}
-                        fetchUsers={fetchUsers}
-                        reqUsername={false}
+                        isOpen={addMemberOpen}
+                        setIsOpen={setAddMemberOpen}
+                        title="New member"
+                        subtitle="Please enter the new member's username and group to continue"
+                        inputs={addMemberInputs}
+                        loading={modalLoading}
+                        action={addTeamMember}
                     />
 
                     <FormModal
-                        setIsOpen={setAddMemberOpen}
-                        isOpen={addMemberOpen}
-                        title="New member"
-                        subtitle="Please enter the new member's username and group to continue"
-                        selectedGroup={selectedGroup}
-                        setSelectedGroup={setSelectedGroup}
-                        fetchUsers={fetchUsers}
-                        reqUsername={true}
+                        isOpen={editMemberOpen}
+                        setIsOpen={setEditMemberOpen}
+                        title="Edit member"
+                        subtitle="Please enter the new group of the member to continue"
+                        inputs={editMemberInputs}
+                        loading={modalLoading}
+                        action={editTeamMember}   
                     />
                 </>
             }

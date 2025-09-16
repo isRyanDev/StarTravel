@@ -1,10 +1,13 @@
 import styled from "styled-components"
-import { useState } from "react"
-import TextInput from "../Inputs/TextInput";
 import FormButton from "../Inputs/Button";
 import APIResponse from "../ApiResponse";
+import { useApiResponse } from "../../hooks/ApiResponse/ApiContext";
+import CircleLoad from "../CircleLoad";
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,9 +15,6 @@ const Container = styled.div`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: all 0.5s ease-in-out;
   z-index: 1000;
 
@@ -42,7 +42,6 @@ const ModalContainer = styled.div`
 
     @media screen and (min-width: 1250px){
         width: 25vw;
-        height: 45dvh;
     }
 `
 
@@ -51,6 +50,7 @@ const Texts = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     gap: 1rem;
 `
 
@@ -73,12 +73,18 @@ const Subtitle = styled.p`
 `
 
 const FormContainer = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
     width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    gap: 2rem;
+    transition: all 0.3s ease-in-out;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const InputContent = styled.div`
@@ -107,6 +113,7 @@ const ButtonsContainer = styled.div`
     align-items: center;
     gap: 1rem;
     width: 100%;
+    padding: .5rem 0;
 `
 
 const Button = styled.div`
@@ -119,11 +126,11 @@ const Button = styled.div`
     border-radius: .5rem;
     color: black;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
+    border: 1px solid var(--dashboard-border-color);
 
     &:hover{
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        background: var(--dashboard-background-color);
     }
 
     @media screen and (min-width: 1250px){
@@ -132,19 +139,18 @@ const Button = styled.div`
 `;
 
 
-function AddTaskModal({ isOpen, setIsOpen, title, subtitle, text, setText, handleAddTask }) {
-    const [apiResponse, setApiResponse] = useState("");
-    const [apiResponseColor, setApiResponseColor] = useState("");
+function FormModal({ isOpen, setIsOpen, title, subtitle, inputs, action, loading }) {
+    const { apiResponse, setApiResponse, apiResponseColor, setApiResponseColor } = useApiResponse();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        action();
+    };
 
-        if (!text) {
-            setApiResponseColor("red");
-            setApiResponse("Please fill in all fields.");
-            return;
-        }
-        handleAddTask();
+    const handleCancel = () => {
+        setIsOpen(false);
+        setApiResponseColor("");
+        setApiResponse("");
     };
 
     return (
@@ -156,18 +162,21 @@ function AddTaskModal({ isOpen, setIsOpen, title, subtitle, text, setText, handl
                 </Texts>
 
                 <FormContainer onSubmit={handleSubmit}>
-                    <InputContent>
-                        <InputLabel>
-                            <p>Task</p>
-                        </InputLabel>
+                    {inputs.map((input, index) => (
+                        <InputContent style={inputs.length <= 1 ? {gridColumn: 'span 2'} : {}} key={index}>
+                            <InputLabel>
+                                <p>{input.label}</p>
+                            </InputLabel>
 
-                        <TextInput value={text} setText={setText} type={"text"} placeholder={"New task description"} />
-                    </InputContent>
+                            {input.component}
+                        </InputContent>
+                    ))}
 
-                    <ButtonsContainer>
-                        <FormButton type="submit" content="Continue" />
-                        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-                        {apiResponse ? <APIResponse apiResponseColor={apiResponseColor} apiResponse={apiResponse}/> : ""}
+                    <ButtonsContainer style={{gridColumn: 'span 2'}}>
+                        <FormButton isDisabled={loading} type="submit" content="Continue"/>
+                        <Button onClick={() => handleCancel()}>Cancel</Button>
+
+                        {loading ? <CircleLoad/> : apiResponse ? <APIResponse apiResponseColor={apiResponseColor} apiResponse={apiResponse}/> : ""}
                     </ButtonsContainer>
                 </FormContainer>
             </ModalContainer>
@@ -175,4 +184,4 @@ function AddTaskModal({ isOpen, setIsOpen, title, subtitle, text, setText, handl
     );
 }
 
-export default AddTaskModal;
+export default FormModal;

@@ -89,7 +89,7 @@ async function verifyCode(parameters) {
 
 async function getUsers() {
     try {
-        const response = await API.get("/get");
+        const response = await API.get("");
         return response.data;
     } catch (error) {
         return error.response?.data || error.message;

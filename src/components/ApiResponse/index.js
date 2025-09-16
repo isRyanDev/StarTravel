@@ -4,6 +4,7 @@ import styled from "styled-components";
 const ApiResContainer = styled.div`
     display: flex;
     flex-direction: column;
+    grid-column: span 2;
     align-items: center;
     justify-content: center;
     height: 2rem;

@@ -16,6 +16,7 @@ import UnloggedRoute from './routes/UnloggedRoute';
 import LoggedRoute from './routes/LoggedRoute';
 import { NotifyProvider } from './hooks/Notify/NotifyContext';
 import Notify from './components/Notify';
+import { ApiProvider } from './hooks/ApiResponse/ApiContext';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -74,17 +75,19 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <NotifyProvider>
-          <Notify />
-          <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/destinations" element={<Destinations/>} />
-            <Route path="/services" element={<Services/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/register" element={<LoggedRoute><Register/></LoggedRoute>} />
-            <Route path='/manage-account' element={<UnloggedRoute><ManageAccount/></UnloggedRoute>} />
-            <Route path="/*" element={<NotFound/>} />
-          </Routes>
+          <ApiProvider>
+            <Notify />
+            <Routes>
+              <Route path="/" element={<Home/>} />
+              <Route path="/destinations" element={<Destinations/>} />
+              <Route path="/services" element={<Services/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+              <Route path="/register" element={<LoggedRoute><Register/></LoggedRoute>} />
+              <Route path='/manage-account' element={<UnloggedRoute><ManageAccount/></UnloggedRoute>} />
+              <Route path="/*" element={<NotFound/>} />
+            </Routes>
+          </ApiProvider>
         </NotifyProvider>
       </AuthProvider>
     </BrowserRouter>

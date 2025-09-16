@@ -28,23 +28,23 @@ const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 3rem;
     border-radius: 1rem;
-    width: 70vw;
-    height: 75vh;
-    padding: 3rem;
+    padding: 2rem;
     background-color: var(--secondary-color);
     font-family: "Nunito Sans", sans-serif;
     transform: ${(props) => (props.isOpen ? "scale(1)" : "scale(0.9)")};
     opacity: ${(props) => (props.isOpen ? "1" : "0")};
+    transition: all 0.3s ease-in-out;
 
-    @media screen and (min-width: 625px){
-        width: 60vw;
+    @media screen and (min-width: 430px){
+        padding: 3rem;
     }
 
-    @media screen and (min-width: 1000px){
-        width: 30vw;
+    @media screen and (min-width: 1250px){
+        width: 25vw;
+        height: 45dvh;
     }
 `
 
@@ -76,14 +76,14 @@ const Subtitle = styled.p`
 `
 
 const FormContainer = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: flex-start;
     width: 100%;
     box-sizing: border-box;
     overflow-y: auto;
     gap: 2rem;
+    transition: all 0.3s ease-in-out;
 
     &::-webkit-scrollbar {
         display: none;
@@ -116,6 +116,7 @@ const ButtonsContainer = styled.div`
     align-items: center;
     gap: 1rem;
     width: 100%;
+    padding: .5rem 0;
 `
 
 const Button = styled.div`
@@ -123,19 +124,30 @@ const Button = styled.div`
     justify-content: center;
     height: 3.5rem;
     align-items: center;
-    width: 82%;
+    width: 100%;
     box-sizing: border-box;
     border-radius: .5rem;
     color: black;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
+
+    &:hover{
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    @media screen and (min-width: 1250px){
+        width: 82%;
+    }
 `;
 
 
 function ProductModal({ isOpen, setIsOpen, title, subtitle}) {
     const [selectedOption, setSelectedOption] = useState("");
     const [typesList, setTypesList] = useState([]);
+    const [name, setName] = useState("");
+    const [company, setCompany] = useState("");
+    const [price, setPrice] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [apiResponseColor, setApiResponseColor] = useState("");
 
@@ -158,28 +170,44 @@ function ProductModal({ isOpen, setIsOpen, title, subtitle}) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // if (!text) {
-        //     setApiResponseColor("red");
-        //     setApiResponse("Please fill in all fields.");
-        //     return;
-        // }
+        if (!name || !company || !price || !selectedOption) {
+            setApiResponseColor("red");
+            setApiResponse("Please fill in all fields.");
+            return;
+        }
+    };
+
+    const handleCancel = () => {
+        setIsOpen(false);
+        setName("");
+        setCompany("");
+        setPrice("");
+        setSelectedOption("Select");
+        setApiResponseColor("");
+        setApiResponse("");
     };
 
     const textDetails = [
         {
             label: "Name",
             placeholder: "Product name",
-            type: "text"
+            type: "text",
+            value: name,
+            controller: setName,
         },
         {
             label: "Company",
             placeholder: "Product Company",
-            type: "text"
+            type: "text",
+            value: company,
+            controller: setCompany,
         },
         {
             label: "Price",
             placeholder: "Product price",
-            type: "number"
+            type: "number",
+            value: price,
+            controller: setPrice,
         }
     ]
 
@@ -198,7 +226,7 @@ function ProductModal({ isOpen, setIsOpen, title, subtitle}) {
                                 <p>{item.label}</p>
                             </InputLabel>
 
-                            <TextInput placeholder={item.placeholder} type={item.type} />
+                            <TextInput value={item.value} setText={item.controller} placeholder={item.placeholder} type={item.type} />
                         </InputContent>
                     ))}
 
@@ -214,12 +242,11 @@ function ProductModal({ isOpen, setIsOpen, title, subtitle}) {
                         />
                     </InputContent>
 
-                    <ButtonsContainer>
+                    <ButtonsContainer style={{gridColumn: 'span 2'}}>
                         <FormButton type="submit" content="Continue" />
-                        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+                        <Button onClick={() => handleCancel()}>Cancel</Button>
+                        {apiResponse ? <APIResponse apiResponseColor={apiResponseColor} apiResponse={apiResponse}/> : ""}
                     </ButtonsContainer>
-
-                    <APIResponse apiResponseColor={apiResponseColor} apiResponse={apiResponse}/>
                 </FormContainer>
             </ModalContainer>
         </Container>

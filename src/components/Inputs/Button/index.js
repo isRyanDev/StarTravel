@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const AccButton = styled.button`
-    width: 82%;
+    width: 100%;
     height: 3.5rem;
     border-radius: 0.5rem;
     border: none;
@@ -17,6 +17,10 @@ const AccButton = styled.button`
 
     &:hover{
         opacity: 1;
+    }
+
+    @media screen and (min-width: 1250px){
+        width: 82%;
     }
 `
 

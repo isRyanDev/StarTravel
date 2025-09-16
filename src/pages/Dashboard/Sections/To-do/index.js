@@ -5,9 +5,10 @@
     import { useNotify } from "../../../../hooks/Notify/NotifyContext"; 
     import styled from "styled-components";
     import DotLoading from "../../../../components/DotLoading";
-    import AddTaskModal from "../../../../components/AddTaskModal";
     import SectionsContainer from "../../../../components/SectionsContainer";
     import SectionsTopBar from "../../../../components/SectionsTopBar";
+    import FormModal from "../../../../components/FormModal";
+    import TextInput from "../../../../components/Inputs/TextInput";
 
     const AddButton = styled.div`
         display: flex;
@@ -142,6 +143,12 @@ function ToDoSection() {
         fetchUserlist();
     }, []);
 
+    useEffect(() => {
+        if (!showModal) {
+            setNewTask("");
+        }
+    }, [showModal]);
+
     const handleAddTask = async () => {
         if (!newTask.trim()) return;
     
@@ -207,6 +214,13 @@ function ToDoSection() {
         }
     };
 
+    const inputs = [
+        {
+            label: "Task",
+            component: <TextInput value={newTask} setText={setNewTask} type={"text"} placeholder={"New task description"} />
+        }
+    ]
+
     return (
         <SectionsContainer>
             {loading ? (
@@ -242,7 +256,7 @@ function ToDoSection() {
                 </>
             )}
 
-            <AddTaskModal 
+            {/* <AddTaskModal 
                 isOpen={showModal}
                 setIsOpen={setShowModal}
                 text={newTask}
@@ -250,6 +264,15 @@ function ToDoSection() {
                 title="Add New Task"
                 subtitle="Please enter your task to continue."
                 handleAddTask={handleAddTask}
+            /> */}
+
+            <FormModal
+                isOpen={showModal}
+                setIsOpen={setShowModal}
+                title="Add New Task"
+                subtitle="Please enter your task to continue."
+                inputs={inputs}
+                action={handleAddTask}
             />
 
         </SectionsContainer>

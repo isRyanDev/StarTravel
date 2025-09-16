@@ -1,12 +1,15 @@
-    import { getProductsPerType } from "../../../../services/products";
+    import { getProductsPerType, getProductsTypes } from "../../../../services/products";
     import { useEffect, useState } from "react";
     import { ReactComponent as FavoriteSVG } from "../../../../assets/Svg-Icons/favorite.svg";
     import styled from "styled-components"
     import DotLoading from "../../../../components/DotLoading";
     import SectionsTopBar from "../../../../components/SectionsTopBar";
     import SectionsContainer from "../../../../components/SectionsContainer";
-    import AddProductModal from "../../../../components/AddProductModal";
+    import FormModal from "../../../../components/FormModal";
     import SkeletonLoad from "../../../../components/SkeletonLoad";
+import TextInput from "../../../../components/Inputs/TextInput";
+import SelectInput from "../../../../components/Inputs/Select";
+import { useApiResponse } from "../../../../hooks/ApiResponse/ApiContext";
 
     const ProductsContainer = styled.div`
         display: grid;
@@ -130,10 +133,16 @@
     `
 
     function ProductsSections(){
+        const { setApiResponse, setApiResponseColor } = useApiResponse();
         const [loading, setLoading] = useState(true)
         const [imgLoad, setImgLoad] = useState(true)
         const [addProductOpen, setAddProductOpen] = useState(false)
         const [products, setProducts] = useState([])
+        const [name, setName] = useState("");
+        const [company, setCompany] = useState("");
+        const [price, setPrice] = useState("");
+        const [selectedOption, setSelectedOption] = useState("");
+        const [typesList, setTypesList] = useState([]);
 
         async function fetchProducts() {
             setLoading(true);
@@ -151,9 +160,56 @@
             setLoading(false);
         }
 
+        async function fetchProductsTypes(){
+            try {
+                const response = await getProductsTypes();
+
+                if(response.success){
+                    setTypesList(response.types)
+                }
+            } catch (error) {
+                
+            }
+        }
+
         useEffect(() => {
             fetchProducts();
+            fetchProductsTypes();
         }, []);
+
+        useEffect(() => {
+            if(!addProductOpen){
+                setName("");
+                setCompany("");
+                setPrice("");
+                setSelectedOption("Select");
+                setApiResponseColor("");
+                setApiResponse("");
+            }
+        }, [addProductOpen, setApiResponse, setApiResponseColor]);
+
+        const inputs = [
+            {
+                label: "Name",
+                component: <TextInput value={name} setText={setName} placeholder={"Product name"} type={"text"} />
+            },
+            {
+                label: "Company",
+                component: <TextInput value={company} setText={setCompany} placeholder={"Product Company"} type={"text"} />
+            },
+            {
+                label: "Price",
+                component: <TextInput value={price} setText={setPrice} placeholder={"Product price"} type={"number"} />
+            },
+            {
+                label: "Product Type",
+                component:  <SelectInput 
+                                list={typesList}
+                                selectedOption={selectedOption}
+                                setSelectedOption={setSelectedOption}
+                            />
+            }
+        ];
 
         return loading ? ( 
                 <SectionsContainer>
@@ -205,11 +261,14 @@
                         })}
                     </ProductsContainer>
 
-                    <AddProductModal
+                    <FormModal
                         isOpen={addProductOpen}
                         setIsOpen={setAddProductOpen}
                         title={"Add Product"}
                         subtitle={"Please fill in the details to add a new product."}
+                        inputs={inputs}
+                        loading={false}
+                        action={() => {}}
                     />
                 </SectionsContainer>
             )
