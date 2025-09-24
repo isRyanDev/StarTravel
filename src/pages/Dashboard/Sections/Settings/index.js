@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 function SettingsSections() {
     return (
         <div>

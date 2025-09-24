@@ -156,7 +156,7 @@ function TeamSection() {
     }, []);
 
     useEffect(() => {
-        if(!addMemberOpen || !editMemberOpen){
+        if(!addMemberOpen && !editMemberOpen){
             setApiResponse("");
             setApiResponseColor("");
             setUsername("");
