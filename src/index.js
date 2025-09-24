@@ -19,7 +19,6 @@ import Notify from './components/Notify';
 import { ApiProvider } from './hooks/ApiResponse/ApiContext';
 
 const GlobalStyle = createGlobalStyle`
-
   :root {
     --background: rgb(101, 121, 252);
     --primary-color: rgb(24, 30, 75);
