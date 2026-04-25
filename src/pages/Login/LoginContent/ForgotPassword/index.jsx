@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { resetPassword, sendCode, verifyCode } from "../../../../services/users";
-import APIResponse from "../../../../components/ApiResponse/index.js";
-import InputPass from "../../../../components/Inputs/PasswordInput/index.js";
-import TextInput from "../../../../components/Inputs/TextInput/index.js";
-import Button from "../../../../components/Inputs/Button/index.js";
-import CircleLoad from "../../../../components/CircleLoad/index.js";
+import APIResponse from "../../../../components/ApiResponse/index.jsx";
+import InputPass from "../../../../components/Inputs/PasswordInput/index.jsx";
+import TextInput from "../../../../components/Inputs/TextInput/index.jsx";
+import Button from "../../../../components/Inputs/Button/index.jsx";
+import CircleLoad from "../../../../components/CircleLoad/index.jsx";
 
 const ForgotPasswordContainer = styled.div`
     display: flex;

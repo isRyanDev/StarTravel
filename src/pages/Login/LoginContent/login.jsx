@@ -2,12 +2,12 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../../services/users";
 import styled from "styled-components";
-import ForgotPassword from "./ForgotPassword/index.js";
-import APIResponse from "../../../components/ApiResponse/index.js";
-import InputPass from "../../../components/Inputs/PasswordInput/index.js";
-import TextInput from "../../../components/Inputs/TextInput/index.js";
-import Button from "../../../components/Inputs/Button/index.js";
-import CircleLoad from "../../../components/CircleLoad/index.js";
+import ForgotPassword from "./ForgotPassword/index.jsx";
+import APIResponse from "../../../components/ApiResponse/index.jsx";
+import InputPass from "../../../components/Inputs/PasswordInput/index.jsx";
+import TextInput from "../../../components/Inputs/TextInput/index.jsx";
+import Button from "../../../components/Inputs/Button/index.jsx";
+import CircleLoad from "../../../components/CircleLoad/index.jsx";
 
 const LoginContainer = styled.div`
     display: flex;
