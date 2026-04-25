@@ -261,17 +261,15 @@ function Profile() {
                         </ProfileButton>
 
                         <ModalContainer modalIsVisible={modalIsVisible} isModalActive={isModalActive} ref={modalRef}>
-
-                        {profileOptions.map((option, index) => (
-                            <ModalButton key={index} onClick={option.action}>
-                                <ModalContent>
-                                    {option.src}
-                                    <span>{option.content}</span>
-                                </ModalContent>
-                                {index !== profileOptions.length - 1 && <Divider />}
-                            </ModalButton>
-                        ))}
-
+                            {profileOptions.map((option, index) => (
+                                <ModalButton key={index} onClick={option.action}>
+                                    <ModalContent>
+                                        {option.src}
+                                        <span>{option.content}</span>
+                                    </ModalContent>
+                                    {index !== profileOptions.length - 1 && <Divider />}
+                                </ModalButton>
+                            ))}
                         </ModalContainer>
                     </ProfileContainer>
                 ) : (
